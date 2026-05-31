@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fantasy Interactive D&D Sheet</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;800&family=Macondo&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="controls no-print">
+        <button id="btn-png" class="export-btn">Download as PNG</button>
+        <button id="btn-pdf" class="export-btn">Download as PDF</button>
+    </div>
+
+    <div id="character-sheet" class="sheet-container">
+        
+        <header class="sheet-header">
+            <div class="header-left">
+                <div class="name-container">
+                    <input type="text" class="h-input char-name-input" placeholder="Character Name">
+                    <label>CHARACTER NAME</label>
+                </div>
+            </div>
+            <div class="header-right">
+                <div class="info-grid">
+                    <div class="info-cell">
+                        <input type="text" class="h-input">
+                        <label>CLASS & LEVEL</label>
+                    </div>
+                    <div class="info-cell">
+                        <input type="text" class="h-input">
+                        <label>BACKGROUND</label>
+                    </div>
+                    <div class="info-cell">
+                        <input type="text" class="h-input">
+                        <label>PLAYER NAME</label>
+                    </div>
+                    <div class="info-cell">
+                        <input type="text" class="h-input">
+                        <label>RACE</label>
+                    </div>
+                    <div class="info-cell">
+                        <input type="text" class="h-input">
+                        <label>ALIGNMENT</label>
+                    </div>
+                    <div class="info-cell">
+                        <input type="text" class="h-input">
+                        <label>EXPERIENCE POINTS</label>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <main class="sheet-body">
+            
+            <div class="col col-1">
+                <div class="stats-and-skills">
+                    
+                    <div class="stats-column">
+                        <div class="stat-box">
+                            <label>STRENGTH</label>
+                            <input type="text" class="stat-score" value="10" data-stat="str">
+                            <div class="stat-mod-bg"><input type="text" class="stat-mod" id="mod-str" value="+0" readonly></div>
+                        </div>
+                        <div class="stat-box">
+                            <label>DEXTERITY</label>
+                            <input type="text" class="stat-score" value="10" data-stat="dex">
+                            <div class="stat-mod-bg"><input type="text" class="stat-mod" id="mod-dex" value="+0" readonly></div>
+                        </div>
+                        <div class="stat-box">
+                            <label>CONSTITUTION</label>
+                            <input type="text" class="stat-score" value="10" data-stat="con">
+                            <div class="stat-mod-bg"><input type="text" class="stat-mod" id="mod-con" value="+0" readonly></div>
+                        </div>
+                        <div class="stat-box">
+                            <label>INTELLIGENCE</label>
+                            <input type="text" class="stat-score" value="10" data-stat="int">
+                            <div class="stat-mod-bg"><input type="text" class="stat-mod" id="mod-int" value="+0" readonly></div>
+                        </div>
+                        <div class="stat-box">
+                            <label>WISDOM</label>
+                            <input type="text" class="stat-score" value="10" data-stat="wis">
+                            <div class="stat-mod-bg"><input type="text" class="stat-mod" id="mod-wis" value="+0" readonly></div>
+                        </div>
+                        <div class="stat-box">
+                            <label>CHARISMA</label>
+                            <input type="text" class="stat-score" value="10" data-stat="cha">
+                            <div class="stat-mod-bg"><input type="text" class="stat-mod" id="mod-cha" value="+0" readonly></div>
+                        </div>
+                    </div>
+
+                    <div class="skills-column">
+                        <div class="small-box-row">
+                            <div class="bubble-border"><input type="text" class="circle-input"></div>
+                            <div class="label-border">INSPIRATION</div>
+                        </div>
+                        <div class="small-box-row">
+                            <div class="bubble-border"><input type="text" class="circle-input"></div>
+                            <div class="label-border">PROFICIENCY BONUS</div>
+                        </div>
+
+                        <div class="list-box">
+                            <div class="list-item"><input type="checkbox" class="fantasy-checkbox"><input type="text" class="line-input"><span class="skill-name">Strength</span></div>
+                            <div class="list-item"><input type="checkbox" class="fantasy-checkbox"><input type="text" class="line-input"><span class="skill-name">Dexterity</span></div>
+                            <div class="list-item"><input type="checkbox" class="fantasy-checkbox"><input type="text" class="line-input"><span class="skill-name">Constitution</span></div>
+                            <div class="list-item"><input type="checkbox" class="fantasy-checkbox"><input type="text" class="line-input"><span class="skill-name">Intelligence</span></div>
+                            <div class="list-item"><input type="checkbox" class="fantasy-checkbox"><input type="text" class="line-input"><span class="skill-name">Wisdom</span></div>
+                            <div class="list-item"><input type="checkbox" class="fantasy-checkbox"><input type="text" class="line-input"><span class="skill-name">Charisma</span></div>
+                            <div class="box-title">SAVING THROWS</div>
+                        </div>
+
+                        <div class="list-box">
+                            <div class="list-item"><input type="checkbox" class="fantasy-checkbox"><input type="text" class="line-input"><span class="skill-name">Acrobatics</span><span class="sub-stat">(Dex)</span></div>
+                            <div class="list-item"><input type="checkbox" class="fantasy-checkbox"><input type="text" class="line-input"><span class="skill-name">Animal Handling</span><span class="sub-stat">(Wis)</span></div>
+                            <div class="list-item"><input type="checkbox" class="fantasy-checkbox"><input type="text" class="line-input"><span class="skill-name">Arcana</span><span class="sub-stat">(Int)</span></div>
+                            <div class="list-item"><input type="checkbox" class="fantasy-checkbox"><input type="text" class="line-input"><span class="skill-name">Athletics</span><span class="sub-stat">(Str)</span></div>
+                            <div class="list-item"><input type="checkbox" class="fantasy-checkbox"><input type="text" class="line-input"><span class="skill-name">Deception</span><span class="sub-stat">(Cha)</span></div>
+                            <div class="list-item"><input type="checkbox" class="fantasy-checkbox"><input type="text" class="line-input"><span class="skill-name">History</span><span class="sub-stat">(Int)</span></div>
+                            <div class="list-item"><input type="checkbox" class="fantasy-checkbox"><input type="text" class="line-input"><span class="skill-name">Insight</span><span class="sub-stat">(Wis)</span></div>
+                            <div class="list-item"><input type="checkbox" class="fantasy-checkbox"><input type="text" class="line-input"><span class="skill-name">Intimidation</span><span class="sub-stat">(Cha)</span></div>
+                            <div class="list-item"><input type="checkbox" class="fantasy-checkbox"><input type="text" class="line-input"><span class="skill-name">Investigation</span><span class="sub-stat">(Int)</span></div>
+                            <div class="list-item"><input type="checkbox" class="fantasy-checkbox"><input type="text" class="line-input"><span class="skill-name">Medicine</span><span class="sub-stat">(Wis)</span></div>
+                            <div class="list-item"><input type="checkbox" class="fantasy-checkbox"><input type="text" class="line-input"><span class="skill-name">Nature</span><span class="sub-stat">(Int)</span></div>
+                            <div class="list-item"><input type="checkbox" class="fantasy-checkbox"><input type="text" class="line-input"><span class="skill-name">Perception</span><span class="sub-stat">(Wis)</span></div>
+                            <div class="list-item"><input type="checkbox" class="fantasy-checkbox"><input type="text" class="line-input"><span class="skill-name">Performance</span><span class="sub-stat">(Cha)</span></div>
+                            <div class="list-item"><input type="checkbox" class="fantasy-checkbox"><input type="text" class="line-input"><span class="skill-name">Persuasion</span><span class="sub-stat">(Cha)</span></div>
+                            <div class="list-item"><input type="checkbox" class="fantasy-checkbox"><input type="text" class="line-input"><span class="skill-name">Religion</span><span class="sub-stat">(Int)</span></div>
+                            <div class="list-item"><input type="checkbox" class="fantasy-checkbox"><input type="text" class="line-input"><span class="skill-name">Sleight of Hand</span><span class="sub-stat">(Dex)</span></div>
+                            <div class="list-item"><input type="checkbox" class="fantasy-checkbox"><input type="text" class="line-input"><span class="skill-name">Stealth</span><span class="sub-stat">(Dex)</span></div>
+                            <div class="list-item"><input type="checkbox" class="fantasy-checkbox"><input type="text" class="line-input"><span class="skill-name">Survival</span><span class="sub-stat">(Wis)</span></div>
+                            <div class="box-title">SKILLS</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="small-box-row" style="margin-top: 15px;">
+                    <div class="bubble-border"><input type="text" class="circle-input"></div>
+                    <div class="label-border" style="width: 100%;">PASSIVE WISDOM (PERCEPTION)</div>
+                </div>
+
+                <div class="text-box-container dynamic-box" style="margin-top: 15px;">
+                    <textarea class="auto-resize"></textarea>
+                    <div class="box-title">OTHER PROFICIENCIES & LANGUAGES</div>
+                </div>
+            </div>
+
+            <div class="col col-2">
+                <div class="combat-stats">
+                    <div class="combat-box shield">
+                        <input type="text" class="combat-input">
+                        <label>ARMOR CLASS</label>
+                    </div>
+                    <div class="combat-box rounded">
+                        <input type="text" class="combat-input">
+                        <label>INITIATIVE</label>
+                    </div>
+                    <div class="combat-box rounded">
+                        <input type="text" class="combat-input">
+                        <label>SPEED</label>
+                    </div>
+                </div>
+
+                <div class="hp-container">
+                    <div class="hp-box dynamic-box">
+                        <div class="hp-header">
+                            <span class="muted">Hit Point Maximum</span>
+                            <input type="text" class="line-input" style="width: 60%;">
+                        </div>
+                        <textarea class="huge-text auto-resize"></textarea>
+                        <div class="box-title">CURRENT HIT POINTS</div>
+                    </div>
+                    <div class="hp-box dynamic-box">
+                        <textarea class="huge-text auto-resize"></textarea>
+                        <div class="box-title">TEMPORARY HIT POINTS</div>
+                    </div>
+                </div>
+
+                <div class="combat-stats">
+                    <div class="combat-box hit-dice">
+                        <div class="hp-header">
+                            <span class="muted">Total</span>
+                            <input type="text" class="line-input" style="width: 60%;">
+                        </div>
+                        <input type="text" class="huge-text" style="text-align: center; margin-top: 5px;">
+                        <div class="box-title" style="margin-top: 5px;">HIT DICE</div>
+                    </div>
+                    <div class="combat-box death-saves">
+                        <div class="ds-row">
+                            <span>SUCCESSES</span>
+                            <div class="bubbles"><input type="checkbox" class="bubble-checkbox"><input type="checkbox" class="bubble-checkbox"><input type="checkbox" class="bubble-checkbox"></div>
+                        </div>
+                        <div class="ds-row">
+                            <span>FAILURES</span>
+                            <div class="bubbles"><input type="checkbox" class="bubble-checkbox"><input type="checkbox" class="bubble-checkbox"><input type="checkbox" class="bubble-checkbox"></div>
+                        </div>
+                        <div class="box-title" style="margin-top: 5px;">DEATH SAVES</div>
+                    </div>
+                </div>
+
+                <div class="attacks-box dynamic-box">
+                    <table class="attack-table">
+                        <thead>
+                            <tr>
+                                <th>NAME</th>
+                                <th>ATK BONUS</th>
+                                <th>DAMAGE/TYPE</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td></tr>
+                            <tr><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td></tr>
+                            <tr><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td></tr>
+                        </tbody>
+                    </table>
+                    <textarea class="auto-resize"></textarea>
+                    <div class="box-title">ATTACKS & SPELLCASTING</div>
+                </div>
+
+                <div class="equipment-box dynamic-box">
+                    <div class="money-col">
+                        <div class="money-slot"><span>CP</span><input type="text"></div>
+                        <div class="money-slot"><span>SP</span><input type="text"></div>
+                        <div class="money-slot"><span>EP</span><input type="text"></div>
+                        <div class="money-slot"><span>GP</span><input type="text"></div>
+                        <div class="money-slot"><span>PP</span><input type="text"></div>
+                    </div>
+                    <div class="eq-textarea-wrapper">
+                        <textarea class="auto-resize"></textarea>
+                    </div>
+                    <div class="box-title eq-title">EQUIPMENT</div>
+                </div>
+            </div>
+
+            <div class="col col-3">
+                <div class="portrait-box" id="portrait-dropzone">
+                    <input type="file" id="portrait-upload" accept="image/*" class="no-print">
+                    <div class="portrait-overlay no-print">Click or Drag Image Here</div>
+                    <div class="box-title" style="position: absolute; bottom: 5px; background: rgba(244, 236, 216, 0.8);">CHARACTER PORTRAIT</div>
+                </div>
+
+                <div class="personality-container">
+                    <div class="trait-box dynamic-box">
+                        <textarea class="auto-resize"></textarea>
+                        <div class="box-title">PERSONALITY TRAITS</div>
+                    </div>
+                    <div class="trait-box dynamic-box">
+                        <textarea class="auto-resize"></textarea>
+                        <div class="box-title">IDEALS</div>
+                    </div>
+                    <div class="trait-box dynamic-box">
+                        <textarea class="auto-resize"></textarea>
+                        <div class="box-title">BONDS</div>
+                    </div>
+                    <div class="trait-box dynamic-box">
+                        <textarea class="auto-resize"></textarea>
+                        <div class="box-title">FLAWS</div>
+                    </div>
+                </div>
+
+                <div class="features-box dynamic-box">
+                    <textarea class="auto-resize"></textarea>
+                    <div class="box-title">FEATURES & TRAITS</div>
+                </div>
+            </div>
+
+        </main>
+
+        <div class="credits">Template made by Phaizona</div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

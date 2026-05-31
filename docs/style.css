@@ -1,0 +1,244 @@
+/* GLOBAL RESET & VARIABLES */
+* {
+    box-sizing: border-box; /* Sütun taşmalarını engellemek için kritik */
+    margin: 0;
+    padding: 0;
+}
+
+:root {
+    --border-color: #4a2c11;
+    --box-bg: #f4ecd8;
+    --muted-text: #6b503b;
+    --font-heading: 'Cinzel', serif;
+    --font-handwriting: 'Macondo', cursive;
+    --font-body: 'Open Sans', sans-serif;
+}
+
+body {
+    background: linear-gradient(135deg, #2b1b42 0%, #4c336b 50%, #2f4858 100%);
+    background-attachment: fixed;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 30px;
+}
+
+input, textarea {
+    background: transparent;
+    border: none;
+    outline: none;
+    resize: none;
+    color: #2a1910;
+    font-family: var(--font-handwriting);
+    font-size: 16px;
+    overflow: hidden;
+    max-width: 100%; /* İçeriklerin taşmasını engeller */
+}
+
+/* EXPORT CONTROLS */
+.controls { margin-bottom: 20px; display: flex; gap: 15px; }
+.export-btn {
+    padding: 10px 20px;
+    background-color: #8a4b38; color: #f4ecd8;
+    border: 2px solid #e1b16a; border-radius: 5px;
+    font-family: var(--font-heading); font-weight: bold;
+    cursor: pointer; box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+    transition: all 0.3s;
+}
+.export-btn:hover { background-color: #a45a43; transform: scale(1.05); }
+
+/* SHEET CONTAINER */
+.sheet-container {
+    width: 850px;
+    max-width: 100%;
+    background-color: var(--box-bg);
+    background-image: radial-gradient(circle, rgba(255,255,255,0.4) 0%, rgba(200,175,135,0.2) 100%);
+    padding: 30px;
+    box-shadow: 0 0 30px rgba(0,0,0,0.8), inset 0 0 40px rgba(139, 115, 85, 0.3);
+    border: 4px double var(--border-color);
+    border-radius: 8px;
+    color: var(--border-color);
+    font-family: var(--font-body);
+    position: relative; /* Kredi yazısı için */
+}
+
+/* CREDITS */
+.credits {
+    position: absolute;
+    bottom: -25px; /* Kağıdın en alt sağ köşesine dışarıdan iliştirilmiş gibi */
+    right: 10px;
+    font-family: var(--font-handwriting);
+    font-size: 14px;
+    color: #e1b16a;
+    text-shadow: 1px 1px 2px black;
+}
+
+/* HEADER SECTION */
+.sheet-header {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px; /* Header arasına nefes payı */
+    margin-bottom: 25px;
+    width: 100%;
+}
+
+.header-left { flex: 0 0 35%; display: flex; align-items: flex-end; }
+.name-container { width: 100%; border-bottom: 3px solid var(--border-color); padding-bottom: 5px; }
+.char-name-input { width: 100%; font-size: 32px; color: #8a4b38; }
+.name-container label { font-size: 11px; font-weight: 800; font-family: var(--font-heading); }
+
+.header-right {
+    flex: 1; /* Alanı esnek kullanarak taşmayı önler */
+    border: 2px solid var(--border-color);
+    border-radius: 10px;
+    padding: 10px;
+    background: rgba(255,255,255,0.3);
+}
+
+.info-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; width: 100%; }
+.info-cell { border-bottom: 1px solid var(--muted-text); display: flex; flex-direction: column; width: 100%; }
+.info-cell .h-input { font-size: 16px; margin-bottom: 2px; width: 100%; }
+.info-cell label { font-size: 9px; font-weight: 600; font-family: var(--font-heading); white-space: nowrap; }
+
+/* MAIN BODY COLUMNS - FIXED FOR NO OVERLAP */
+.sheet-body { 
+    display: grid; 
+    /* minmax(0, 1fr) ızgara taşmasını kesin olarak önler */
+    grid-template-columns: minmax(0, 31%) minmax(0, 34%) minmax(0, 31%); 
+    gap: 2%; 
+    align-items: start; 
+    width: 100%;
+}
+
+.col { min-width: 0; }
+
+.dynamic-box { display: flex; flex-direction: column; min-height: min-content; }
+
+.box-title {
+    font-size: 11px; font-weight: 800; text-align: center;
+    text-transform: uppercase; font-family: var(--font-heading);
+    width: 100%; margin-top: auto; padding-top: 5px;
+}
+
+/* SHARED BOX STYLES */
+.stat-box, .list-box, .combat-box, .hp-box, .attacks-box, .equipment-box, .text-box-container, .portrait-box, .trait-box, .features-box {
+    border: 2px solid var(--border-color);
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.4);
+    box-shadow: inset 0 0 10px rgba(0,0,0,0.05);
+    width: 100%; /* Sütunu taşırmamasını garanti eder */
+}
+
+/* COL 1: STATS & SKILLS */
+.stats-and-skills { display: flex; gap: 10px; }
+.stats-column { display: flex; flex-direction: column; gap: 15px; flex: 0 0 75px; }
+.stat-box { height: 95px; display: flex; flex-direction: column; align-items: center; padding-top: 5px; position: relative; }
+.stat-box label { font-size: 9px; font-weight: 800; text-align: center; font-family: var(--font-heading); }
+.stat-score { width: 100%; text-align: center; font-size: 28px; margin-top: 2px; }
+.stat-mod-bg {
+    position: absolute; bottom: -15px; width: 45px; height: 30px;
+    border: 2px solid var(--border-color); border-radius: 20px;
+    background: var(--box-bg); display: flex; justify-content: center; align-items: center;
+}
+.stat-mod { text-align: center; font-size: 16px; font-weight: bold; width: 100%; font-family: var(--font-body); pointer-events: none;}
+
+.skills-column { flex: 1; display: flex; flex-direction: column; gap: 10px; min-width: 0; }
+.small-box-row { display: flex; align-items: center; gap: 5px; }
+.bubble-border { border: 2px solid var(--border-color); border-radius: 5px; width: 35px; height: 30px; display: flex; justify-content: center; align-items: center; background: rgba(255,255,255,0.4); }
+.circle-input { width: 25px; height: 25px; border: 1px solid var(--muted-text); border-radius: 50%; text-align: center; font-family: var(--font-body); }
+.label-border { border: 2px solid var(--border-color); border-radius: 5px; padding: 6px; flex-grow: 1; font-size: 10px; font-family: var(--font-heading); font-weight: bold; text-align: center; background: rgba(255,255,255,0.4); }
+
+/* FANTASY CHECKBOXES */
+.list-box { padding: 10px; }
+.list-item { display: flex; align-items: baseline; white-space: nowrap; margin-bottom: 5px; width: 100%; }
+
+.fantasy-checkbox {
+    appearance: none; -webkit-appearance: none;
+    width: 14px; height: 14px;
+    border: 1px solid var(--border-color);
+    border-radius: 3px;
+    background: rgba(255,255,255,0.8);
+    box-shadow: inset 0 0 2px rgba(0,0,0,0.3);
+    margin-right: 6px;
+    position: relative;
+    cursor: pointer;
+    flex-shrink: 0;
+}
+.fantasy-checkbox:checked::after {
+    content: 'X'; /* El yazısı havasında çarpı */
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    font-family: var(--font-handwriting);
+    font-size: 14px;
+    font-weight: bold;
+    color: #8a4b38;
+}
+
+.line-input { border-bottom: 1px solid var(--muted-text); width: 20px; text-align: center; font-size: 14px; margin-right: 5px; font-family: var(--font-body); }
+.skill-name { font-size: 11px; flex-grow: 1; }
+.sub-stat { color: var(--muted-text); font-size: 9px; margin-left: 4px; }
+
+/* COL 2: COMBAT */
+.combat-stats { display: flex; gap: 10px; margin-bottom: 15px; }
+.combat-box { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; height: 85px; position: relative; }
+
+/* SHIELD FIX: Daha basık ve kalkan hissi */
+.combat-box.shield { 
+    border-radius: 10px 10px 50% 50%; 
+    padding-bottom: 10px; 
+}
+.combat-input { width: 100%; text-align: center; font-size: 32px; font-family: var(--font-handwriting); }
+.combat-box label { font-size: 8px; font-weight: bold; font-family: var(--font-heading); position: absolute; bottom: 8px; text-align: center; width: 100%; }
+.combat-box.shield label { bottom: 6px; font-size: 7.5px; } /* Kalkanda taşmaması için ince ayar */
+
+.hp-container { display: flex; flex-direction: column; gap: 10px; margin-bottom: 15px; }
+.hp-box { padding: 10px; min-height: 90px; }
+.hp-header { display: flex; justify-content: space-between; font-size: 11px; margin-bottom: 5px; font-family: var(--font-heading); }
+.muted { color: var(--muted-text); }
+.huge-text { width: 100%; font-size: 24px; text-align: center; min-height: 40px; }
+
+.hit-dice { padding: 10px; align-items: flex-start; justify-content: flex-start; }
+.death-saves { padding: 10px; align-items: stretch; justify-content: space-around; }
+.ds-row { display: flex; justify-content: space-between; align-items: center; font-size: 9px; font-family: var(--font-heading); }
+.bubbles { display: flex; gap: 4px; }
+.bubble-checkbox { 
+    appearance: none; -webkit-appearance: none;
+    width: 14px; height: 14px; border-radius: 50%; 
+    border: 1px solid var(--border-color); 
+    background: rgba(255,255,255,0.8); cursor: pointer; 
+    box-shadow: inset 0 0 2px rgba(0,0,0,0.3);
+}
+.bubble-checkbox:checked { background: #8a4b38; border-color: #8a4b38; }
+
+.attacks-box { padding: 10px; min-height: 220px; margin-bottom: 15px; }
+.attack-table { width: 100%; border-collapse: collapse; margin-bottom: 10px; }
+.attack-table th { font-size: 9px; text-align: left; color: var(--muted-text); padding-bottom: 5px; font-family: var(--font-heading); }
+.attack-table td { padding: 2px; }
+.attack-table td input { width: 100%; border-bottom: 1px solid var(--muted-text); padding: 4px; font-size: 14px; }
+.attacks-box textarea { min-height: 80px; width: 100%; }
+
+.equipment-box { display: flex; padding: 10px; min-height: 250px; position: relative; flex-direction: row; flex-wrap: wrap; }
+.money-col { display: flex; flex-direction: column; gap: 8px; width: 45px; margin-right: 10px; }
+.money-slot { border: 2px solid var(--border-color); border-radius: 5px 5px 15px 15px; display: flex; flex-direction: column; align-items: center; padding: 2px; background: rgba(255,255,255,0.6); }
+.money-slot span { font-size: 10px; font-weight: bold; font-family: var(--font-heading); }
+.money-slot input { width: 100%; text-align: center; font-size: 14px; }
+.eq-textarea-wrapper { flex: 1; display: flex; flex-direction: column; min-width: 0; }
+.eq-textarea-wrapper textarea { min-height: 180px; width: 100%; }
+.eq-title { position: absolute; bottom: 5px; left: 0; }
+
+/* COL 3: PORTRAIT & TEXT BOXES */
+.text-box-container { padding: 10px; min-height: 150px; }
+.text-box-container textarea { min-height: 100px; width: 100%; }
+
+.portrait-box { height: 200px; margin-bottom: 15px; position: relative; background-size: cover; background-position: center; display: flex; align-items: flex-end; justify-content: center; overflow: hidden; }
+#portrait-upload { position: absolute; top: 0; left: 0; width: 100%; height: 100%; opacity: 0; cursor: pointer; z-index: 10; }
+.portrait-overlay { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 14px; font-family: var(--font-heading); font-weight: bold; color: var(--muted-text); pointer-events: none; text-align: center; width: 100%; }
+.portrait-box.has-image .portrait-overlay { display: none; }
+
+.personality-container { display: flex; flex-direction: column; gap: 10px; margin-bottom: 15px; }
+.trait-box { border-radius: 10px 10px 0 0; padding: 10px; min-height: 80px; }
+.trait-box textarea { min-height: 40px; width: 100%; }
+
+.features-box { padding: 10px; min-height: 330px; }
+.features-box textarea { min-height: 280px; width: 100%; }
