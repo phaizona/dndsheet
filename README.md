@@ -1,4 +1,4 @@
-# dndsheet# 🐉 Fantasy Interactive D&D Character Sheet
+## 🐉 Fantasy Interactive D&D Character Sheet
 
 A beautifully designed, interactive D&D 5e-style character sheet. This project brings a touch of fantasy to your digital gaming sessions with a custom parchment-inspired aesthetic and fully functional dynamic input fields.
 
