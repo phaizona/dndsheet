@@ -176,7 +176,7 @@ input, textarea {
 }
 
 .line-input { border-bottom: 1px solid var(--muted-text); width: 20px; text-align: center; font-size: 14px; margin-right: 5px; font-family: var(--font-body); }
-.skill-name { font-size: 11px; flex-grow: 1; }
+.skill-name { font-size: 8px; flex-grow: 1; }
 .sub-stat { color: var(--muted-text); font-size: 9px; margin-left: 4px; }
 
 /* COL 2: COMBAT */
@@ -190,7 +190,7 @@ input, textarea {
 }
 .combat-input { width: 100%; text-align: center; font-size: 32px; font-family: var(--font-handwriting); }
 .combat-box label { font-size: 8px; font-weight: bold; font-family: var(--font-heading); position: absolute; bottom: 8px; text-align: center; width: 100%; }
-.combat-box.shield label { bottom: 6px; font-size: 7.5px; } /* Kalkanda taşmaması için ince ayar */
+.combat-box.shield label { bottom: 6px; font-size: 8px; } /* Kalkanda taşmaması için ince ayar */
 
 .hp-container { display: flex; flex-direction: column; gap: 10px; margin-bottom: 15px; }
 .hp-box { padding: 10px; min-height: 90px; }
