@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Phaizona's Character Sheet Forge</title>
+<title>Character Forge</title>
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;800&family=Macondo&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
@@ -23,7 +23,10 @@
 
   <aside class="sheet-sidebar">
     <div class="sidebar-brand">
-      <div class="brand-title">✦ The Sheet Forge</div>
+      <div class="brand-row">
+        <img class="brand-logo" src="assets/logosheet.png" alt="">
+        <div class="brand-title">Character Forge</div>
+      </div>
       <div class="brand-sub">Choose your system</div>
     </div>
     <nav class="sheet-nav" id="sheet-nav"><!-- populated by js/core/app.js --></nav>
@@ -33,8 +36,11 @@
   <div class="main-area">
     <header class="topbar">
       <div class="topbar-title">
-        <span class="t-name" id="topbar-name">—</span>
-        <span class="t-tag" id="topbar-tag">—</span>
+        <img class="topbar-logo" src="assets/logosheet.png" alt="">
+        <div class="topbar-text">
+          <span class="t-name" id="topbar-name">—</span>
+          <span class="t-tag" id="topbar-tag">—</span>
+        </div>
       </div>
       <div class="topbar-actions no-print">
         <button id="btn-export-png" class="export-btn">⬇ <span class="btn-label">Export PNG</span></button>
@@ -75,6 +81,13 @@
     </div>
   </header>
 
+  <nav class="sheet-tabs no-print">
+    <button type="button" class="tab-btn active" data-page="char">Character</button>
+    <button type="button" class="tab-btn" data-page="personal">Personal</button>
+    <button type="button" class="tab-btn" data-page="spells">Spells</button>
+  </nav>
+
+  <section class="sheet-page" data-page="char">
   <main class="sheet-body">
     <div class="col col-1">
       <div class="stats-and-skills">
@@ -208,6 +221,138 @@
       <div class="features-box dynamic-box"><textarea class="auto-resize" data-field="features"></textarea><div class="box-title">FEATURES &amp; TRAITS</div></div>
     </div>
   </main>
+  </section>
+
+  <!-- ===== TAB 2: PERSONAL ===== -->
+  <section class="sheet-page" data-page="personal" hidden>
+    <div class="personal-info-grid">
+      <div class="info-cell"><input type="text" class="h-input" data-field="p-age"><label>AGE</label></div>
+      <div class="info-cell"><input type="text" class="h-input" data-field="p-height"><label>HEIGHT</label></div>
+      <div class="info-cell"><input type="text" class="h-input" data-field="p-weight"><label>WEIGHT</label></div>
+      <div class="info-cell"><input type="text" class="h-input" data-field="p-eyes"><label>EYES</label></div>
+      <div class="info-cell"><input type="text" class="h-input" data-field="p-skin"><label>SKIN</label></div>
+      <div class="info-cell"><input type="text" class="h-input" data-field="p-hair"><label>HAIR</label></div>
+    </div>
+
+    <div class="personal-columns">
+      <div class="personal-col">
+        <div class="text-box-container appearance-box dynamic-box"><textarea class="auto-resize" data-field="appearance"></textarea><div class="box-title">CHARACTER APPEARANCE</div></div>
+        <div class="text-box-container backstory-box dynamic-box"><textarea class="auto-resize" data-field="backstory"></textarea><div class="box-title">CHARACTER BACKSTORY</div></div>
+      </div>
+
+      <div class="personal-col">
+        <div class="allies-box dynamic-box">
+          <div class="portrait-box symbol-portrait no-print"><input type="file" accept="image/*"><div class="portrait-overlay">Symbol</div></div>
+          <input type="text" class="org-name" placeholder="Organization name" data-field="ally-name">
+          <textarea class="auto-resize" data-field="allies"></textarea>
+          <div class="box-title">ALLIES &amp; ORGANIZATIONS</div>
+        </div>
+        <div class="text-box-container additional-box dynamic-box"><textarea class="auto-resize" data-field="additional-features"></textarea><div class="box-title">ADDITIONAL FEATURES &amp; TRAITS</div></div>
+        <div class="text-box-container treasure-box dynamic-box"><textarea class="auto-resize" data-field="treasure"></textarea><div class="box-title">TREASURE</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== TAB 3: SPELLS ===== -->
+  <section class="sheet-page" data-page="spells" hidden>
+    <div class="spell-header-grid">
+      <div class="info-cell"><input type="text" class="h-input" data-field="spell-class"><label>SPELLCASTING CLASS</label></div>
+      <div class="info-cell"><input type="text" class="h-input" data-field="spell-ability"><label>SPELLCASTING ABILITY</label></div>
+      <div class="info-cell"><input type="text" class="h-input" data-field="spell-dc"><label>SPELL SAVE DC</label></div>
+      <div class="info-cell"><input type="text" class="h-input" data-field="spell-atk"><label>SPELL ATTACK BONUS</label></div>
+    </div>
+
+    <div class="spell-columns">
+      <div class="spell-col">
+        <div class="spell-level-box card repeat-list" data-autoname="dnd-spells-0">
+          <div class="spell-level-head"><span class="cantrip-label">Cantrips</span></div>
+          <div class="repeat-rows">
+            <div class="repeat-row spell-row"><input class="spell-name" placeholder="Cantrip"></div>
+            <div class="repeat-row spell-row"><input class="spell-name" placeholder="Cantrip"></div>
+            <div class="repeat-row spell-row"><input class="spell-name" placeholder="Cantrip"></div>
+          </div>
+          <button type="button" class="add-row-btn no-print">+ Add</button>
+        </div>
+        <div class="spell-level-box card repeat-list" data-autoname="dnd-spells-1">
+          <div class="spell-level-head"><span class="spell-level-badge">1</span><div class="slot-field"><label>Total</label><input></div><div class="slot-field"><label>Used</label><input></div></div>
+          <div class="repeat-rows">
+            <div class="repeat-row spell-row"><input type="checkbox" class="fantasy-checkbox"><input class="spell-name" placeholder="Spell name"></div>
+            <div class="repeat-row spell-row"><input type="checkbox" class="fantasy-checkbox"><input class="spell-name" placeholder="Spell name"></div>
+            <div class="repeat-row spell-row"><input type="checkbox" class="fantasy-checkbox"><input class="spell-name" placeholder="Spell name"></div>
+          </div>
+          <button type="button" class="add-row-btn no-print">+ Add</button>
+        </div>
+        <div class="spell-level-box card repeat-list" data-autoname="dnd-spells-2">
+          <div class="spell-level-head"><span class="spell-level-badge">2</span><div class="slot-field"><label>Total</label><input></div><div class="slot-field"><label>Used</label><input></div></div>
+          <div class="repeat-rows">
+            <div class="repeat-row spell-row"><input type="checkbox" class="fantasy-checkbox"><input class="spell-name" placeholder="Spell name"></div>
+            <div class="repeat-row spell-row"><input type="checkbox" class="fantasy-checkbox"><input class="spell-name" placeholder="Spell name"></div>
+            <div class="repeat-row spell-row"><input type="checkbox" class="fantasy-checkbox"><input class="spell-name" placeholder="Spell name"></div>
+          </div>
+          <button type="button" class="add-row-btn no-print">+ Add</button>
+        </div>
+      </div>
+
+      <div class="spell-col">
+        <div class="spell-level-box card repeat-list" data-autoname="dnd-spells-3">
+          <div class="spell-level-head"><span class="spell-level-badge">3</span><div class="slot-field"><label>Total</label><input></div><div class="slot-field"><label>Used</label><input></div></div>
+          <div class="repeat-rows">
+            <div class="repeat-row spell-row"><input type="checkbox" class="fantasy-checkbox"><input class="spell-name" placeholder="Spell name"></div>
+            <div class="repeat-row spell-row"><input type="checkbox" class="fantasy-checkbox"><input class="spell-name" placeholder="Spell name"></div>
+            <div class="repeat-row spell-row"><input type="checkbox" class="fantasy-checkbox"><input class="spell-name" placeholder="Spell name"></div>
+          </div>
+          <button type="button" class="add-row-btn no-print">+ Add</button>
+        </div>
+        <div class="spell-level-box card repeat-list" data-autoname="dnd-spells-4">
+          <div class="spell-level-head"><span class="spell-level-badge">4</span><div class="slot-field"><label>Total</label><input></div><div class="slot-field"><label>Used</label><input></div></div>
+          <div class="repeat-rows">
+            <div class="repeat-row spell-row"><input type="checkbox" class="fantasy-checkbox"><input class="spell-name" placeholder="Spell name"></div>
+            <div class="repeat-row spell-row"><input type="checkbox" class="fantasy-checkbox"><input class="spell-name" placeholder="Spell name"></div>
+          </div>
+          <button type="button" class="add-row-btn no-print">+ Add</button>
+        </div>
+        <div class="spell-level-box card repeat-list" data-autoname="dnd-spells-5">
+          <div class="spell-level-head"><span class="spell-level-badge">5</span><div class="slot-field"><label>Total</label><input></div><div class="slot-field"><label>Used</label><input></div></div>
+          <div class="repeat-rows">
+            <div class="repeat-row spell-row"><input type="checkbox" class="fantasy-checkbox"><input class="spell-name" placeholder="Spell name"></div>
+            <div class="repeat-row spell-row"><input type="checkbox" class="fantasy-checkbox"><input class="spell-name" placeholder="Spell name"></div>
+          </div>
+          <button type="button" class="add-row-btn no-print">+ Add</button>
+        </div>
+      </div>
+
+      <div class="spell-col">
+        <div class="spell-level-box card repeat-list" data-autoname="dnd-spells-6">
+          <div class="spell-level-head"><span class="spell-level-badge">6</span><div class="slot-field"><label>Total</label><input></div><div class="slot-field"><label>Used</label><input></div></div>
+          <div class="repeat-rows">
+            <div class="repeat-row spell-row"><input type="checkbox" class="fantasy-checkbox"><input class="spell-name" placeholder="Spell name"></div>
+          </div>
+          <button type="button" class="add-row-btn no-print">+ Add</button>
+        </div>
+        <div class="spell-level-box card repeat-list" data-autoname="dnd-spells-7">
+          <div class="spell-level-head"><span class="spell-level-badge">7</span><div class="slot-field"><label>Total</label><input></div><div class="slot-field"><label>Used</label><input></div></div>
+          <div class="repeat-rows">
+            <div class="repeat-row spell-row"><input type="checkbox" class="fantasy-checkbox"><input class="spell-name" placeholder="Spell name"></div>
+          </div>
+          <button type="button" class="add-row-btn no-print">+ Add</button>
+        </div>
+        <div class="spell-level-box card repeat-list" data-autoname="dnd-spells-8">
+          <div class="spell-level-head"><span class="spell-level-badge">8</span><div class="slot-field"><label>Total</label><input></div><div class="slot-field"><label>Used</label><input></div></div>
+          <div class="repeat-rows">
+            <div class="repeat-row spell-row"><input type="checkbox" class="fantasy-checkbox"><input class="spell-name" placeholder="Spell name"></div>
+          </div>
+          <button type="button" class="add-row-btn no-print">+ Add</button>
+        </div>
+        <div class="spell-level-box card repeat-list" data-autoname="dnd-spells-9">
+          <div class="spell-level-head"><span class="spell-level-badge">9</span><div class="slot-field"><label>Total</label><input></div><div class="slot-field"><label>Used</label><input></div></div>
+          <div class="repeat-rows">
+            <div class="repeat-row spell-row"><input type="checkbox" class="fantasy-checkbox"><input class="spell-name" placeholder="Spell name"></div>
+          </div>
+          <button type="button" class="add-row-btn no-print">+ Add</button>
+        </div>
+      </div>
+    </div>
+  </section>
 </div>
 </template>
 

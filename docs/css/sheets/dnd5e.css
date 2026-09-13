@@ -89,3 +89,54 @@
 
 .sheet-dnd5e .features-box { padding: 10px; min-height: 330px; }
 .sheet-dnd5e .features-box textarea { min-height: 280px; width: 100%; }
+
+.sheet-dnd5e .sheet-tabs { margin-bottom: 16px; }
+
+/* ---------- TAB 2: personal ---------- */
+.sheet-dnd5e .personal-info-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 10px; margin-bottom: 15px; }
+.sheet-dnd5e .personal-info-grid .info-cell { border-bottom: 1px solid var(--muted); display: flex; flex-direction: column; }
+.sheet-dnd5e .personal-info-grid .info-cell label { font-size: 8.5px; font-weight: 700; font-family: var(--font-heading); }
+
+.sheet-dnd5e .personal-columns { display: flex; gap: 2%; align-items: flex-start; }
+.sheet-dnd5e .personal-col { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 15px; }
+
+.sheet-dnd5e .appearance-box { min-height: 260px; }
+.sheet-dnd5e .appearance-box textarea { min-height: 220px; width: 100%; }
+
+.sheet-dnd5e .backstory-box { min-height: 320px; }
+.sheet-dnd5e .backstory-box textarea { min-height: 280px; width: 100%; }
+
+.sheet-dnd5e .allies-box { padding: 10px; min-height: 200px; }
+.sheet-dnd5e .allies-box .symbol-portrait { width: 90px; float: right; margin: 0 0 8px 10px; }
+.sheet-dnd5e .allies-box input.org-name { width: 60%; border-bottom: 1px solid var(--muted); font-size: 13px; margin-bottom: 6px; }
+.sheet-dnd5e .allies-box textarea { min-height: 120px; width: 100%; }
+
+.sheet-dnd5e .additional-box { min-height: 200px; }
+.sheet-dnd5e .additional-box textarea { min-height: 160px; width: 100%; }
+
+.sheet-dnd5e .treasure-box { min-height: 150px; }
+.sheet-dnd5e .treasure-box textarea { min-height: 110px; width: 100%; }
+
+/* ---------- TAB 3: spells ---------- */
+.sheet-dnd5e .spell-header-grid { display: grid; grid-template-columns: 1.4fr 1fr 1fr 1fr; gap: 10px; margin-bottom: 15px; }
+.sheet-dnd5e .spell-header-grid .info-cell { border-bottom: 1px solid var(--muted); display: flex; flex-direction: column; }
+.sheet-dnd5e .spell-header-grid .info-cell label { font-size: 8.5px; font-weight: 700; font-family: var(--font-heading); text-align: center; }
+.sheet-dnd5e .spell-header-grid .info-cell input { text-align: center; }
+
+.sheet-dnd5e .spell-columns { display: flex; gap: 2%; align-items: flex-start; }
+.sheet-dnd5e .spell-col { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 10px; }
+
+.sheet-dnd5e .spell-level-box { padding: 8px 10px; }
+.sheet-dnd5e .spell-level-head { display: flex; align-items: center; gap: 8px; margin-bottom: 6px; padding-bottom: 4px; border-bottom: 2px solid var(--border); }
+.sheet-dnd5e .spell-level-badge {
+  width: 22px; height: 22px; border-radius: 50%; border: 2px solid var(--border);
+  background: var(--parchment); display: flex; align-items: center; justify-content: center;
+  font-family: var(--font-heading); font-weight: 800; font-size: 12px; flex-shrink: 0;
+}
+.sheet-dnd5e .spell-level-head .slot-field { display: flex; flex-direction: column; align-items: center; }
+.sheet-dnd5e .spell-level-head .slot-field label { font-size: 6.5px; color: var(--muted); font-family: var(--font-heading); }
+.sheet-dnd5e .spell-level-head .slot-field input { width: 26px; text-align: center; border-bottom: 1px solid var(--muted); font-size: 11px; }
+.sheet-dnd5e .spell-level-head .cantrip-label { font-size: 9px; font-weight: 800; font-family: var(--font-heading); text-transform: uppercase; }
+
+.sheet-dnd5e .spell-row { display: flex; align-items: center; gap: 5px; padding: 1px 0; }
+.sheet-dnd5e .spell-row input.spell-name { flex: 1; border-bottom: 1px solid var(--muted); font-size: 11px; min-width: 0; }
