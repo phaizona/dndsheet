@@ -1,0 +1,91 @@
+/* D&D 5th Edition — sheet-specific styles */
+.sheet-dnd5e { }
+
+.sheet-dnd5e .sheet-header { display: flex; justify-content: space-between; gap: 20px; margin-bottom: 25px; width: 100%; }
+.sheet-dnd5e .header-left { flex: 0 0 35%; display: flex; align-items: flex-end; }
+.sheet-dnd5e .name-container { width: 100%; border-bottom: 3px solid var(--border); padding-bottom: 5px; }
+.sheet-dnd5e .char-name-input { width: 100%; font-size: 30px; color: var(--accent); }
+.sheet-dnd5e .name-container label { font-size: 11px; font-weight: 800; font-family: var(--font-heading); }
+
+.sheet-dnd5e .header-right { flex: 1; border: 2px solid var(--border); border-radius: 10px; padding: 10px; background: rgba(255,255,255,0.3); }
+.sheet-dnd5e .info-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; width: 100%; }
+.sheet-dnd5e .info-cell { border-bottom: 1px solid var(--muted); display: flex; flex-direction: column; width: 100%; }
+.sheet-dnd5e .info-cell .h-input { font-size: 16px; margin-bottom: 2px; width: 100%; }
+.sheet-dnd5e .info-cell label { font-size: 9px; font-weight: 600; font-family: var(--font-heading); white-space: nowrap; }
+
+.sheet-dnd5e .sheet-body { display: grid; grid-template-columns: minmax(0,31%) minmax(0,34%) minmax(0,31%); gap: 2%; align-items: start; width: 100%; }
+.sheet-dnd5e .col { min-width: 0; }
+
+.sheet-dnd5e .stat-box, .sheet-dnd5e .list-box, .sheet-dnd5e .combat-box, .sheet-dnd5e .hp-box,
+.sheet-dnd5e .attacks-box, .sheet-dnd5e .equipment-box, .sheet-dnd5e .text-box-container,
+.sheet-dnd5e .portrait-box, .sheet-dnd5e .trait-box, .sheet-dnd5e .features-box {
+  border: 2px solid var(--border); border-radius: 8px; background-color: rgba(255,255,255,0.4);
+  box-shadow: inset 0 0 10px rgba(0,0,0,0.05); width: 100%;
+}
+
+.sheet-dnd5e .stats-and-skills { display: flex; gap: 10px; }
+.sheet-dnd5e .stats-column { display: flex; flex-direction: column; gap: 15px; flex: 0 0 75px; }
+.sheet-dnd5e .stat-box { height: 95px; display: flex; flex-direction: column; align-items: center; padding-top: 5px; position: relative; }
+.sheet-dnd5e .stat-box label { font-size: 9px; font-weight: 800; text-align: center; font-family: var(--font-heading); }
+.sheet-dnd5e .stat-score { width: 100%; text-align: center; font-size: 28px; margin-top: 2px; }
+.sheet-dnd5e .stat-mod-bg { position: absolute; bottom: -15px; width: 45px; height: 30px; border: 2px solid var(--border); border-radius: 20px; background: var(--parchment); display: flex; justify-content: center; align-items: center; }
+.sheet-dnd5e .stat-mod { text-align: center; font-size: 16px; font-weight: bold; width: 100%; font-family: var(--font-body); pointer-events: none; }
+
+.sheet-dnd5e .skills-column { flex: 1; display: flex; flex-direction: column; gap: 10px; min-width: 0; }
+.sheet-dnd5e .small-box-row { display: flex; align-items: center; gap: 5px; }
+.sheet-dnd5e .bubble-border { border: 2px solid var(--border); border-radius: 5px; width: 35px; height: 30px; display: flex; justify-content: center; align-items: center; background: rgba(255,255,255,0.4); }
+.sheet-dnd5e .circle-input { width: 25px; height: 25px; border: 1px solid var(--muted); border-radius: 50%; text-align: center; font-family: var(--font-body); }
+.sheet-dnd5e .label-border { border: 2px solid var(--border); border-radius: 5px; padding: 6px; flex-grow: 1; font-size: 10px; font-family: var(--font-heading); font-weight: bold; text-align: center; background: rgba(255,255,255,0.4); }
+
+.sheet-dnd5e .list-box { padding: 10px; }
+.sheet-dnd5e .list-item { display: flex; align-items: baseline; white-space: nowrap; margin-bottom: 5px; width: 100%; }
+.sheet-dnd5e .line-input { border-bottom: 1px solid var(--muted); width: 20px; text-align: center; font-size: 14px; margin-right: 5px; font-family: var(--font-body); }
+.sheet-dnd5e .skill-name { font-size: 8px; flex-grow: 1; }
+.sheet-dnd5e .sub-stat { color: var(--muted); font-size: 9px; margin-left: 4px; }
+.sheet-dnd5e .fantasy-checkbox { margin-right: 6px; }
+
+.sheet-dnd5e .combat-stats { display: flex; gap: 10px; margin-bottom: 15px; }
+.sheet-dnd5e .combat-box { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; height: 85px; position: relative; }
+.sheet-dnd5e .combat-box.shield { border-radius: 10px 10px 50% 50%; padding-bottom: 10px; }
+.sheet-dnd5e .combat-input { width: 100%; text-align: center; font-size: 32px; font-family: var(--font-hand); }
+.sheet-dnd5e .combat-box label { font-size: 8px; font-weight: bold; font-family: var(--font-heading); position: absolute; bottom: 8px; text-align: center; width: 100%; }
+.sheet-dnd5e .combat-box.shield label { bottom: 6px; font-size: 8px; }
+
+.sheet-dnd5e .hp-container { display: flex; flex-direction: column; gap: 10px; margin-bottom: 15px; }
+.sheet-dnd5e .hp-box { padding: 10px; min-height: 90px; }
+.sheet-dnd5e .hp-header { display: flex; justify-content: space-between; font-size: 11px; margin-bottom: 5px; font-family: var(--font-heading); }
+.sheet-dnd5e .muted { color: var(--muted); }
+.sheet-dnd5e .huge-text { width: 100%; font-size: 24px; text-align: center; min-height: 40px; }
+
+.sheet-dnd5e .hit-dice { padding: 10px; align-items: flex-start; justify-content: flex-start; }
+.sheet-dnd5e .death-saves { padding: 10px; align-items: stretch; justify-content: space-around; }
+.sheet-dnd5e .ds-row { display: flex; justify-content: space-between; align-items: center; font-size: 9px; font-family: var(--font-heading); }
+.sheet-dnd5e .bubbles { display: flex; gap: 4px; }
+
+.sheet-dnd5e .attacks-box { padding: 10px; min-height: 220px; margin-bottom: 15px; }
+.sheet-dnd5e .attack-table { width: 100%; border-collapse: collapse; margin-bottom: 10px; }
+.sheet-dnd5e .attack-table th { font-size: 9px; text-align: left; color: var(--muted); padding-bottom: 5px; font-family: var(--font-heading); }
+.sheet-dnd5e .attack-table td { padding: 2px; }
+.sheet-dnd5e .attack-table td input { width: 100%; border-bottom: 1px solid var(--muted); padding: 4px; font-size: 14px; }
+.sheet-dnd5e .attacks-box textarea { min-height: 80px; width: 100%; }
+
+.sheet-dnd5e .equipment-box { display: flex; padding: 10px; min-height: 250px; position: relative; flex-direction: row; flex-wrap: wrap; }
+.sheet-dnd5e .money-col { display: flex; flex-direction: column; gap: 8px; width: 45px; margin-right: 10px; }
+.sheet-dnd5e .money-slot { border: 2px solid var(--border); border-radius: 5px 5px 15px 15px; display: flex; flex-direction: column; align-items: center; padding: 2px; background: rgba(255,255,255,0.6); }
+.sheet-dnd5e .money-slot span { font-size: 10px; font-weight: bold; font-family: var(--font-heading); }
+.sheet-dnd5e .money-slot input { width: 100%; text-align: center; font-size: 14px; }
+.sheet-dnd5e .eq-textarea-wrapper { flex: 1; display: flex; flex-direction: column; min-width: 0; }
+.sheet-dnd5e .eq-textarea-wrapper textarea { min-height: 180px; width: 100%; }
+.sheet-dnd5e .eq-title { position: absolute; bottom: 5px; left: 0; }
+
+.sheet-dnd5e .text-box-container { padding: 10px; min-height: 150px; }
+.sheet-dnd5e .text-box-container textarea { min-height: 100px; width: 100%; }
+
+.sheet-dnd5e .portrait-box .box-title { position: absolute; bottom: 5px; background: rgba(244,236,216,0.8); }
+
+.sheet-dnd5e .personality-container { display: flex; flex-direction: column; gap: 10px; margin-bottom: 15px; }
+.sheet-dnd5e .trait-box { border-radius: 10px 10px 0 0; padding: 10px; min-height: 80px; }
+.sheet-dnd5e .trait-box textarea { min-height: 40px; width: 100%; }
+
+.sheet-dnd5e .features-box { padding: 10px; min-height: 330px; }
+.sheet-dnd5e .features-box textarea { min-height: 280px; width: 100%; }

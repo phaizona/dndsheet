@@ -1,0 +1,166 @@
+/* Pathfinder 2nd Edition — sheet-specific styles
+   Based on the standard 2-page landscape character sheet layout,
+   split here into 3 tabs: Character / Feats & Inventory / Spells. */
+
+.sheet-pathfinder2e { font-size: 11px; }
+
+/* ---------- header ---------- */
+.sheet-pathfinder2e .sheet-header { display: flex; gap: 14px; margin-bottom: 12px; flex-wrap: wrap; }
+.sheet-pathfinder2e .name-container { flex: 0 0 220px; border-bottom: 3px solid var(--border); padding-bottom: 5px; align-self: flex-end; }
+.sheet-pathfinder2e .char-name-input { width: 100%; font-size: 24px; color: var(--accent); }
+.sheet-pathfinder2e .name-container label { font-size: 10px; font-weight: 800; font-family: var(--font-heading); }
+
+.sheet-pathfinder2e .header-grid {
+  flex: 1; min-width: 300px;
+  border: 2px solid var(--border); border-radius: 8px; padding: 8px 10px;
+  background: rgba(255,255,255,0.3);
+  display: grid; grid-template-columns: repeat(6, 1fr); gap: 8px;
+}
+.sheet-pathfinder2e .info-cell { border-bottom: 1px solid var(--muted); display: flex; flex-direction: column; min-width: 0; }
+.sheet-pathfinder2e .info-cell .h-input { font-size: 13px; }
+.sheet-pathfinder2e .info-cell label { font-size: 7.5px; font-weight: 700; font-family: var(--font-heading); white-space: nowrap; }
+
+.sheet-pathfinder2e .header-side { flex: 0 0 auto; display: flex; gap: 8px; }
+.sheet-pathfinder2e .header-side .side-box {
+  border: 2px solid var(--border); border-radius: 8px; padding: 6px 10px;
+  background: rgba(255,255,255,0.4); display: flex; flex-direction: column; align-items: center; justify-content: center; min-width: 60px;
+}
+.sheet-pathfinder2e .header-side .side-box label { font-size: 8px; font-weight: 800; font-family: var(--font-heading); text-align: center; }
+.sheet-pathfinder2e .header-side .side-box input { width: 100%; text-align: center; font-size: 18px; }
+
+/* ---------- tabs ---------- */
+.sheet-pathfinder2e .sheet-tabs { margin-bottom: 10px; }
+
+/* ---------- TAB 1: character ---------- */
+.sheet-pathfinder2e .pf-body { display: flex; gap: 10px; align-items: flex-start; }
+.sheet-pathfinder2e .pf-left { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 8px; }
+.sheet-pathfinder2e .pf-skills-col { flex: 0 0 250px; min-width: 0; }
+
+.sheet-pathfinder2e .pf-stats-row { display: flex; gap: 8px; }
+.sheet-pathfinder2e .pf-col-a, .sheet-pathfinder2e .pf-col-b, .sheet-pathfinder2e .pf-col-c { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 6px; }
+
+.sheet-pathfinder2e .ability-box { padding: 5px 8px; display: flex; align-items: center; justify-content: space-between; }
+.sheet-pathfinder2e .ability-box label { font-size: 9px; font-weight: 800; font-family: var(--font-heading); }
+.sheet-pathfinder2e .ability-box .ab-score { width: 32px; text-align: center; font-size: 16px; }
+.sheet-pathfinder2e .ability-box .ab-mod { width: 28px; text-align: center; font-size: 13px; font-weight: 700; background: var(--parchment); border-radius: 50%; border: 1px solid var(--border); pointer-events: none; }
+
+.sheet-pathfinder2e .mini-box { padding: 5px 8px; }
+.sheet-pathfinder2e .mini-title { font-size: 8.5px; font-weight: 800; font-family: var(--font-heading); text-transform: uppercase; text-align: center; margin-bottom: 3px; }
+.sheet-pathfinder2e .calc-row { justify-content: center; gap: 4px; flex-wrap: wrap; }
+.sheet-pathfinder2e .calc-row input { width: 26px; text-align: center; font-size: 11px; border-bottom: 1px solid var(--muted); }
+.sheet-pathfinder2e .calc-row select.ability-select { font-size: 9px; width: 44px; }
+.sheet-pathfinder2e .calc-row .op { font-size: 11px; color: var(--muted); }
+.sheet-pathfinder2e .calc-total { width: 30px !important; height: 22px; border: 2px solid var(--border) !important; border-radius: 50%; background: var(--parchment); font-weight: 700; text-align: center; padding: 0; }
+
+.sheet-pathfinder2e .prof-row { display: flex; align-items: center; justify-content: space-between; gap: 4px; font-size: 9px; margin-top: 2px; }
+.sheet-pathfinder2e .speed-box { padding: 5px 8px; display: flex; align-items: center; gap: 6px; }
+.sheet-pathfinder2e .speed-box input.ft { width: 34px; text-align: center; font-size: 15px; border-bottom: 1px solid var(--muted); }
+.sheet-pathfinder2e .speed-box input.notes { flex: 1; border-bottom: 1px solid var(--muted); font-size: 10px; }
+
+.sheet-pathfinder2e .ac-row { display: flex; align-items: center; justify-content: center; gap: 4px; font-size: 12px; margin-bottom: 4px; }
+.sheet-pathfinder2e .ac-row .ac-total { width: 34px; height: 30px; font-size: 16px; text-align: center; padding: 0; }
+.sheet-pathfinder2e .armor-prof-list { display: flex; flex-direction: column; gap: 2px; margin-top: 4px; }
+.sheet-pathfinder2e .armor-prof-row { display: flex; align-items: center; justify-content: space-between; font-size: 8.5px; }
+
+.sheet-pathfinder2e .save-row { display: flex; align-items: center; gap: 4px; margin-bottom: 4px; }
+.sheet-pathfinder2e .save-row label { font-size: 9px; font-weight: 800; font-family: var(--font-heading); width: 34px; flex-shrink: 0; }
+
+.sheet-pathfinder2e .hp-row { display: flex; gap: 6px; }
+.sheet-pathfinder2e .hp-cell { flex: 1; display: flex; flex-direction: column; align-items: center; }
+.sheet-pathfinder2e .hp-cell label { font-size: 7.5px; font-weight: 700; font-family: var(--font-heading); }
+.sheet-pathfinder2e .hp-cell input { width: 100%; text-align: center; font-size: 14px; border-bottom: 1px solid var(--muted); }
+
+.sheet-pathfinder2e .perception-notes { width: 100%; border-bottom: 1px solid var(--muted); font-size: 9px; margin-top: 4px; }
+
+.sheet-pathfinder2e .pf-combat-row { display: flex; gap: 8px; }
+.sheet-pathfinder2e .strikes-box { flex: 1; padding: 6px 8px; min-width: 0; }
+.sheet-pathfinder2e .strike-entry { border-bottom: 1px dotted rgba(74,44,17,0.3); padding: 3px 0; margin-bottom: 3px; }
+.sheet-pathfinder2e .strike-entry:last-child { border-bottom: none; margin-bottom: 0; }
+.sheet-pathfinder2e .strike-line1 { display: flex; align-items: center; gap: 4px; }
+.sheet-pathfinder2e .strike-line1 input.weapon-name { flex: 1; border-bottom: 1px solid var(--muted); font-size: 11px; min-width: 0; }
+.sheet-pathfinder2e .strike-line1 input.small { width: 30px; text-align: center; border-bottom: 1px solid var(--muted); font-size: 10px; }
+.sheet-pathfinder2e .strike-line2 { display: flex; gap: 4px; margin-top: 2px; }
+.sheet-pathfinder2e .strike-line2 input { flex: 1; border-bottom: 1px solid var(--muted); font-size: 9.5px; min-width: 0; }
+
+.sheet-pathfinder2e .pf-prof-row { display: flex; gap: 8px; }
+.sheet-pathfinder2e .weapon-prof-box { flex: 1; padding: 6px 8px; }
+.sheet-pathfinder2e .weapon-prof-line { display: flex; align-items: center; justify-content: space-between; margin-bottom: 3px; font-size: 9px; }
+.sheet-pathfinder2e .spellcasting-box { flex: 1; padding: 6px 8px; }
+
+.sheet-pathfinder2e .actions-box { padding: 6px 8px; }
+.sheet-pathfinder2e .action-row { display: grid; grid-template-columns: 1fr 90px 40px 1fr; gap: 6px; align-items: center; }
+.sheet-pathfinder2e .action-row input { border-bottom: 1px solid var(--muted); font-size: 10px; min-width: 0; }
+
+.sheet-pathfinder2e .skills-box { padding: 6px 8px; }
+.sheet-pathfinder2e .skill-entry { display: flex; align-items: center; gap: 3px; padding: 2px 0; border-bottom: 1px dotted rgba(74,44,17,0.2); }
+.sheet-pathfinder2e .skill-entry .sk-name { font-size: 9px; width: 66px; flex-shrink: 0; }
+.sheet-pathfinder2e .skill-entry input.skill-lore-name { width: 66px; flex-shrink: 0; border-bottom: 1px solid var(--muted); font-size: 9px; }
+.sheet-pathfinder2e .skill-entry .dot-rating.teml .dot { width: 12px; height: 12px; font-size: 6px; }
+.sheet-pathfinder2e .skill-entry input[data-role="item"] { width: 20px; }
+.sheet-pathfinder2e .skill-entry .calc-total { width: 26px !important; height: 20px; font-size: 10px; }
+.sheet-pathfinder2e .languages-box { padding: 6px 8px; min-height: 60px; margin-top: 8px; }
+.sheet-pathfinder2e .languages-box textarea { min-height: 40px; width: 100%; }
+
+/* ---------- TAB 2: feats & inventory ---------- */
+.sheet-pathfinder2e .pf-feats-grid { display: flex; gap: 10px; align-items: flex-start; }
+.sheet-pathfinder2e .feats-col { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 8px; }
+.sheet-pathfinder2e .feats-col-wide { flex: 1.3; }
+.sheet-pathfinder2e .feats-box { padding: 6px 8px; }
+.sheet-pathfinder2e .feat-row { display: flex; align-items: baseline; gap: 6px; border-bottom: 1px dotted rgba(74,44,17,0.25); padding: 2px 0; }
+.sheet-pathfinder2e .feat-row input.feat-name { flex: 1; font-size: 10.5px; min-width: 0; }
+.sheet-pathfinder2e .feat-row .feat-level { font-size: 8px; color: var(--muted); flex-shrink: 0; font-family: var(--font-heading); text-transform: uppercase; white-space: nowrap; }
+
+.sheet-pathfinder2e .inventory-box { padding: 6px 8px; }
+.sheet-pathfinder2e .item-row { display: flex; align-items: center; gap: 4px; }
+.sheet-pathfinder2e .item-row input.item-name { flex: 1; border-bottom: 1px solid var(--muted); font-size: 10px; min-width: 0; }
+.sheet-pathfinder2e .item-row input.item-bulk { width: 34px; border-bottom: 1px solid var(--muted); font-size: 10px; text-align: center; }
+
+.sheet-pathfinder2e .coin-row { display: flex; gap: 6px; margin-top: 8px; }
+.sheet-pathfinder2e .coin-slot { flex: 1; border: 2px solid var(--border); border-radius: 5px 5px 12px 12px; display: flex; flex-direction: column; align-items: center; padding: 3px; background: rgba(255,255,255,0.6); }
+.sheet-pathfinder2e .coin-slot span { font-size: 8px; font-weight: 800; font-family: var(--font-heading); }
+.sheet-pathfinder2e .coin-slot input { width: 100%; text-align: center; font-size: 12px; }
+
+.sheet-pathfinder2e .bulk-row { display: flex; gap: 6px; margin-top: 8px; font-size: 8.5px; }
+.sheet-pathfinder2e .bulk-cell { flex: 1; text-align: center; padding: 4px; }
+.sheet-pathfinder2e .bulk-cell input { width: 34px; text-align: center; font-size: 12px; border-bottom: 1px solid var(--muted); }
+
+.sheet-pathfinder2e .property-box { padding: 6px 8px; margin-top: 8px; min-height: 70px; }
+.sheet-pathfinder2e .property-box textarea { min-height: 50px; width: 100%; }
+
+/* ---------- TAB 3: spells ---------- */
+.sheet-pathfinder2e .pf-spells-grid { display: flex; gap: 10px; align-items: flex-start; }
+.sheet-pathfinder2e .spell-stats-col { flex: 0 0 220px; display: flex; flex-direction: column; gap: 8px; }
+.sheet-pathfinder2e .spell-list-col { flex: 1; min-width: 0; }
+
+.sheet-pathfinder2e .slots-box { padding: 6px 8px; }
+.sheet-pathfinder2e .slots-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 4px; }
+.sheet-pathfinder2e .slot-cell { display: flex; flex-direction: column; align-items: center; }
+.sheet-pathfinder2e .slot-cell label { font-size: 8px; font-weight: 700; }
+.sheet-pathfinder2e .slot-cell input { width: 100%; text-align: center; border-bottom: 1px solid var(--muted); font-size: 11px; }
+
+.sheet-pathfinder2e .traditions-box { padding: 6px 8px; }
+.sheet-pathfinder2e .tradition-row { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 4px; }
+.sheet-pathfinder2e .tradition-item { display: flex; align-items: center; gap: 3px; font-size: 9px; }
+
+.sheet-pathfinder2e .focus-box { padding: 6px 8px; display: flex; gap: 10px; justify-content: space-around; }
+.sheet-pathfinder2e .focus-cell { display: flex; flex-direction: column; align-items: center; }
+.sheet-pathfinder2e .focus-cell label { font-size: 8px; font-weight: 800; font-family: var(--font-heading); }
+.sheet-pathfinder2e .focus-cell input { width: 36px; text-align: center; font-size: 15px; }
+
+.sheet-pathfinder2e .spell-notes-box { padding: 6px 8px; min-height: 90px; }
+.sheet-pathfinder2e .spell-notes-box textarea { min-height: 60px; width: 100%; }
+
+.sheet-pathfinder2e .spells-box { padding: 6px 8px; }
+.sheet-pathfinder2e .spell-row { display: grid; grid-template-columns: 1fr 32px 44px 90px 1fr; gap: 6px; align-items: center; padding: 3px 0; border-bottom: 1px dotted rgba(74,44,17,0.2); }
+.sheet-pathfinder2e .spell-row input.spell-name { border-bottom: 1px solid var(--muted); font-size: 10.5px; min-width: 0; }
+.sheet-pathfinder2e .spell-row input.spell-level { border-bottom: 1px solid var(--muted); font-size: 10px; text-align: center; }
+.sheet-pathfinder2e .spell-row select.spell-actions { font-size: 8.5px; }
+.sheet-pathfinder2e .spell-row .vsm { display: flex; gap: 6px; font-size: 8px; align-items: center; }
+
+@media (max-width: 860px) {
+  .sheet-pathfinder2e .pf-body,
+  .sheet-pathfinder2e .pf-feats-grid,
+  .sheet-pathfinder2e .pf-spells-grid { flex-direction: column; }
+  .sheet-pathfinder2e .pf-skills-col,
+  .sheet-pathfinder2e .spell-stats-col { flex: 1 1 auto; }
+}

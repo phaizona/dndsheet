@@ -1,0 +1,122 @@
+/* Legend of the Five Rings — sheet-specific styles (landscape), based on the
+   official 2-page fillable sheet: Narrative Mode / Conflict Mode tabs. */
+.sheet-l5r { font-size: 11px; }
+.sheet-l5r .sheet-header { display: flex; gap: 16px; margin-bottom: 14px; }
+.sheet-l5r .header-left { flex: 0 0 24%; display: flex; align-items: flex-end; }
+.sheet-l5r .char-name-input { width: 100%; font-size: 25px; color: var(--accent); }
+.sheet-l5r .name-container { border-bottom: 3px solid var(--border); padding-bottom: 5px; width: 100%; }
+.sheet-l5r .name-container label { font-size: 11px; font-weight: 800; font-family: var(--font-heading); }
+.sheet-l5r .header-right { flex: 1; border: 2px solid var(--border); border-radius: 10px; padding: 8px 10px; background: rgba(255,255,255,0.3); }
+.sheet-l5r .info-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 8px; }
+.sheet-l5r .info-cell { border-bottom: 1px solid var(--muted); display: flex; flex-direction: column; }
+.sheet-l5r .info-cell .h-input { font-size: 12px; }
+.sheet-l5r .info-cell label { font-size: 7.5px; font-weight: 600; font-family: var(--font-heading); }
+
+.sheet-l5r .sheet-tabs { margin-bottom: 10px; }
+.sheet-l5r .l5r-columns { display: flex; gap: 10px; align-items: flex-start; }
+.sheet-l5r .l5r-col { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 8px; }
+.sheet-l5r .l5r-col-narrow { flex: 0 0 220px; }
+
+.sheet-l5r .mini-box { padding: 8px; }
+.sheet-l5r .mini-title { font-size: 9px; font-weight: 800; font-family: var(--font-heading); text-transform: uppercase; text-align: center; margin-bottom: 5px; }
+
+/* ---------- ring wheel (built from the official element icon artwork) ---------- */
+.sheet-l5r .ring-wheel-box { padding: 8px; display: flex; justify-content: center; }
+.sheet-l5r .ring-wheel {
+  position: relative; width: 210px; height: 220px;
+  background-image: url('../../assets/stancesicons.webp');
+  background-repeat: no-repeat; background-size: 210px 210px; background-position: 0 0;
+}
+.sheet-l5r .ring-wheel.decorative { width: 160px; height: 168px; background-size: 160px 160px; margin: 0 auto; }
+.sheet-l5r .ring-pip {
+  position: absolute; width: 26px; height: 26px; border-radius: 50%;
+  transform: translate(-50%, -50%);
+  background: var(--parchment); border: 2px solid #d8cdb0;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.35);
+  text-align: center; padding: 0; font-size: 12px; font-weight: 800; font-family: var(--font-body);
+  color: var(--accent);
+}
+.sheet-l5r .ring-pip.pip-earth { left: 26%; top: 27%; }
+.sheet-l5r .ring-pip.pip-air   { left: 74%; top: 27%; }
+.sheet-l5r .ring-pip.pip-water { left: 26%; top: 58%; }
+.sheet-l5r .ring-pip.pip-fire  { left: 74%; top: 58%; }
+.sheet-l5r .ring-pip.pip-void  { left: 50%; top: 79%; z-index: 2; }
+.sheet-l5r .ring-legend { display: flex; justify-content: space-between; font-size: 8px; color: var(--muted); margin-top: 4px; text-transform: uppercase; letter-spacing: 0.3px; }
+
+.sheet-l5r .derived-box .derived-row { display: flex; justify-content: space-between; align-items: center; padding: 3px 2px; border-bottom: 1px dashed var(--muted); }
+.sheet-l5r .derived-box .derived-row:last-child { border-bottom: none; }
+.sheet-l5r .derived-box .derived-row label { font-size: 9px; font-family: var(--font-heading); font-weight: 700; }
+.sheet-l5r .derived-box .derived-row .sub { display: block; font-size: 7px; color: var(--muted); font-weight: 400; }
+.sheet-l5r .derived-box .derived-row input { width: 36px; text-align: center; font-size: 14px; }
+
+.sheet-l5r .void-fatigue-row { display: flex; gap: 6px; }
+.sheet-l5r .void-fatigue-row .stat-cell { flex: 1; display: flex; flex-direction: column; align-items: center; }
+.sheet-l5r .void-fatigue-row .stat-cell label { font-size: 7.5px; font-weight: 700; font-family: var(--font-heading); text-align: center; }
+.sheet-l5r .void-fatigue-row .stat-cell input { width: 100%; text-align: center; border-bottom: 1px solid var(--muted); font-size: 13px; }
+
+.sheet-l5r .rank-box .rank-row { display: flex; align-items: center; justify-content: space-between; padding: 4px 0; }
+.sheet-l5r .rank-box .rank-row label { font-size: 10px; font-weight: 700; font-family: var(--font-heading); }
+
+.sheet-l5r .skills-columns { display: flex; gap: 3%; }
+.sheet-l5r .skills-box { flex: 1; padding: 8px 10px; min-width: 0; }
+.sheet-l5r .skill-group-head { display: flex; justify-content: space-between; align-items: baseline; margin: 8px 0 3px; }
+.sheet-l5r .skill-group-head:first-child { margin-top: 0; }
+.sheet-l5r .skill-group-title { font-size: 10px; font-weight: 800; font-family: var(--font-heading); text-transform: uppercase; opacity: .85; }
+.sheet-l5r .approach-ref { font-size: 7px; color: var(--muted); font-style: italic; }
+.sheet-l5r .skill-row { display: flex; align-items: center; gap: 5px; padding: 1px 0; }
+.sheet-l5r .skill-row .sk-name { flex: 1; font-size: 10px; }
+.sheet-l5r .skill-row input.skill-name { flex: 1; border-bottom: 1px solid var(--muted); font-size: 10px; min-width: 0; }
+.sheet-l5r .skill-row input.skill-rank { width: 26px; border: 1px solid var(--muted); border-radius: 4px; text-align: center; font-size: 10px; background: rgba(255,255,255,0.6); }
+
+.sheet-l5r .named-list .named-row { display: flex; align-items: center; gap: 6px; margin-bottom: 3px; }
+.sheet-l5r .named-list .named-row input { flex: 1; border-bottom: 1px solid var(--muted); font-size: 10px; }
+.sheet-l5r .hint { font-size: 8px; color: var(--muted); margin-bottom: 4px; line-height: 1.3; }
+
+.sheet-l5r .relationships-box .rel-row { display: flex; gap: 6px; margin-bottom: 2px; }
+.sheet-l5r .relationships-box .rel-row input { border-bottom: 1px solid var(--muted); font-size: 9.5px; min-width: 0; }
+.sheet-l5r .relationships-box .rel-row input.rel-name { flex: 1.4; }
+.sheet-l5r .relationships-box .rel-row input.rel-standing { flex: 1; }
+.sheet-l5r .relationships-box .rel-row input.rel-notes { flex: 2; }
+
+.sheet-l5r .exp-row { display: flex; gap: 8px; }
+.sheet-l5r .exp-cell { flex: 1; display: flex; flex-direction: column; align-items: center; }
+.sheet-l5r .exp-cell label { font-size: 8px; font-weight: 800; font-family: var(--font-heading); }
+.sheet-l5r .exp-cell input { width: 100%; text-align: center; font-size: 15px; border-bottom: 1px solid var(--muted); }
+
+.sheet-l5r .text-box-container { padding: 8px 10px; }
+.sheet-l5r .text-box-container textarea { min-height: 50px; width: 100%; }
+
+.sheet-l5r .portrait-box { max-width: 150px; max-height: 150px; }
+.sheet-l5r .portrait-box .box-title { position: absolute; bottom: 4px; font-size: 8px; background: rgba(244,236,216,0.8); }
+
+/* ---------- conflict mode ---------- */
+.sheet-l5r .stances-box { padding: 8px; }
+.sheet-l5r .stance-note { font-size: 8px; line-height: 1.35; margin-bottom: 3px; }
+.sheet-l5r .stance-note b { font-family: var(--font-heading); }
+
+.sheet-l5r .combat-skills-box .repeat-row, .sheet-l5r .advantages-box .repeat-row, .sheet-l5r .conditions-box .repeat-row {
+  display: flex; gap: 6px; margin-bottom: 2px;
+}
+.sheet-l5r .combat-skills-box input.cs-name { flex: 2; border-bottom: 1px solid var(--muted); font-size: 10px; }
+.sheet-l5r .combat-skills-box input.cs-rank { width: 30px; border-bottom: 1px solid var(--muted); font-size: 10px; text-align: center; }
+.sheet-l5r .advantages-box input, .sheet-l5r .conditions-box input { flex: 1; border-bottom: 1px solid var(--muted); font-size: 10px; }
+
+.sheet-l5r .table-box { padding: 8px; }
+.sheet-l5r .table-header-row { display: flex; gap: 4px; font-size: 7.5px; font-weight: 700; color: var(--muted); text-transform: uppercase; margin-bottom: 2px; }
+.sheet-l5r .table-header-row span { flex: 1; }
+.sheet-l5r .table-header-row span:first-child { flex: 1.8; }
+.sheet-l5r .table-box .repeat-row { display: flex; gap: 4px; margin-bottom: 2px; }
+.sheet-l5r .table-box .repeat-row input { flex: 1; border-bottom: 1px solid var(--muted); font-size: 9.5px; text-align: center; min-width: 0; }
+.sheet-l5r .table-box .repeat-row input:first-child { flex: 1.8; text-align: left; }
+
+.sheet-l5r .technique-types { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 6px; }
+.sheet-l5r .technique-types label { display: flex; align-items: center; gap: 3px; font-size: 8.5px; font-weight: 700; }
+
+.sheet-l5r .currency-row { display: flex; gap: 6px; margin-top: 6px; }
+.sheet-l5r .currency-cell { flex: 1; display: flex; flex-direction: column; align-items: center; padding: 4px; }
+.sheet-l5r .currency-cell label { font-size: 8px; font-weight: 800; font-family: var(--font-heading); }
+.sheet-l5r .currency-cell input { width: 100%; text-align: center; font-size: 12px; border-bottom: 1px solid var(--muted); }
+
+@media (max-width: 860px) {
+  .sheet-l5r .l5r-columns, .sheet-l5r .skills-columns { flex-direction: column; }
+}

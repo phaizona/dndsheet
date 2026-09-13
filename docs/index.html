@@ -1,278 +1,1776 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fantasy Interactive D&D Sheet</title>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;800&family=Macondo&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-    <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Phaizona's Character Sheet Forge</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;800&family=Macondo&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+<link rel="stylesheet" href="css/base.css">
+<link rel="stylesheet" href="css/sheets/dnd5e.css">
+<link rel="stylesheet" href="css/sheets/pathfinder2e.css">
+<link rel="stylesheet" href="css/sheets/swade.css">
+<link rel="stylesheet" href="css/sheets/fate.css">
+<link rel="stylesheet" href="css/sheets/mage20.css">
+<link rel="stylesheet" href="css/sheets/vtm5.css">
+<link rel="stylesheet" href="css/sheets/l5r.css">
 </head>
 <body>
 
-    <div class="controls no-print">
-        <button id="btn-png" class="export-btn">Download as PNG</button>
-        <button id="btn-pdf" class="export-btn">Download as PDF</button>
+<div class="app-shell">
+
+  <aside class="sheet-sidebar">
+    <div class="sidebar-brand">
+      <div class="brand-title">✦ The Sheet Forge</div>
+      <div class="brand-sub">Choose your system</div>
+    </div>
+    <nav class="sheet-nav" id="sheet-nav"><!-- populated by js/core/app.js --></nav>
+    <div class="sidebar-footer">Made by Phaizona</div>
+  </aside>
+
+  <div class="main-area">
+    <header class="topbar">
+      <div class="topbar-title">
+        <span class="t-name" id="topbar-name">—</span>
+        <span class="t-tag" id="topbar-tag">—</span>
+      </div>
+      <div class="topbar-actions no-print">
+        <button id="btn-export-png" class="export-btn">⬇ <span class="btn-label">Export PNG</span></button>
+        <button id="btn-export-pdf" class="export-btn">⬇ <span class="btn-label">Export PDF</span></button>
+      </div>
+    </header>
+
+    <div class="sheet-viewport" id="sheet-viewport"><!-- active sheet gets cloned in here --></div>
+  </div>
+
+</div>
+
+<!-- ============================================================
+     TEMPLATES — one per sheet system. Each root node must be
+     .sheet-container; app.js adds orient-* and sheet-<id> classes
+     automatically based on the registry in js/core/app.js.
+     ============================================================ -->
+
+<!-- ============== D&D 5TH EDITION ============== -->
+<template id="tpl-dnd5e">
+<div class="sheet-container">
+  <header class="sheet-header">
+    <div class="header-left">
+      <div class="name-container">
+        <input type="text" class="h-input char-name-input" placeholder="Character Name" data-field="name">
+        <label>CHARACTER NAME</label>
+      </div>
+    </div>
+    <div class="header-right">
+      <div class="info-grid">
+        <div class="info-cell"><input type="text" class="h-input" data-field="class-level"><label>CLASS &amp; LEVEL</label></div>
+        <div class="info-cell"><input type="text" class="h-input" data-field="background"><label>BACKGROUND</label></div>
+        <div class="info-cell"><input type="text" class="h-input" data-field="player"><label>PLAYER NAME</label></div>
+        <div class="info-cell"><input type="text" class="h-input" data-field="race"><label>RACE</label></div>
+        <div class="info-cell"><input type="text" class="h-input" data-field="alignment"><label>ALIGNMENT</label></div>
+        <div class="info-cell"><input type="text" class="h-input" data-field="xp"><label>EXPERIENCE POINTS</label></div>
+      </div>
+    </div>
+  </header>
+
+  <main class="sheet-body">
+    <div class="col col-1">
+      <div class="stats-and-skills">
+        <div class="stats-column">
+          <div class="stat-box"><label>STRENGTH</label><input type="text" class="stat-score" value="10" data-stat="str" data-field="str"><div class="stat-mod-bg"><input type="text" class="stat-mod" id="mod-str" value="+0" readonly></div></div>
+          <div class="stat-box"><label>DEXTERITY</label><input type="text" class="stat-score" value="10" data-stat="dex" data-field="dex"><div class="stat-mod-bg"><input type="text" class="stat-mod" id="mod-dex" value="+0" readonly></div></div>
+          <div class="stat-box"><label>CONSTITUTION</label><input type="text" class="stat-score" value="10" data-stat="con" data-field="con"><div class="stat-mod-bg"><input type="text" class="stat-mod" id="mod-con" value="+0" readonly></div></div>
+          <div class="stat-box"><label>INTELLIGENCE</label><input type="text" class="stat-score" value="10" data-stat="int" data-field="int"><div class="stat-mod-bg"><input type="text" class="stat-mod" id="mod-int" value="+0" readonly></div></div>
+          <div class="stat-box"><label>WISDOM</label><input type="text" class="stat-score" value="10" data-stat="wis" data-field="wis"><div class="stat-mod-bg"><input type="text" class="stat-mod" id="mod-wis" value="+0" readonly></div></div>
+          <div class="stat-box"><label>CHARISMA</label><input type="text" class="stat-score" value="10" data-stat="cha" data-field="cha"><div class="stat-mod-bg"><input type="text" class="stat-mod" id="mod-cha" value="+0" readonly></div></div>
+        </div>
+
+        <div class="skills-column">
+          <div class="small-box-row"><div class="bubble-border"><input type="text" class="circle-input" data-field="inspiration"></div><div class="label-border">INSPIRATION</div></div>
+          <div class="small-box-row"><div class="bubble-border"><input type="text" class="circle-input" data-field="prof-bonus"></div><div class="label-border">PROFICIENCY BONUS</div></div>
+
+          <div class="list-box">
+            <div class="list-item"><input type="checkbox" class="fantasy-checkbox"><input type="text" class="line-input"><span class="skill-name">Strength</span></div>
+            <div class="list-item"><input type="checkbox" class="fantasy-checkbox"><input type="text" class="line-input"><span class="skill-name">Dexterity</span></div>
+            <div class="list-item"><input type="checkbox" class="fantasy-checkbox"><input type="text" class="line-input"><span class="skill-name">Constitution</span></div>
+            <div class="list-item"><input type="checkbox" class="fantasy-checkbox"><input type="text" class="line-input"><span class="skill-name">Intelligence</span></div>
+            <div class="list-item"><input type="checkbox" class="fantasy-checkbox"><input type="text" class="line-input"><span class="skill-name">Wisdom</span></div>
+            <div class="list-item"><input type="checkbox" class="fantasy-checkbox"><input type="text" class="line-input"><span class="skill-name">Charisma</span></div>
+            <div class="box-title">SAVING THROWS</div>
+          </div>
+
+          <div class="list-box">
+            <div class="list-item"><input type="checkbox" class="fantasy-checkbox"><input type="text" class="line-input"><span class="skill-name">Acrobatics</span><span class="sub-stat">(Dex)</span></div>
+            <div class="list-item"><input type="checkbox" class="fantasy-checkbox"><input type="text" class="line-input"><span class="skill-name">Animal Handling</span><span class="sub-stat">(Wis)</span></div>
+            <div class="list-item"><input type="checkbox" class="fantasy-checkbox"><input type="text" class="line-input"><span class="skill-name">Arcana</span><span class="sub-stat">(Int)</span></div>
+            <div class="list-item"><input type="checkbox" class="fantasy-checkbox"><input type="text" class="line-input"><span class="skill-name">Athletics</span><span class="sub-stat">(Str)</span></div>
+            <div class="list-item"><input type="checkbox" class="fantasy-checkbox"><input type="text" class="line-input"><span class="skill-name">Deception</span><span class="sub-stat">(Cha)</span></div>
+            <div class="list-item"><input type="checkbox" class="fantasy-checkbox"><input type="text" class="line-input"><span class="skill-name">History</span><span class="sub-stat">(Int)</span></div>
+            <div class="list-item"><input type="checkbox" class="fantasy-checkbox"><input type="text" class="line-input"><span class="skill-name">Insight</span><span class="sub-stat">(Wis)</span></div>
+            <div class="list-item"><input type="checkbox" class="fantasy-checkbox"><input type="text" class="line-input"><span class="skill-name">Intimidation</span><span class="sub-stat">(Cha)</span></div>
+            <div class="list-item"><input type="checkbox" class="fantasy-checkbox"><input type="text" class="line-input"><span class="skill-name">Investigation</span><span class="sub-stat">(Int)</span></div>
+            <div class="list-item"><input type="checkbox" class="fantasy-checkbox"><input type="text" class="line-input"><span class="skill-name">Medicine</span><span class="sub-stat">(Wis)</span></div>
+            <div class="list-item"><input type="checkbox" class="fantasy-checkbox"><input type="text" class="line-input"><span class="skill-name">Nature</span><span class="sub-stat">(Int)</span></div>
+            <div class="list-item"><input type="checkbox" class="fantasy-checkbox"><input type="text" class="line-input"><span class="skill-name">Perception</span><span class="sub-stat">(Wis)</span></div>
+            <div class="list-item"><input type="checkbox" class="fantasy-checkbox"><input type="text" class="line-input"><span class="skill-name">Performance</span><span class="sub-stat">(Cha)</span></div>
+            <div class="list-item"><input type="checkbox" class="fantasy-checkbox"><input type="text" class="line-input"><span class="skill-name">Persuasion</span><span class="sub-stat">(Cha)</span></div>
+            <div class="list-item"><input type="checkbox" class="fantasy-checkbox"><input type="text" class="line-input"><span class="skill-name">Religion</span><span class="sub-stat">(Int)</span></div>
+            <div class="list-item"><input type="checkbox" class="fantasy-checkbox"><input type="text" class="line-input"><span class="skill-name">Sleight of Hand</span><span class="sub-stat">(Dex)</span></div>
+            <div class="list-item"><input type="checkbox" class="fantasy-checkbox"><input type="text" class="line-input"><span class="skill-name">Stealth</span><span class="sub-stat">(Dex)</span></div>
+            <div class="list-item"><input type="checkbox" class="fantasy-checkbox"><input type="text" class="line-input"><span class="skill-name">Survival</span><span class="sub-stat">(Wis)</span></div>
+            <div class="box-title">SKILLS</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="small-box-row" style="margin-top:15px;"><div class="bubble-border"><input type="text" class="circle-input" data-field="passive-wis"></div><div class="label-border" style="width:100%;">PASSIVE WISDOM (PERCEPTION)</div></div>
+
+      <div class="text-box-container dynamic-box" style="margin-top:15px;">
+        <textarea class="auto-resize" data-field="proficiencies"></textarea>
+        <div class="box-title">OTHER PROFICIENCIES &amp; LANGUAGES</div>
+      </div>
     </div>
 
-    <div id="character-sheet" class="sheet-container">
-        
-        <header class="sheet-header">
-            <div class="header-left">
-                <div class="name-container">
-                    <input type="text" class="h-input char-name-input" placeholder="Character Name">
-                    <label>CHARACTER NAME</label>
-                </div>
-            </div>
-            <div class="header-right">
-                <div class="info-grid">
-                    <div class="info-cell">
-                        <input type="text" class="h-input">
-                        <label>CLASS & LEVEL</label>
-                    </div>
-                    <div class="info-cell">
-                        <input type="text" class="h-input">
-                        <label>BACKGROUND</label>
-                    </div>
-                    <div class="info-cell">
-                        <input type="text" class="h-input">
-                        <label>PLAYER NAME</label>
-                    </div>
-                    <div class="info-cell">
-                        <input type="text" class="h-input">
-                        <label>RACE</label>
-                    </div>
-                    <div class="info-cell">
-                        <input type="text" class="h-input">
-                        <label>ALIGNMENT</label>
-                    </div>
-                    <div class="info-cell">
-                        <input type="text" class="h-input">
-                        <label>EXPERIENCE POINTS</label>
-                    </div>
-                </div>
-            </div>
-        </header>
+    <div class="col col-2">
+      <div class="combat-stats">
+        <div class="combat-box shield"><input type="text" class="combat-input" data-field="ac"><label>ARMOR<br>CLASS</label></div>
+        <div class="combat-box rounded"><input type="text" class="combat-input" data-field="initiative"><label>INITIATIVE</label></div>
+        <div class="combat-box rounded"><input type="text" class="combat-input" data-field="speed"><label>SPEED</label></div>
+      </div>
 
-        <main class="sheet-body">
-            
-            <div class="col col-1">
-                <div class="stats-and-skills">
-                    
-                    <div class="stats-column">
-                        <div class="stat-box">
-                            <label>STRENGTH</label>
-                            <input type="text" class="stat-score" value="10" data-stat="str">
-                            <div class="stat-mod-bg"><input type="text" class="stat-mod" id="mod-str" value="+0" readonly></div>
-                        </div>
-                        <div class="stat-box">
-                            <label>DEXTERITY</label>
-                            <input type="text" class="stat-score" value="10" data-stat="dex">
-                            <div class="stat-mod-bg"><input type="text" class="stat-mod" id="mod-dex" value="+0" readonly></div>
-                        </div>
-                        <div class="stat-box">
-                            <label>CONSTITUTION</label>
-                            <input type="text" class="stat-score" value="10" data-stat="con">
-                            <div class="stat-mod-bg"><input type="text" class="stat-mod" id="mod-con" value="+0" readonly></div>
-                        </div>
-                        <div class="stat-box">
-                            <label>INTELLIGENCE</label>
-                            <input type="text" class="stat-score" value="10" data-stat="int">
-                            <div class="stat-mod-bg"><input type="text" class="stat-mod" id="mod-int" value="+0" readonly></div>
-                        </div>
-                        <div class="stat-box">
-                            <label>WISDOM</label>
-                            <input type="text" class="stat-score" value="10" data-stat="wis">
-                            <div class="stat-mod-bg"><input type="text" class="stat-mod" id="mod-wis" value="+0" readonly></div>
-                        </div>
-                        <div class="stat-box">
-                            <label>CHARISMA</label>
-                            <input type="text" class="stat-score" value="10" data-stat="cha">
-                            <div class="stat-mod-bg"><input type="text" class="stat-mod" id="mod-cha" value="+0" readonly></div>
-                        </div>
-                    </div>
+      <div class="hp-container">
+        <div class="hp-box dynamic-box">
+          <div class="hp-header"><span class="muted">Hit Point Maximum</span><input type="text" class="line-input" style="width:60%;" data-field="hp-max"></div>
+          <textarea class="huge-text auto-resize" data-field="hp-current"></textarea>
+          <div class="box-title">CURRENT HIT POINTS</div>
+        </div>
+        <div class="hp-box dynamic-box">
+          <textarea class="huge-text auto-resize" data-field="hp-temp"></textarea>
+          <div class="box-title">TEMPORARY HIT POINTS</div>
+        </div>
+      </div>
 
-                    <div class="skills-column">
-                        <div class="small-box-row">
-                            <div class="bubble-border"><input type="text" class="circle-input"></div>
-                            <div class="label-border">INSPIRATION</div>
-                        </div>
-                        <div class="small-box-row">
-                            <div class="bubble-border"><input type="text" class="circle-input"></div>
-                            <div class="label-border">PROFICIENCY BONUS</div>
-                        </div>
+      <div class="combat-stats">
+        <div class="combat-box hit-dice">
+          <div class="hp-header"><span class="muted">Total</span><input type="text" class="line-input" style="width:60%;" data-field="hd-total"></div>
+          <input type="text" class="huge-text" style="text-align:center;margin-top:-5px;" data-field="hd-current">
+          <div class="box-title" style="margin-top:-10px;">HIT DICE</div>
+        </div>
+        <div class="combat-box death-saves">
+          <div class="ds-row"><span>SUCCESSES</span><div class="bubbles"><input type="checkbox" class="bubble-checkbox"><input type="checkbox" class="bubble-checkbox"><input type="checkbox" class="bubble-checkbox"></div></div>
+          <div class="ds-row"><span>FAILURES</span><div class="bubbles"><input type="checkbox" class="bubble-checkbox"><input type="checkbox" class="bubble-checkbox"><input type="checkbox" class="bubble-checkbox"></div></div>
+          <div class="box-title" style="margin-top:5px;">DEATH SAVES</div>
+        </div>
+      </div>
 
-                        <div class="list-box">
-                            <div class="list-item"><input type="checkbox" class="fantasy-checkbox"><input type="text" class="line-input"><span class="skill-name">Strength</span></div>
-                            <div class="list-item"><input type="checkbox" class="fantasy-checkbox"><input type="text" class="line-input"><span class="skill-name">Dexterity</span></div>
-                            <div class="list-item"><input type="checkbox" class="fantasy-checkbox"><input type="text" class="line-input"><span class="skill-name">Constitution</span></div>
-                            <div class="list-item"><input type="checkbox" class="fantasy-checkbox"><input type="text" class="line-input"><span class="skill-name">Intelligence</span></div>
-                            <div class="list-item"><input type="checkbox" class="fantasy-checkbox"><input type="text" class="line-input"><span class="skill-name">Wisdom</span></div>
-                            <div class="list-item"><input type="checkbox" class="fantasy-checkbox"><input type="text" class="line-input"><span class="skill-name">Charisma</span></div>
-                            <div class="box-title">SAVING THROWS</div>
-                        </div>
+      <div class="attacks-box dynamic-box">
+        <table class="attack-table">
+          <thead><tr><th>NAME</th><th>ATK BONUS</th><th>DAMAGE/TYPE</th></tr></thead>
+          <tbody>
+            <tr><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td></tr>
+            <tr><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td></tr>
+            <tr><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td></tr>
+          </tbody>
+        </table>
+        <textarea class="auto-resize" data-field="spellcasting"></textarea>
+        <div class="box-title">ATTACKS &amp; SPELLCASTING</div>
+      </div>
 
-                        <div class="list-box">
-                            <div class="list-item"><input type="checkbox" class="fantasy-checkbox"><input type="text" class="line-input"><span class="skill-name">Acrobatics</span><span class="sub-stat">(Dex)</span></div>
-                            <div class="list-item"><input type="checkbox" class="fantasy-checkbox"><input type="text" class="line-input"><span class="skill-name">Animal Handling</span><span class="sub-stat">(Wis)</span></div>
-                            <div class="list-item"><input type="checkbox" class="fantasy-checkbox"><input type="text" class="line-input"><span class="skill-name">Arcana</span><span class="sub-stat">(Int)</span></div>
-                            <div class="list-item"><input type="checkbox" class="fantasy-checkbox"><input type="text" class="line-input"><span class="skill-name">Athletics</span><span class="sub-stat">(Str)</span></div>
-                            <div class="list-item"><input type="checkbox" class="fantasy-checkbox"><input type="text" class="line-input"><span class="skill-name">Deception</span><span class="sub-stat">(Cha)</span></div>
-                            <div class="list-item"><input type="checkbox" class="fantasy-checkbox"><input type="text" class="line-input"><span class="skill-name">History</span><span class="sub-stat">(Int)</span></div>
-                            <div class="list-item"><input type="checkbox" class="fantasy-checkbox"><input type="text" class="line-input"><span class="skill-name">Insight</span><span class="sub-stat">(Wis)</span></div>
-                            <div class="list-item"><input type="checkbox" class="fantasy-checkbox"><input type="text" class="line-input"><span class="skill-name">Intimidation</span><span class="sub-stat">(Cha)</span></div>
-                            <div class="list-item"><input type="checkbox" class="fantasy-checkbox"><input type="text" class="line-input"><span class="skill-name">Investigation</span><span class="sub-stat">(Int)</span></div>
-                            <div class="list-item"><input type="checkbox" class="fantasy-checkbox"><input type="text" class="line-input"><span class="skill-name">Medicine</span><span class="sub-stat">(Wis)</span></div>
-                            <div class="list-item"><input type="checkbox" class="fantasy-checkbox"><input type="text" class="line-input"><span class="skill-name">Nature</span><span class="sub-stat">(Int)</span></div>
-                            <div class="list-item"><input type="checkbox" class="fantasy-checkbox"><input type="text" class="line-input"><span class="skill-name">Perception</span><span class="sub-stat">(Wis)</span></div>
-                            <div class="list-item"><input type="checkbox" class="fantasy-checkbox"><input type="text" class="line-input"><span class="skill-name">Performance</span><span class="sub-stat">(Cha)</span></div>
-                            <div class="list-item"><input type="checkbox" class="fantasy-checkbox"><input type="text" class="line-input"><span class="skill-name">Persuasion</span><span class="sub-stat">(Cha)</span></div>
-                            <div class="list-item"><input type="checkbox" class="fantasy-checkbox"><input type="text" class="line-input"><span class="skill-name">Religion</span><span class="sub-stat">(Int)</span></div>
-                            <div class="list-item"><input type="checkbox" class="fantasy-checkbox"><input type="text" class="line-input"><span class="skill-name">Sleight of Hand</span><span class="sub-stat">(Dex)</span></div>
-                            <div class="list-item"><input type="checkbox" class="fantasy-checkbox"><input type="text" class="line-input"><span class="skill-name">Stealth</span><span class="sub-stat">(Dex)</span></div>
-                            <div class="list-item"><input type="checkbox" class="fantasy-checkbox"><input type="text" class="line-input"><span class="skill-name">Survival</span><span class="sub-stat">(Wis)</span></div>
-                            <div class="box-title">SKILLS</div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="small-box-row" style="margin-top: 15px;">
-                    <div class="bubble-border"><input type="text" class="circle-input"></div>
-                    <div class="label-border" style="width: 100%;">PASSIVE WISDOM (PERCEPTION)</div>
-                </div>
-
-                <div class="text-box-container dynamic-box" style="margin-top: 15px;">
-                    <textarea class="auto-resize"></textarea>
-                    <div class="box-title">OTHER PROFICIENCIES & LANGUAGES</div>
-                </div>
-            </div>
-
-            <div class="col col-2">
-                <div class="combat-stats">
-                    <div class="combat-box shield">
-                        <input type="text" class="combat-input">
-                        <label>ARMOR<br>
-                            CLASS</label>
-                    </div>
-                    <div class="combat-box rounded">
-                        <input type="text" class="combat-input">
-                        <label>INITIATIVE</label>
-                    </div>
-                    <div class="combat-box rounded">
-                        <input type="text" class="combat-input">
-                        <label>SPEED</label>
-                    </div>
-                </div>
-
-                <div class="hp-container">
-                    <div class="hp-box dynamic-box">
-                        <div class="hp-header">
-                            <span class="muted">Hit Point Maximum</span>
-                            <input type="text" class="line-input" style="width: 60%;">
-                        </div>
-                        <textarea class="huge-text auto-resize"></textarea>
-                        <div class="box-title">CURRENT HIT POINTS</div>
-                    </div>
-                    <div class="hp-box dynamic-box">
-                        <textarea class="huge-text auto-resize"></textarea>
-                        <div class="box-title">TEMPORARY HIT POINTS</div>
-                    </div>
-                </div>
-
-                <div class="combat-stats">
-                    <div class="combat-box hit-dice">
-                        <div class="hp-header">
-                            <span class="muted">Total</span>
-                            <input type="text" class="line-input" style="width: 60%;">
-                        </div>
-                        <input type="text" class="huge-text" style="text-align: center; margin-top: -5px;">
-                        <div class="box-title" style="margin-top: -10px;">HIT DICE</div>
-                    </div>
-                    <div class="combat-box death-saves">
-                        <div class="ds-row">
-                            <span>SUCCESSES</span>
-                            <div class="bubbles"><input type="checkbox" class="bubble-checkbox"><input type="checkbox" class="bubble-checkbox"><input type="checkbox" class="bubble-checkbox"></div>
-                        </div>
-                        <div class="ds-row">
-                            <span>FAILURES</span>
-                            <div class="bubbles"><input type="checkbox" class="bubble-checkbox"><input type="checkbox" class="bubble-checkbox"><input type="checkbox" class="bubble-checkbox"></div>
-                        </div>
-                        <div class="box-title" style="margin-top: 5px;">DEATH SAVES</div>
-                    </div>
-                </div>
-
-                <div class="attacks-box dynamic-box">
-                    <table class="attack-table">
-                        <thead>
-                            <tr>
-                                <th>NAME</th>
-                                <th>ATK BONUS</th>
-                                <th>DAMAGE/TYPE</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td></tr>
-                            <tr><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td></tr>
-                            <tr><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td></tr>
-                        </tbody>
-                    </table>
-                    <textarea class="auto-resize"></textarea>
-                    <div class="box-title">ATTACKS & SPELLCASTING</div>
-                </div>
-
-                <div class="equipment-box dynamic-box">
-                    <div class="money-col">
-                        <div class="money-slot"><span>CP</span><input type="text"></div>
-                        <div class="money-slot"><span>SP</span><input type="text"></div>
-                        <div class="money-slot"><span>EP</span><input type="text"></div>
-                        <div class="money-slot"><span>GP</span><input type="text"></div>
-                        <div class="money-slot"><span>PP</span><input type="text"></div>
-                    </div>
-                    <div class="eq-textarea-wrapper">
-                        <textarea class="auto-resize"></textarea>
-                    </div>
-                    <div class="box-title eq-title">EQUIPMENT</div>
-                </div>
-            </div>
-
-            <div class="col col-3">
-                <div class="portrait-box" id="portrait-dropzone">
-                    <input type="file" id="portrait-upload" accept="image/*" class="no-print">
-                    <div class="portrait-overlay no-print">Click or Drag Image Here</div>
-                    <div class="box-title" style="position: absolute; bottom: 5px; background: rgba(244, 236, 216, 0.8);">CHARACTER PORTRAIT</div>
-                </div>
-
-                <div class="personality-container">
-                    <div class="trait-box dynamic-box">
-                        <textarea class="auto-resize"></textarea>
-                        <div class="box-title">PERSONALITY TRAITS</div>
-                    </div>
-                    <div class="trait-box dynamic-box">
-                        <textarea class="auto-resize"></textarea>
-                        <div class="box-title">IDEALS</div>
-                    </div>
-                    <div class="trait-box dynamic-box">
-                        <textarea class="auto-resize"></textarea>
-                        <div class="box-title">BONDS</div>
-                    </div>
-                    <div class="trait-box dynamic-box">
-                        <textarea class="auto-resize"></textarea>
-                        <div class="box-title">FLAWS</div>
-                    </div>
-                </div>
-
-                <div class="features-box dynamic-box">
-                    <textarea class="auto-resize"></textarea>
-                    <div class="box-title">FEATURES & TRAITS</div>
-                </div>
-            </div>
-
-        </main>
-
-        <div class="credits">Template made by Phaizona</div>
+      <div class="equipment-box dynamic-box">
+        <div class="money-col">
+          <div class="money-slot"><span>CP</span><input type="text" data-field="cp"></div>
+          <div class="money-slot"><span>SP</span><input type="text" data-field="sp"></div>
+          <div class="money-slot"><span>EP</span><input type="text" data-field="ep"></div>
+          <div class="money-slot"><span>GP</span><input type="text" data-field="gp"></div>
+          <div class="money-slot"><span>PP</span><input type="text" data-field="pp"></div>
+        </div>
+        <div class="eq-textarea-wrapper"><textarea class="auto-resize" data-field="equipment"></textarea></div>
+        <div class="box-title eq-title">EQUIPMENT</div>
+      </div>
     </div>
 
-    <script src="script.js"></script>
+    <div class="col col-3">
+      <div class="portrait-box" id="portrait-dropzone">
+        <input type="file" accept="image/*" class="no-print">
+        <div class="portrait-overlay no-print">Click or Drag Image Here</div>
+        <div class="box-title">CHARACTER PORTRAIT</div>
+      </div>
+
+      <div class="personality-container">
+        <div class="trait-box dynamic-box"><textarea class="auto-resize" data-field="traits"></textarea><div class="box-title">PERSONALITY TRAITS</div></div>
+        <div class="trait-box dynamic-box"><textarea class="auto-resize" data-field="ideals"></textarea><div class="box-title">IDEALS</div></div>
+        <div class="trait-box dynamic-box"><textarea class="auto-resize" data-field="bonds"></textarea><div class="box-title">BONDS</div></div>
+        <div class="trait-box dynamic-box"><textarea class="auto-resize" data-field="flaws"></textarea><div class="box-title">FLAWS</div></div>
+      </div>
+
+      <div class="features-box dynamic-box"><textarea class="auto-resize" data-field="features"></textarea><div class="box-title">FEATURES &amp; TRAITS</div></div>
+    </div>
+  </main>
+</div>
+</template>
+
+<!-- ============== PATHFINDER 2ND EDITION ============== -->
+<template id="tpl-pathfinder2e">
+<div class="sheet-container">
+  <header class="sheet-header">
+    <div class="name-container">
+      <input type="text" class="h-input char-name-input" placeholder="Character Name" data-field="name">
+      <label>CHARACTER NAME</label>
+    </div>
+    <div class="header-grid">
+      <div class="info-cell"><input type="text" class="h-input" data-field="ancestry"><label>ANCESTRY &amp; HERITAGE</label></div>
+      <div class="info-cell"><input type="text" class="h-input" data-field="background"><label>BACKGROUND</label></div>
+      <div class="info-cell"><input type="text" class="h-input" data-field="class"><label>CLASS</label></div>
+      <div class="info-cell"><input type="text" class="h-input" data-field="player"><label>PLAYER</label></div>
+      <div class="info-cell"><input type="text" class="h-input" data-field="alignment"><label>ALIGNMENT</label></div>
+      <div class="info-cell"><input type="text" class="h-input" data-field="deity"><label>DEITY</label></div>
+      <div class="info-cell"><input type="text" class="h-input" data-field="size"><label>SIZE</label></div>
+      <div class="info-cell"><input type="text" class="h-input" data-field="traits"><label>TRAITS</label></div>
+    </div>
+    <div class="header-side">
+      <div class="side-box"><input type="text" data-field="hero-points"><label>HERO POINTS</label></div>
+      <div class="side-box"><input type="text" data-field="level"><label>LEVEL</label></div>
+      <div class="side-box"><input type="text" data-field="xp"><label>XP</label></div>
+      <div class="portrait-box card" style="width:60px;height:60px;margin:0;flex-shrink:0;">
+        <input type="file" accept="image/*" class="no-print">
+        <div class="portrait-overlay no-print" style="font-size:7px;">Portrait</div>
+      </div>
+    </div>
+  </header>
+
+  <nav class="sheet-tabs no-print">
+    <button type="button" class="tab-btn active" data-page="char">Character</button>
+    <button type="button" class="tab-btn" data-page="feats">Feats &amp; Inventory</button>
+    <button type="button" class="tab-btn" data-page="spells">Spells</button>
+  </nav>
+
+  <!-- ===== PAGE 1: CHARACTER ===== -->
+  <section class="sheet-page" data-page="char">
+    <div class="pf-body">
+      <div class="pf-left">
+        <div class="pf-stats-row">
+          <div class="pf-col-a">
+            <div class="ability-box card"><label>STR</label><input class="ab-score" data-stat="str" data-field="str" value="10"><input class="ab-mod" id="pf-mod-str" readonly></div>
+            <div class="ability-box card"><label>DEX</label><input class="ab-score" data-stat="dex" data-field="dex" value="10"><input class="ab-mod" id="pf-mod-dex" readonly></div>
+            <div class="ability-box card"><label>CON</label><input class="ab-score" data-stat="con" data-field="con" value="10"><input class="ab-mod" id="pf-mod-con" readonly></div>
+            <div class="ability-box card"><label>INT</label><input class="ab-score" data-stat="int" data-field="int" value="10"><input class="ab-mod" id="pf-mod-int" readonly></div>
+            <div class="ability-box card"><label>WIS</label><input class="ab-score" data-stat="wis" data-field="wis" value="10"><input class="ab-mod" id="pf-mod-wis" readonly></div>
+            <div class="ability-box card"><label>CHA</label><input class="ab-score" data-stat="cha" data-field="cha" value="10"><input class="ab-mod" id="pf-mod-cha" readonly></div>
+
+            <div class="mini-box card">
+              <div class="mini-title">Class DC</div>
+              <div class="calc-row" data-dc>
+                <select class="ability-select" data-field="classdc-ability"><option value="str">Str</option><option value="dex">Dex</option><option value="con">Con</option><option value="int">Int</option><option value="wis">Wis</option><option value="cha" selected>Cha</option></select>
+                <span class="op">=10+</span>
+                <input data-role="key" readonly><span class="op">+</span>
+                <input data-role="prof" readonly><span class="op">+</span>
+                <input data-role="item" data-field="classdc-item" placeholder="0">
+              </div>
+              <div style="display:flex;justify-content:center;align-items:center;gap:6px;margin-top:4px;">
+                <input data-role="total" class="calc-total" readonly>
+                <div class="dot-rating teml" data-field="classdc-rank"><span class="dot">T</span><span class="dot">E</span><span class="dot">M</span><span class="dot">L</span></div>
+              </div>
+            </div>
+
+            <div class="mini-box card speed-box">
+              <label style="font-family:var(--font-heading);font-size:9px;font-weight:800;">SPEED</label>
+              <input class="ft" data-field="speed" placeholder="ft">
+              <input class="notes" data-field="speed-notes" placeholder="movement notes">
+            </div>
+          </div>
+
+          <div class="pf-col-b">
+            <div class="mini-box card">
+              <div class="mini-title">Armor Class</div>
+              <div class="ac-row"><input class="calc-total ac-total" data-field="ac" placeholder="10"></div>
+              <div class="armor-prof-list">
+                <div class="armor-prof-row"><span>Unarmored</span><div class="dot-rating teml" data-field="prof-unarmored"><span class="dot">T</span><span class="dot">E</span><span class="dot">M</span><span class="dot">L</span></div></div>
+                <div class="armor-prof-row"><span>Light</span><div class="dot-rating teml" data-field="prof-light"><span class="dot">T</span><span class="dot">E</span><span class="dot">M</span><span class="dot">L</span></div></div>
+                <div class="armor-prof-row"><span>Medium</span><div class="dot-rating teml" data-field="prof-medium"><span class="dot">T</span><span class="dot">E</span><span class="dot">M</span><span class="dot">L</span></div></div>
+                <div class="armor-prof-row"><span>Heavy</span><div class="dot-rating teml" data-field="prof-heavy"><span class="dot">T</span><span class="dot">E</span><span class="dot">M</span><span class="dot">L</span></div></div>
+              </div>
+            </div>
+
+            <div class="mini-box card" data-autoname="pf-saves">
+              <div class="mini-title">Saving Throws</div>
+              <div class="save-row calc-row" data-ability="con"><label>FORT</label><input data-role="key" readonly><span class="op">+</span><input data-role="prof" readonly><span class="op">+</span><input data-role="item" placeholder="0"><input data-role="total" class="calc-total" readonly><div class="dot-rating teml"><span class="dot">T</span><span class="dot">E</span><span class="dot">M</span><span class="dot">L</span></div></div>
+              <div class="save-row calc-row" data-ability="dex"><label>REF</label><input data-role="key" readonly><span class="op">+</span><input data-role="prof" readonly><span class="op">+</span><input data-role="item" placeholder="0"><input data-role="total" class="calc-total" readonly><div class="dot-rating teml"><span class="dot">T</span><span class="dot">E</span><span class="dot">M</span><span class="dot">L</span></div></div>
+              <div class="save-row calc-row" data-ability="wis"><label>WILL</label><input data-role="key" readonly><span class="op">+</span><input data-role="prof" readonly><span class="op">+</span><input data-role="item" placeholder="0"><input data-role="total" class="calc-total" readonly><div class="dot-rating teml"><span class="dot">T</span><span class="dot">E</span><span class="dot">M</span><span class="dot">L</span></div></div>
+            </div>
+          </div>
+
+          <div class="pf-col-c">
+            <div class="mini-box card">
+              <div class="mini-title">Hit Points</div>
+              <div class="hp-row">
+                <div class="hp-cell"><label>MAX</label><input data-field="hp-max"></div>
+                <div class="hp-cell"><label>CURRENT</label><input data-field="hp-current"></div>
+                <div class="hp-cell"><label>TEMP</label><input data-field="hp-temp"></div>
+              </div>
+            </div>
+
+            <div class="mini-box card" data-autoname="pf-perception">
+              <div class="mini-title">Perception</div>
+              <div class="calc-row" data-ability="wis" style="justify-content:center;">
+                <input data-role="key" readonly><span class="op">+</span>
+                <input data-role="prof" readonly><span class="op">+</span>
+                <input data-role="item" placeholder="0">
+                <input data-role="total" class="calc-total" readonly>
+                <div class="dot-rating teml"><span class="dot">T</span><span class="dot">E</span><span class="dot">M</span><span class="dot">L</span></div>
+              </div>
+              <input class="perception-notes" data-field="senses" placeholder="Senses / notes">
+            </div>
+          </div>
+        </div>
+
+        <div class="pf-combat-row">
+          <div class="strikes-box card">
+            <div class="mini-title">Melee Strikes</div>
+            <div class="strike-entry"><div class="strike-line1"><input class="weapon-name" placeholder="Weapon" data-field="melee1-name"><input class="small" placeholder="Bonus" data-field="melee1-bonus"></div><div class="strike-line2"><input placeholder="Damage / type" data-field="melee1-dmg"><input placeholder="Traits" data-field="melee1-traits"></div></div>
+            <div class="strike-entry"><div class="strike-line1"><input class="weapon-name" placeholder="Weapon" data-field="melee2-name"><input class="small" placeholder="Bonus" data-field="melee2-bonus"></div><div class="strike-line2"><input placeholder="Damage / type" data-field="melee2-dmg"><input placeholder="Traits" data-field="melee2-traits"></div></div>
+          </div>
+          <div class="strikes-box card">
+            <div class="mini-title">Ranged Strikes</div>
+            <div class="strike-entry"><div class="strike-line1"><input class="weapon-name" placeholder="Weapon" data-field="ranged1-name"><input class="small" placeholder="Bonus" data-field="ranged1-bonus"></div><div class="strike-line2"><input placeholder="Damage / type" data-field="ranged1-dmg"><input placeholder="Traits" data-field="ranged1-traits"></div></div>
+            <div class="strike-entry"><div class="strike-line1"><input class="weapon-name" placeholder="Weapon" data-field="ranged2-name"><input class="small" placeholder="Bonus" data-field="ranged2-bonus"></div><div class="strike-line2"><input placeholder="Damage / type" data-field="ranged2-dmg"><input placeholder="Traits" data-field="ranged2-traits"></div></div>
+          </div>
+        </div>
+
+        <div class="pf-prof-row">
+          <div class="weapon-prof-box card" data-autoname="pf-wprof">
+            <div class="mini-title">Weapon Proficiencies</div>
+            <div class="weapon-prof-line"><span>Simple</span><div class="dot-rating teml"><span class="dot">T</span><span class="dot">E</span><span class="dot">M</span><span class="dot">L</span></div></div>
+            <div class="weapon-prof-line"><span>Martial</span><div class="dot-rating teml"><span class="dot">T</span><span class="dot">E</span><span class="dot">M</span><span class="dot">L</span></div></div>
+            <div class="weapon-prof-line"><input class="skill-lore-name" placeholder="Other" data-field="wprof-other1-name" style="width:60px;"><div class="dot-rating teml"><span class="dot">T</span><span class="dot">E</span><span class="dot">M</span><span class="dot">L</span></div></div>
+          </div>
+          <div class="spellcasting-box card">
+            <div class="mini-title">Spell Attack</div>
+            <div class="calc-row" style="justify-content:center;">
+              <select class="ability-select" data-field="spellatk-ability"><option value="str">Str</option><option value="dex">Dex</option><option value="con">Con</option><option value="int">Int</option><option value="wis">Wis</option><option value="cha" selected>Cha</option></select>
+              <input data-role="key" readonly><span class="op">+</span><input data-role="prof" readonly><span class="op">+</span><input data-role="item" data-field="spellatk-item" placeholder="0">
+              <input data-role="total" class="calc-total" readonly>
+              <div class="dot-rating teml" data-field="spellatk-rank"><span class="dot">T</span><span class="dot">E</span><span class="dot">M</span><span class="dot">L</span></div>
+            </div>
+          </div>
+          <div class="spellcasting-box card">
+            <div class="mini-title">Spell DC</div>
+            <div class="calc-row" data-dc style="justify-content:center;">
+              <select class="ability-select" data-field="spelldc-ability"><option value="str">Str</option><option value="dex">Dex</option><option value="con">Con</option><option value="int">Int</option><option value="wis">Wis</option><option value="cha" selected>Cha</option></select>
+              <span class="op">=10+</span>
+              <input data-role="key" readonly><span class="op">+</span><input data-role="prof" readonly><span class="op">+</span><input data-role="item" data-field="spelldc-item" placeholder="0">
+              <input data-role="total" class="calc-total" readonly>
+              <div class="dot-rating teml" data-field="spelldc-rank"><span class="dot">T</span><span class="dot">E</span><span class="dot">M</span><span class="dot">L</span></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="actions-box card repeat-list" data-autoname="pf-actions">
+          <div class="mini-title">Actions, Reactions &amp; Activities</div>
+          <div class="repeat-rows">
+            <div class="repeat-row action-row"><input placeholder="Name"><input placeholder="Traits"><input placeholder="Actions"><input placeholder="Description"></div>
+            <div class="repeat-row action-row"><input placeholder="Name"><input placeholder="Traits"><input placeholder="Actions"><input placeholder="Description"></div>
+            <div class="repeat-row action-row"><input placeholder="Name"><input placeholder="Traits"><input placeholder="Actions"><input placeholder="Description"></div>
+          </div>
+          <button type="button" class="add-row-btn no-print">+ Add Action</button>
+        </div>
+      </div>
+
+      <div class="pf-skills-col">
+        <div class="skills-box card" data-autoname="pf-skills">
+          <div class="mini-title">Skills</div>
+          <div class="skill-entry calc-row" data-ability="dex"><span class="sk-name">Acrobatics</span><div class="dot-rating teml"><span class="dot">T</span><span class="dot">E</span><span class="dot">M</span><span class="dot">L</span></div><input data-role="item" placeholder="0"><input data-role="total" class="calc-total" readonly></div>
+          <div class="skill-entry calc-row" data-ability="int"><span class="sk-name">Arcana</span><div class="dot-rating teml"><span class="dot">T</span><span class="dot">E</span><span class="dot">M</span><span class="dot">L</span></div><input data-role="item" placeholder="0"><input data-role="total" class="calc-total" readonly></div>
+          <div class="skill-entry calc-row" data-ability="str"><span class="sk-name">Athletics</span><div class="dot-rating teml"><span class="dot">T</span><span class="dot">E</span><span class="dot">M</span><span class="dot">L</span></div><input data-role="item" placeholder="0"><input data-role="total" class="calc-total" readonly></div>
+          <div class="skill-entry calc-row" data-ability="int"><span class="sk-name">Crafting</span><div class="dot-rating teml"><span class="dot">T</span><span class="dot">E</span><span class="dot">M</span><span class="dot">L</span></div><input data-role="item" placeholder="0"><input data-role="total" class="calc-total" readonly></div>
+          <div class="skill-entry calc-row" data-ability="cha"><span class="sk-name">Deception</span><div class="dot-rating teml"><span class="dot">T</span><span class="dot">E</span><span class="dot">M</span><span class="dot">L</span></div><input data-role="item" placeholder="0"><input data-role="total" class="calc-total" readonly></div>
+          <div class="skill-entry calc-row" data-ability="cha"><span class="sk-name">Diplomacy</span><div class="dot-rating teml"><span class="dot">T</span><span class="dot">E</span><span class="dot">M</span><span class="dot">L</span></div><input data-role="item" placeholder="0"><input data-role="total" class="calc-total" readonly></div>
+          <div class="skill-entry calc-row" data-ability="cha"><span class="sk-name">Intimidation</span><div class="dot-rating teml"><span class="dot">T</span><span class="dot">E</span><span class="dot">M</span><span class="dot">L</span></div><input data-role="item" placeholder="0"><input data-role="total" class="calc-total" readonly></div>
+          <div class="skill-entry calc-row" data-ability="int"><input class="skill-lore-name" placeholder="Lore"><div class="dot-rating teml"><span class="dot">T</span><span class="dot">E</span><span class="dot">M</span><span class="dot">L</span></div><input data-role="item" placeholder="0"><input data-role="total" class="calc-total" readonly></div>
+          <div class="skill-entry calc-row" data-ability="int"><input class="skill-lore-name" placeholder="Lore"><div class="dot-rating teml"><span class="dot">T</span><span class="dot">E</span><span class="dot">M</span><span class="dot">L</span></div><input data-role="item" placeholder="0"><input data-role="total" class="calc-total" readonly></div>
+          <div class="skill-entry calc-row" data-ability="wis"><span class="sk-name">Medicine</span><div class="dot-rating teml"><span class="dot">T</span><span class="dot">E</span><span class="dot">M</span><span class="dot">L</span></div><input data-role="item" placeholder="0"><input data-role="total" class="calc-total" readonly></div>
+          <div class="skill-entry calc-row" data-ability="wis"><span class="sk-name">Nature</span><div class="dot-rating teml"><span class="dot">T</span><span class="dot">E</span><span class="dot">M</span><span class="dot">L</span></div><input data-role="item" placeholder="0"><input data-role="total" class="calc-total" readonly></div>
+          <div class="skill-entry calc-row" data-ability="int"><span class="sk-name">Occultism</span><div class="dot-rating teml"><span class="dot">T</span><span class="dot">E</span><span class="dot">M</span><span class="dot">L</span></div><input data-role="item" placeholder="0"><input data-role="total" class="calc-total" readonly></div>
+          <div class="skill-entry calc-row" data-ability="cha"><span class="sk-name">Performance</span><div class="dot-rating teml"><span class="dot">T</span><span class="dot">E</span><span class="dot">M</span><span class="dot">L</span></div><input data-role="item" placeholder="0"><input data-role="total" class="calc-total" readonly></div>
+          <div class="skill-entry calc-row" data-ability="wis"><span class="sk-name">Religion</span><div class="dot-rating teml"><span class="dot">T</span><span class="dot">E</span><span class="dot">M</span><span class="dot">L</span></div><input data-role="item" placeholder="0"><input data-role="total" class="calc-total" readonly></div>
+          <div class="skill-entry calc-row" data-ability="int"><span class="sk-name">Society</span><div class="dot-rating teml"><span class="dot">T</span><span class="dot">E</span><span class="dot">M</span><span class="dot">L</span></div><input data-role="item" placeholder="0"><input data-role="total" class="calc-total" readonly></div>
+          <div class="skill-entry calc-row" data-ability="dex"><span class="sk-name">Stealth</span><div class="dot-rating teml"><span class="dot">T</span><span class="dot">E</span><span class="dot">M</span><span class="dot">L</span></div><input data-role="item" placeholder="0"><input data-role="total" class="calc-total" readonly></div>
+          <div class="skill-entry calc-row" data-ability="wis"><span class="sk-name">Survival</span><div class="dot-rating teml"><span class="dot">T</span><span class="dot">E</span><span class="dot">M</span><span class="dot">L</span></div><input data-role="item" placeholder="0"><input data-role="total" class="calc-total" readonly></div>
+          <div class="skill-entry calc-row" data-ability="dex"><span class="sk-name">Thievery</span><div class="dot-rating teml"><span class="dot">T</span><span class="dot">E</span><span class="dot">M</span><span class="dot">L</span></div><input data-role="item" placeholder="0"><input data-role="total" class="calc-total" readonly></div>
+        </div>
+        <div class="languages-box card dynamic-box"><textarea class="auto-resize" data-field="languages"></textarea><div class="box-title">LANGUAGES</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== PAGE 2: FEATS & INVENTORY ===== -->
+  <section class="sheet-page" data-page="feats" hidden>
+    <div class="pf-feats-grid">
+      <div class="feats-col">
+        <div class="feats-box card" data-autoname="pf-ancestry-feats">
+          <div class="mini-title">Ancestry Feats &amp; Abilities</div>
+          <div class="feat-row"><input class="feat-name"><span class="feat-level">Special 1st</span></div>
+          <div class="feat-row"><input class="feat-name"><span class="feat-level">Heritage 1st</span></div>
+          <div class="feat-row"><input class="feat-name"><span class="feat-level">Feat 1st</span></div>
+          <div class="feat-row"><input class="feat-name"><span class="feat-level">Feat 5th</span></div>
+          <div class="feat-row"><input class="feat-name"><span class="feat-level">Feat 9th</span></div>
+          <div class="feat-row"><input class="feat-name"><span class="feat-level">Feat 13th</span></div>
+          <div class="feat-row"><input class="feat-name"><span class="feat-level">Feat 17th</span></div>
+          <div class="feat-row"><input class="feat-name"><span class="feat-level">Bonus</span></div>
+        </div>
+        <div class="feats-box card" data-autoname="pf-skill-feats">
+          <div class="mini-title">Skill Feats</div>
+          <div class="feat-row"><input class="feat-name"><span class="feat-level">Background</span></div>
+          <div class="feat-row"><input class="feat-name"><span class="feat-level">2nd</span></div>
+          <div class="feat-row"><input class="feat-name"><span class="feat-level">4th</span></div>
+          <div class="feat-row"><input class="feat-name"><span class="feat-level">6th</span></div>
+          <div class="feat-row"><input class="feat-name"><span class="feat-level">8th</span></div>
+          <div class="feat-row"><input class="feat-name"><span class="feat-level">10th</span></div>
+          <div class="feat-row"><input class="feat-name"><span class="feat-level">12th</span></div>
+          <div class="feat-row"><input class="feat-name"><span class="feat-level">14th</span></div>
+          <div class="feat-row"><input class="feat-name"><span class="feat-level">16th</span></div>
+          <div class="feat-row"><input class="feat-name"><span class="feat-level">18th</span></div>
+          <div class="feat-row"><input class="feat-name"><span class="feat-level">20th</span></div>
+        </div>
+        <div class="feats-box card" data-autoname="pf-general-feats">
+          <div class="mini-title">General Feats</div>
+          <div class="feat-row"><input class="feat-name"><span class="feat-level">3rd</span></div>
+          <div class="feat-row"><input class="feat-name"><span class="feat-level">7th</span></div>
+          <div class="feat-row"><input class="feat-name"><span class="feat-level">11th</span></div>
+          <div class="feat-row"><input class="feat-name"><span class="feat-level">15th</span></div>
+          <div class="feat-row"><input class="feat-name"><span class="feat-level">19th</span></div>
+        </div>
+      </div>
+
+      <div class="feats-col feats-col-wide">
+        <div class="feats-box card" data-autoname="pf-class-feats">
+          <div class="mini-title">Class Feats &amp; Abilities</div>
+          <div class="feat-row"><input class="feat-name"><span class="feat-level">Feature 1st</span></div>
+          <div class="feat-row"><input class="feat-name"><span class="feat-level">Feat 1st</span></div>
+          <div class="feat-row"><input class="feat-name"><span class="feat-level">Feat 2nd</span></div>
+          <div class="feat-row"><input class="feat-name"><span class="feat-level">Feature 3rd</span></div>
+          <div class="feat-row"><input class="feat-name"><span class="feat-level">Feat 4th</span></div>
+          <div class="feat-row"><input class="feat-name"><span class="feat-level">Feature 5th</span></div>
+          <div class="feat-row"><input class="feat-name"><span class="feat-level">Feat 6th</span></div>
+          <div class="feat-row"><input class="feat-name"><span class="feat-level">Feature 7th</span></div>
+          <div class="feat-row"><input class="feat-name"><span class="feat-level">Feat 8th</span></div>
+          <div class="feat-row"><input class="feat-name"><span class="feat-level">Feature 9th</span></div>
+          <div class="feat-row"><input class="feat-name"><span class="feat-level">Feat 10th</span></div>
+          <div class="feat-row"><input class="feat-name"><span class="feat-level">Feature 11th</span></div>
+          <div class="feat-row"><input class="feat-name"><span class="feat-level">Feat 12th</span></div>
+          <div class="feat-row"><input class="feat-name"><span class="feat-level">Feature 13th</span></div>
+          <div class="feat-row"><input class="feat-name"><span class="feat-level">Feat 14th</span></div>
+          <div class="feat-row"><input class="feat-name"><span class="feat-level">Feature 15th</span></div>
+          <div class="feat-row"><input class="feat-name"><span class="feat-level">Feat 16th</span></div>
+          <div class="feat-row"><input class="feat-name"><span class="feat-level">Feature 17th</span></div>
+          <div class="feat-row"><input class="feat-name"><span class="feat-level">Feat 18th</span></div>
+          <div class="feat-row"><input class="feat-name"><span class="feat-level">Feature 19th</span></div>
+          <div class="feat-row"><input class="feat-name"><span class="feat-level">Feat 20th</span></div>
+        </div>
+        <div class="feats-box card repeat-list" data-autoname="pf-bonus-feats">
+          <div class="mini-title">Bonus Feats</div>
+          <div class="repeat-rows">
+            <div class="repeat-row"><input class="feat-name" style="flex:1;"></div>
+            <div class="repeat-row"><input class="feat-name" style="flex:1;"></div>
+          </div>
+          <button type="button" class="add-row-btn no-print">+ Add</button>
+        </div>
+      </div>
+
+      <div class="feats-col">
+        <div class="inventory-box card repeat-list" data-autoname="pf-worn-items">
+          <div class="mini-title">Worn Items</div>
+          <div class="repeat-rows">
+            <div class="repeat-row item-row"><input class="item-name" placeholder="Item"><input class="item-bulk" placeholder="Bulk"><button type="button" class="remove-row-btn no-print">×</button></div>
+            <div class="repeat-row item-row"><input class="item-name" placeholder="Item"><input class="item-bulk" placeholder="Bulk"><button type="button" class="remove-row-btn no-print">×</button></div>
+          </div>
+          <button type="button" class="add-row-btn no-print">+ Add Item</button>
+        </div>
+        <div class="inventory-box card repeat-list" data-autoname="pf-readied-items">
+          <div class="mini-title">Readied Items</div>
+          <div class="repeat-rows">
+            <div class="repeat-row item-row"><input class="item-name" placeholder="Item"><input class="item-bulk" placeholder="Bulk"><button type="button" class="remove-row-btn no-print">×</button></div>
+          </div>
+          <button type="button" class="add-row-btn no-print">+ Add Item</button>
+        </div>
+        <div class="inventory-box card repeat-list" data-autoname="pf-other-items">
+          <div class="mini-title">Other Items</div>
+          <div class="repeat-rows">
+            <div class="repeat-row item-row"><input class="item-name" placeholder="Item"><input class="item-bulk" placeholder="Bulk"><button type="button" class="remove-row-btn no-print">×</button></div>
+          </div>
+          <button type="button" class="add-row-btn no-print">+ Add Item</button>
+        </div>
+
+        <div class="coin-row">
+          <div class="coin-slot"><span>CP</span><input data-field="cp"></div>
+          <div class="coin-slot"><span>SP</span><input data-field="sp"></div>
+          <div class="coin-slot"><span>GP</span><input data-field="gp"></div>
+          <div class="coin-slot"><span>PP</span><input data-field="pp"></div>
+        </div>
+        <div class="bulk-row">
+          <div class="bulk-cell">ENCUMBERED<br><input data-field="encumbered"></div>
+          <div class="bulk-cell">MAXIMUM<br><input data-field="max-bulk"></div>
+          <div class="bulk-cell">CURRENT<br><input data-field="cur-bulk"></div>
+        </div>
+        <div class="property-box card dynamic-box"><textarea class="auto-resize" data-field="property"></textarea><div class="box-title">PROPERTY, ESTATES &amp; LANDS</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== PAGE 3: SPELLS ===== -->
+  <section class="sheet-page" data-page="spells" hidden>
+    <div class="pf-spells-grid">
+      <div class="spell-stats-col">
+        <div class="slots-box card">
+          <div class="mini-title">Spell Slots Per Day</div>
+          <div class="slots-grid">
+            <div class="slot-cell"><label>1</label><input data-field="slot-1"></div>
+            <div class="slot-cell"><label>2</label><input data-field="slot-2"></div>
+            <div class="slot-cell"><label>3</label><input data-field="slot-3"></div>
+            <div class="slot-cell"><label>4</label><input data-field="slot-4"></div>
+            <div class="slot-cell"><label>5</label><input data-field="slot-5"></div>
+            <div class="slot-cell"><label>6</label><input data-field="slot-6"></div>
+            <div class="slot-cell"><label>7</label><input data-field="slot-7"></div>
+            <div class="slot-cell"><label>8</label><input data-field="slot-8"></div>
+            <div class="slot-cell"><label>9</label><input data-field="slot-9"></div>
+            <div class="slot-cell"><label>10</label><input data-field="slot-10"></div>
+          </div>
+        </div>
+
+        <div class="traditions-box card">
+          <div class="mini-title">Magic Tradition</div>
+          <div class="tradition-row">
+            <label class="tradition-item"><input type="checkbox" class="fantasy-checkbox">Arcane</label>
+            <label class="tradition-item"><input type="checkbox" class="fantasy-checkbox">Occult</label>
+            <label class="tradition-item"><input type="checkbox" class="fantasy-checkbox">Primal</label>
+            <label class="tradition-item"><input type="checkbox" class="fantasy-checkbox">Divine</label>
+          </div>
+          <div class="tradition-row">
+            <label class="tradition-item"><input type="checkbox" class="fantasy-checkbox">Prepared</label>
+            <label class="tradition-item"><input type="checkbox" class="fantasy-checkbox">Spontaneous</label>
+          </div>
+        </div>
+
+        <div class="focus-box card">
+          <div class="focus-cell"><label>CANTRIP LVL</label><input data-field="cantrip-lvl"></div>
+          <div class="focus-cell"><label>FOCUS CUR.</label><input data-field="focus-current"></div>
+          <div class="focus-cell"><label>FOCUS MAX</label><input data-field="focus-max"></div>
+        </div>
+
+        <div class="spell-notes-box card dynamic-box"><textarea class="auto-resize" data-field="spell-notes"></textarea><div class="box-title">NOTES</div></div>
+      </div>
+
+      <div class="spell-list-col">
+        <div class="spells-box card repeat-list" data-autoname="pf-spells">
+          <div class="mini-title">Spells</div>
+          <div class="repeat-rows">
+            <div class="repeat-row spell-row">
+              <input class="spell-name" placeholder="Spell name">
+              <input class="spell-level" placeholder="Lvl">
+              <label style="font-size:8px;display:flex;align-items:center;gap:2px;"><input type="checkbox" class="fantasy-checkbox">Prep</label>
+              <select class="spell-actions"><option>1 Action</option><option>2 Actions</option><option>3 Actions</option><option>Reaction</option><option>Free Action</option><option>Varies</option></select>
+              <span class="vsm"><label><input type="checkbox" class="fantasy-checkbox">V</label><label><input type="checkbox" class="fantasy-checkbox">S</label><label><input type="checkbox" class="fantasy-checkbox">M</label><button type="button" class="remove-row-btn no-print">×</button></span>
+            </div>
+            <div class="repeat-row spell-row">
+              <input class="spell-name" placeholder="Spell name">
+              <input class="spell-level" placeholder="Lvl">
+              <label style="font-size:8px;display:flex;align-items:center;gap:2px;"><input type="checkbox" class="fantasy-checkbox">Prep</label>
+              <select class="spell-actions"><option>1 Action</option><option>2 Actions</option><option>3 Actions</option><option>Reaction</option><option>Free Action</option><option>Varies</option></select>
+              <span class="vsm"><label><input type="checkbox" class="fantasy-checkbox">V</label><label><input type="checkbox" class="fantasy-checkbox">S</label><label><input type="checkbox" class="fantasy-checkbox">M</label><button type="button" class="remove-row-btn no-print">×</button></span>
+            </div>
+            <div class="repeat-row spell-row">
+              <input class="spell-name" placeholder="Spell name">
+              <input class="spell-level" placeholder="Lvl">
+              <label style="font-size:8px;display:flex;align-items:center;gap:2px;"><input type="checkbox" class="fantasy-checkbox">Prep</label>
+              <select class="spell-actions"><option>1 Action</option><option>2 Actions</option><option>3 Actions</option><option>Reaction</option><option>Free Action</option><option>Varies</option></select>
+              <span class="vsm"><label><input type="checkbox" class="fantasy-checkbox">V</label><label><input type="checkbox" class="fantasy-checkbox">S</label><label><input type="checkbox" class="fantasy-checkbox">M</label><button type="button" class="remove-row-btn no-print">×</button></span>
+            </div>
+            <div class="repeat-row spell-row">
+              <input class="spell-name" placeholder="Spell name">
+              <input class="spell-level" placeholder="Lvl">
+              <label style="font-size:8px;display:flex;align-items:center;gap:2px;"><input type="checkbox" class="fantasy-checkbox">Prep</label>
+              <select class="spell-actions"><option>1 Action</option><option>2 Actions</option><option>3 Actions</option><option>Reaction</option><option>Free Action</option><option>Varies</option></select>
+              <span class="vsm"><label><input type="checkbox" class="fantasy-checkbox">V</label><label><input type="checkbox" class="fantasy-checkbox">S</label><label><input type="checkbox" class="fantasy-checkbox">M</label><button type="button" class="remove-row-btn no-print">×</button></span>
+            </div>
+            <div class="repeat-row spell-row">
+              <input class="spell-name" placeholder="Spell name">
+              <input class="spell-level" placeholder="Lvl">
+              <label style="font-size:8px;display:flex;align-items:center;gap:2px;"><input type="checkbox" class="fantasy-checkbox">Prep</label>
+              <select class="spell-actions"><option>1 Action</option><option>2 Actions</option><option>3 Actions</option><option>Reaction</option><option>Free Action</option><option>Varies</option></select>
+              <span class="vsm"><label><input type="checkbox" class="fantasy-checkbox">V</label><label><input type="checkbox" class="fantasy-checkbox">S</label><label><input type="checkbox" class="fantasy-checkbox">M</label><button type="button" class="remove-row-btn no-print">×</button></span>
+            </div>
+            <div class="repeat-row spell-row">
+              <input class="spell-name" placeholder="Spell name">
+              <input class="spell-level" placeholder="Lvl">
+              <label style="font-size:8px;display:flex;align-items:center;gap:2px;"><input type="checkbox" class="fantasy-checkbox">Prep</label>
+              <select class="spell-actions"><option>1 Action</option><option>2 Actions</option><option>3 Actions</option><option>Reaction</option><option>Free Action</option><option>Varies</option></select>
+              <span class="vsm"><label><input type="checkbox" class="fantasy-checkbox">V</label><label><input type="checkbox" class="fantasy-checkbox">S</label><label><input type="checkbox" class="fantasy-checkbox">M</label><button type="button" class="remove-row-btn no-print">×</button></span>
+            </div>
+          </div>
+          <button type="button" class="add-row-btn no-print">+ Add Spell</button>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+</template>
+
+<!-- ============== SAVAGE WORLDS ADVENTURE EDITION ============== -->
+<template id="tpl-swade">
+<div class="sheet-container">
+  <header class="sheet-header">
+    <div class="header-left">
+      <div class="name-container">
+        <input type="text" class="h-input char-name-input" placeholder="Character Name" data-field="name">
+        <label>CHARACTER NAME</label>
+      </div>
+    </div>
+    <div class="header-right">
+      <div class="info-grid">
+        <div class="info-cell"><input type="text" class="h-input" data-field="concept"><label>CONCEPT</label></div>
+        <div class="info-cell"><input type="text" class="h-input" data-field="player"><label>PLAYER</label></div>
+        <div class="info-cell"><input type="text" class="h-input" data-field="rank"><label>RANK</label></div>
+        <div class="info-cell"><input type="text" class="h-input" data-field="xp"><label>XP</label></div>
+      </div>
+    </div>
+  </header>
+
+  <nav class="sheet-tabs no-print">
+    <button type="button" class="tab-btn active" data-page="char">Character</button>
+    <button type="button" class="tab-btn" data-page="gear">Gear &amp; Notes</button>
+  </nav>
+
+  <!-- ===== PAGE 1: CHARACTER ===== -->
+  <section class="sheet-page" data-page="char">
+    <div class="sw-body">
+      <div class="sw-col sw-col-narrow">
+        <div class="mini-box card">
+          <div class="mini-title">Attributes</div>
+          <div class="trait-row"><label>Agility</label><select class="die-select" data-field="agility"><option>d4</option><option>d6</option><option>d8</option><option>d10</option><option>d12</option></select></div>
+          <div class="trait-row"><label>Smarts</label><select class="die-select" data-field="smarts"><option>d4</option><option>d6</option><option>d8</option><option>d10</option><option>d12</option></select></div>
+          <div class="trait-row"><label>Spirit</label><select class="die-select" data-field="spirit"><option>d4</option><option>d6</option><option>d8</option><option>d10</option><option>d12</option></select></div>
+          <div class="trait-row"><label>Strength</label><select class="die-select" data-field="strength"><option>d4</option><option>d6</option><option>d8</option><option>d10</option><option>d12</option></select></div>
+          <div class="trait-row"><label>Vigor</label><select class="die-select" data-field="vigor"><option>d4</option><option>d6</option><option>d8</option><option>d10</option><option>d12</option></select></div>
+        </div>
+
+        <div class="mini-box card">
+          <div class="mini-title">Other Stats</div>
+          <div class="other-stats-row">
+            <div class="stat-cell"><label>PACE</label><input data-field="pace"></div>
+            <div class="stat-cell"><label>SIZE</label><input data-field="size"></div>
+            <div class="stat-cell"><label>BENNIES</label><input data-field="bennies"></div>
+          </div>
+        </div>
+
+        <div class="mini-box card track-box">
+          <div class="track-row"><span>Wounds</span><div class="track-boxes"><input type="checkbox" class="fantasy-checkbox"><input type="checkbox" class="fantasy-checkbox"><input type="checkbox" class="fantasy-checkbox"><input type="checkbox" class="fantasy-checkbox"></div></div>
+          <div class="track-row"><span>Fatigue</span><div class="track-boxes"><input type="checkbox" class="fantasy-checkbox"><input type="checkbox" class="fantasy-checkbox"></div></div>
+        </div>
+
+        <div class="portrait-box card"><input type="file" accept="image/*" class="no-print"><div class="portrait-overlay no-print">Portrait</div></div>
+
+        <div class="mini-box card">
+          <div class="mini-title">Ammo</div>
+          <div class="repeat-list" data-autoname="sw-ammo">
+            <div class="repeat-rows">
+              <div class="repeat-row ammo-row"><input class="ammo-type" placeholder="Type"><input class="ammo-count" placeholder="#"></div>
+              <div class="repeat-row ammo-row"><input class="ammo-type" placeholder="Type"><input class="ammo-count" placeholder="#"></div>
+            </div>
+            <button type="button" class="add-row-btn no-print">+ Add</button>
+          </div>
+        </div>
+
+        <div class="mini-box card">
+          <div class="mini-title">Power Points</div>
+          <div class="other-stats-row">
+            <div class="stat-cell"><label>CURRENT</label><input data-field="pp-current"></div>
+            <div class="stat-cell"><label>MAX</label><input data-field="pp-max"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="sw-col">
+        <div class="skills-box card" data-autoname="sw-skills">
+          <div class="mini-title">Skills</div>
+          <div class="skills-columns">
+            <div class="skill-row"><select class="die-select"><option>—</option><option>d4</option><option>d6</option><option>d8</option><option>d10</option><option>d12</option></select><span class="skill-name">Academics</span><span class="skill-attr">(Sma)</span></div>
+            <div class="skill-row"><select class="die-select"><option>—</option><option>d4</option><option>d6</option><option>d8</option><option>d10</option><option>d12</option></select><span class="skill-name">Athletics*</span><span class="skill-attr">(Agi)</span></div>
+            <div class="skill-row"><select class="die-select"><option>—</option><option>d4</option><option>d6</option><option>d8</option><option>d10</option><option>d12</option></select><span class="skill-name">Battle</span><span class="skill-attr">(Sma)</span></div>
+            <div class="skill-row"><select class="die-select"><option>—</option><option>d4</option><option>d6</option><option>d8</option><option>d10</option><option>d12</option></select><span class="skill-name">Boating</span><span class="skill-attr">(Agi)</span></div>
+            <div class="skill-row"><select class="die-select"><option>—</option><option>d4</option><option>d6</option><option>d8</option><option>d10</option><option>d12</option></select><span class="skill-name">Common Knowledge*</span><span class="skill-attr">(Sma)</span></div>
+            <div class="skill-row"><select class="die-select"><option>—</option><option>d4</option><option>d6</option><option>d8</option><option>d10</option><option>d12</option></select><span class="skill-name">Driving</span><span class="skill-attr">(Agi)</span></div>
+            <div class="skill-row"><select class="die-select"><option>—</option><option>d4</option><option>d6</option><option>d8</option><option>d10</option><option>d12</option></select><span class="skill-name">Electronics</span><span class="skill-attr">(Sma)</span></div>
+            <div class="skill-row"><select class="die-select"><option>—</option><option>d4</option><option>d6</option><option>d8</option><option>d10</option><option>d12</option></select><span class="skill-name">Fighting</span><span class="skill-attr">(Agi)</span></div>
+            <div class="skill-row"><select class="die-select"><option>—</option><option>d4</option><option>d6</option><option>d8</option><option>d10</option><option>d12</option></select><span class="skill-name">Gambling</span><span class="skill-attr">(Sma)</span></div>
+            <div class="skill-row"><select class="die-select"><option>—</option><option>d4</option><option>d6</option><option>d8</option><option>d10</option><option>d12</option></select><span class="skill-name">Hacking</span><span class="skill-attr">(Sma)</span></div>
+            <div class="skill-row"><select class="die-select"><option>—</option><option>d4</option><option>d6</option><option>d8</option><option>d10</option><option>d12</option></select><span class="skill-name">Healing</span><span class="skill-attr">(Sma)</span></div>
+            <div class="skill-row"><select class="die-select"><option>—</option><option>d4</option><option>d6</option><option>d8</option><option>d10</option><option>d12</option></select><span class="skill-name">Intimidation</span><span class="skill-attr">(Spi)</span></div>
+            <div class="skill-row"><select class="die-select"><option>—</option><option>d4</option><option>d6</option><option>d8</option><option>d10</option><option>d12</option></select><span class="skill-name">Language</span><span class="skill-attr">(Sma)</span></div>
+            <div class="skill-row"><select class="die-select"><option>—</option><option>d4</option><option>d6</option><option>d8</option><option>d10</option><option>d12</option></select><span class="skill-name">Notice*</span><span class="skill-attr">(Sma)</span></div>
+            <div class="skill-row"><select class="die-select"><option>—</option><option>d4</option><option>d6</option><option>d8</option><option>d10</option><option>d12</option></select><span class="skill-name">Occult</span><span class="skill-attr">(Sma)</span></div>
+            <div class="skill-row"><select class="die-select"><option>—</option><option>d4</option><option>d6</option><option>d8</option><option>d10</option><option>d12</option></select><span class="skill-name">Performance</span><span class="skill-attr">(Spi)</span></div>
+            <div class="skill-row"><select class="die-select"><option>—</option><option>d4</option><option>d6</option><option>d8</option><option>d10</option><option>d12</option></select><span class="skill-name">Persuasion*</span><span class="skill-attr">(Spi)</span></div>
+            <div class="skill-row"><select class="die-select"><option>—</option><option>d4</option><option>d6</option><option>d8</option><option>d10</option><option>d12</option></select><span class="skill-name">Piloting</span><span class="skill-attr">(Agi)</span></div>
+            <div class="skill-row"><select class="die-select"><option>—</option><option>d4</option><option>d6</option><option>d8</option><option>d10</option><option>d12</option></select><span class="skill-name">Repair</span><span class="skill-attr">(Sma)</span></div>
+            <div class="skill-row"><select class="die-select"><option>—</option><option>d4</option><option>d6</option><option>d8</option><option>d10</option><option>d12</option></select><span class="skill-name">Research</span><span class="skill-attr">(Sma)</span></div>
+            <div class="skill-row"><select class="die-select"><option>—</option><option>d4</option><option>d6</option><option>d8</option><option>d10</option><option>d12</option></select><span class="skill-name">Riding</span><span class="skill-attr">(Agi)</span></div>
+            <div class="skill-row"><select class="die-select"><option>—</option><option>d4</option><option>d6</option><option>d8</option><option>d10</option><option>d12</option></select><span class="skill-name">Science</span><span class="skill-attr">(Sma)</span></div>
+            <div class="skill-row"><select class="die-select"><option>—</option><option>d4</option><option>d6</option><option>d8</option><option>d10</option><option>d12</option></select><span class="skill-name">Shooting</span><span class="skill-attr">(Agi)</span></div>
+            <div class="skill-row"><select class="die-select"><option>—</option><option>d4</option><option>d6</option><option>d8</option><option>d10</option><option>d12</option></select><span class="skill-name">Stealth*</span><span class="skill-attr">(Agi)</span></div>
+            <div class="skill-row"><select class="die-select"><option>—</option><option>d4</option><option>d6</option><option>d8</option><option>d10</option><option>d12</option></select><span class="skill-name">Survival</span><span class="skill-attr">(Sma)</span></div>
+            <div class="skill-row"><select class="die-select"><option>—</option><option>d4</option><option>d6</option><option>d8</option><option>d10</option><option>d12</option></select><span class="skill-name">Taunt</span><span class="skill-attr">(Sma)</span></div>
+            <div class="skill-row"><select class="die-select"><option>—</option><option>d4</option><option>d6</option><option>d8</option><option>d10</option><option>d12</option></select><span class="skill-name">Thievery</span><span class="skill-attr">(Agi)</span></div>
+          </div>
+          <div class="arcane-row"><span>Arcane Background:</span><input type="text" placeholder="e.g. Magic"></div>
+        </div>
+
+        <div class="mini-box card">
+          <div class="mini-title">Defenses</div>
+          <div class="defenses-grid">
+            <div class="defense-cell"><label>Parry</label><input data-field="parry"></div>
+            <div class="defense-cell"><label>Toughness (Torso)</label><input data-field="toughness"></div>
+            <div class="defense-cell"><label>Vs Head</label><input data-field="tough-head"></div>
+            <div class="defense-cell"><label>Vs Arms</label><input data-field="tough-arms"></div>
+            <div class="defense-cell"><label>Vs Legs</label><input data-field="tough-legs"></div>
+          </div>
+          <div class="formula-note">Parry = 2 + ½ Fighting · Toughness = 2 + ½ Vigor + Armor (plus any modifiers from Edges/equipment)</div>
+        </div>
+
+        <div class="mini-box card">
+          <div class="mini-title">Weapons</div>
+          <div class="repeat-table-header"><span style="flex:1.6;">Weapon</span><span style="flex:1;">Range</span><span style="flex:1;">ROF</span><span style="flex:1;">AP</span><span style="flex:1;">Damage</span></div>
+          <div class="repeat-list" data-autoname="sw-weapons">
+            <div class="repeat-rows">
+              <div class="repeat-row weapon-row"><input><input><input><input><input></div>
+              <div class="repeat-row weapon-row"><input><input><input><input><input></div>
+              <div class="repeat-row weapon-row"><input><input><input><input><input></div>
+            </div>
+            <button type="button" class="add-row-btn no-print">+ Add Weapon</button>
+          </div>
+        </div>
+
+        <div class="mini-box card">
+          <div class="mini-title">Powers</div>
+          <div class="repeat-table-header"><span style="flex:1.6;">Power</span><span style="flex:1;">PP</span><span style="flex:1;">Range</span><span style="flex:1;">Dur.</span><span style="flex:1;">Trappings</span></div>
+          <div class="repeat-list" data-autoname="sw-powers">
+            <div class="repeat-rows">
+              <div class="repeat-row power-row"><input><input><input><input><input></div>
+              <div class="repeat-row power-row"><input><input><input><input><input></div>
+            </div>
+            <button type="button" class="add-row-btn no-print">+ Add Power</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="sw-col sw-col-narrow">
+        <div class="mini-box card">
+          <div class="mini-title">Advancements</div>
+          <div class="repeat-list" data-autoname="sw-advancements">
+            <div class="repeat-rows">
+              <div class="repeat-row adv-row"><select class="rank-select"><option>Novice</option><option>Seasoned</option><option>Veteran</option><option>Heroic</option><option>Legendary</option></select><input placeholder="Edge / effect"></div>
+              <div class="repeat-row adv-row"><select class="rank-select"><option>Novice</option><option>Seasoned</option><option>Veteran</option><option>Heroic</option><option>Legendary</option></select><input placeholder="Edge / effect"></div>
+              <div class="repeat-row adv-row"><select class="rank-select"><option>Novice</option><option>Seasoned</option><option>Veteran</option><option>Heroic</option><option>Legendary</option></select><input placeholder="Edge / effect"></div>
+            </div>
+            <button type="button" class="add-row-btn no-print">+ Add</button>
+          </div>
+        </div>
+
+        <div class="mini-box card">
+          <div class="mini-title">Hindrances</div>
+          <div class="repeat-list" data-autoname="sw-hindrances">
+            <div class="repeat-rows">
+              <div class="repeat-row hindrance-row"><select class="severity-select"><option>Minor</option><option>Major</option></select><input placeholder="Hindrance / effect"></div>
+              <div class="repeat-row hindrance-row"><select class="severity-select"><option>Minor</option><option>Major</option></select><input placeholder="Hindrance / effect"></div>
+            </div>
+            <button type="button" class="add-row-btn no-print">+ Add</button>
+          </div>
+        </div>
+
+        <div class="mini-box card">
+          <div class="mini-title">Armor / Protective Gear</div>
+          <div class="repeat-table-header"><span style="flex:1.6;">Item</span><span style="flex:1;">Area</span><span style="flex:1;">Value</span></div>
+          <div class="repeat-list" data-autoname="sw-armor">
+            <div class="repeat-rows">
+              <div class="repeat-row weapon-row"><input><input><input></div>
+            </div>
+            <button type="button" class="add-row-btn no-print">+ Add</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== PAGE 2: GEAR & NOTES ===== -->
+  <section class="sheet-page" data-page="gear" hidden>
+    <div class="sw-gear-grid">
+      <div class="possessions-box card">
+        <div class="mini-title">Possessions</div>
+        <div class="repeat-table-header"><span style="flex:1.6;">Item</span><span style="flex:1;">Location</span><span style="flex:1;">Weight</span></div>
+        <div class="possessions-columns">
+          <div class="possessions-col repeat-list" data-autoname="sw-possessions-a">
+            <div class="repeat-rows">
+              <div class="repeat-row item-row"><input class="pos-name"><input class="pos-loc"><input class="pos-weight"></div>
+              <div class="repeat-row item-row"><input class="pos-name"><input class="pos-loc"><input class="pos-weight"></div>
+              <div class="repeat-row item-row"><input class="pos-name"><input class="pos-loc"><input class="pos-weight"></div>
+              <div class="repeat-row item-row"><input class="pos-name"><input class="pos-loc"><input class="pos-weight"></div>
+              <div class="repeat-row item-row"><input class="pos-name"><input class="pos-loc"><input class="pos-weight"></div>
+            </div>
+            <button type="button" class="add-row-btn no-print">+ Add</button>
+          </div>
+          <div class="possessions-col repeat-list" data-autoname="sw-possessions-b">
+            <div class="repeat-rows">
+              <div class="repeat-row item-row"><input class="pos-name"><input class="pos-loc"><input class="pos-weight"></div>
+              <div class="repeat-row item-row"><input class="pos-name"><input class="pos-loc"><input class="pos-weight"></div>
+              <div class="repeat-row item-row"><input class="pos-name"><input class="pos-loc"><input class="pos-weight"></div>
+              <div class="repeat-row item-row"><input class="pos-name"><input class="pos-loc"><input class="pos-weight"></div>
+              <div class="repeat-row item-row"><input class="pos-name"><input class="pos-loc"><input class="pos-weight"></div>
+            </div>
+            <button type="button" class="add-row-btn no-print">+ Add</button>
+          </div>
+        </div>
+        <div class="encumbrance-row"><span>ENCUMBRANCE LIMIT: <input data-field="enc-limit"></span><span>TOTAL WEIGHT: <input data-field="total-weight"></span></div>
+      </div>
+
+      <div class="side-col">
+        <div class="mini-box card">
+          <div class="mini-title">Physical Description</div>
+          <div class="desc-grid">
+            <div class="info-cell"><input data-field="race"><label>RACE</label></div>
+            <div class="info-cell"><input data-field="height"><label>HEIGHT</label></div>
+            <div class="info-cell"><input data-field="weight"><label>WEIGHT</label></div>
+            <div class="info-cell"><input data-field="age"><label>AGE</label></div>
+          </div>
+          <div class="appearance-row"><label>APPEARANCE</label><input data-field="appearance"></div>
+        </div>
+
+        <div class="mini-box card notes-box dynamic-box">
+          <div class="mini-title">Adventure Notes</div>
+          <textarea class="auto-resize" data-field="adventure-notes"></textarea>
+        </div>
+
+        <div class="mini-box card">
+          <div class="mini-title">Currency</div>
+          <div class="currency-row">
+            <div class="currency-cell"><label>CASH</label><input data-field="cash"></div>
+            <div class="currency-cell"><label>VALUABLES / OTHER</label><input data-field="valuables"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+</template>
+
+<!-- ============== FATE CONDENSED ============== -->
+<template id="tpl-fate">
+<div class="sheet-container">
+  <header class="sheet-header">
+    <div class="name-container">
+      <input type="text" class="h-input char-name-input" placeholder="Character Name" data-field="name">
+      <label>NAME</label>
+    </div>
+    <div class="info-grid">
+      <div class="info-cell"><input type="text" class="h-input" data-field="pronoun"><label>PRONOUN</label></div>
+    </div>
+  </header>
+
+  <main class="sheet-body">
+    <div class="col col-1">
+      <div class="aspects-box card" data-autoname="fate-aspects">
+        <div class="aspect-row"><label>High Concept</label><input type="text"></div>
+        <div class="aspect-row"><label>Trouble</label><input type="text"></div>
+        <div class="aspect-row"><label>Relationship</label><input type="text"></div>
+        <div class="aspect-row"><label>Aspect</label><input type="text"></div>
+        <div class="aspect-row"><label>Aspect</label><input type="text"></div>
+      </div>
+
+      <div class="refresh-fp-row">
+        <div class="refresh-box card"><label>Refresh</label><input type="text" value="3" data-field="refresh"></div>
+        <div class="fp-box card"><label>Fate Points</label><div class="dot-rating" data-field="fate-points"><span class="dot filled"></span><span class="dot filled"></span><span class="dot filled"></span><span class="dot"></span><span class="dot"></span></div></div>
+      </div>
+
+      <div class="stunts-box card dynamic-box"><textarea class="auto-resize" data-field="stunts"></textarea><div class="box-title">STUNTS</div></div>
+
+      <div class="portrait-box card"><input type="file" accept="image/*" class="no-print"><div class="portrait-overlay no-print">Click or Drag Image</div><div class="box-title">PORTRAIT</div></div>
+    </div>
+
+    <div class="col col-2">
+      <div class="stress-box card">
+        <div class="box-title" style="margin-bottom:6px;">STRESS</div>
+        <div class="stress-track">
+          <label>Physical</label>
+          <div class="stress-cells">
+            <div class="stress-cell"><input type="checkbox" class="fantasy-checkbox"><span>1</span></div>
+            <div class="stress-cell"><input type="checkbox" class="fantasy-checkbox"><span>1</span></div>
+            <div class="stress-cell"><input type="checkbox" class="fantasy-checkbox"><span>1</span></div>
+            <div class="stress-cell bonus"><input type="checkbox" class="fantasy-checkbox"><span>1</span></div>
+            <div class="stress-cell bonus"><input type="checkbox" class="fantasy-checkbox"><span>1</span></div>
+            <div class="stress-cell bonus"><input type="checkbox" class="fantasy-checkbox"><span>1</span></div>
+          </div>
+        </div>
+        <div class="stress-track">
+          <label>Mental</label>
+          <div class="stress-cells">
+            <div class="stress-cell"><input type="checkbox" class="fantasy-checkbox"><span>1</span></div>
+            <div class="stress-cell"><input type="checkbox" class="fantasy-checkbox"><span>1</span></div>
+            <div class="stress-cell"><input type="checkbox" class="fantasy-checkbox"><span>1</span></div>
+            <div class="stress-cell bonus"><input type="checkbox" class="fantasy-checkbox"><span>1</span></div>
+            <div class="stress-cell bonus"><input type="checkbox" class="fantasy-checkbox"><span>1</span></div>
+            <div class="stress-cell bonus"><input type="checkbox" class="fantasy-checkbox"><span>1</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="consequences-box card">
+        <div class="box-title" style="margin-bottom:6px;">CONSEQUENCES</div>
+        <div class="consequence-row"><span class="cons-value">2</span><input type="text" placeholder="Mild" data-field="cons-mild-1"></div>
+        <div class="consequence-row"><span class="cons-value">4</span><input type="text" placeholder="Moderate" data-field="cons-moderate"></div>
+        <div class="consequence-row"><span class="cons-value">6</span><input type="text" placeholder="Severe" data-field="cons-severe"></div>
+        <div class="consequence-row"><span class="cons-value">2</span><input type="text" placeholder="Mild" data-field="cons-mild-2"></div>
+      </div>
+
+      <div class="skills-box card" data-autoname="fate-skills">
+        <div class="box-title" style="margin-bottom:6px;">SKILLS</div>
+        <div class="skills-grid">
+          <div class="skill-row"><input type="text" class="skill-rank"><span class="skill-name">Academics</span></div>
+          <div class="skill-row"><input type="text" class="skill-rank"><span class="skill-name">Athletics</span></div>
+          <div class="skill-row"><input type="text" class="skill-rank"><span class="skill-name">Burglary</span></div>
+          <div class="skill-row"><input type="text" class="skill-rank"><span class="skill-name">Contacts</span></div>
+          <div class="skill-row"><input type="text" class="skill-rank"><span class="skill-name">Crafts</span></div>
+          <div class="skill-row"><input type="text" class="skill-rank"><span class="skill-name">Deceive</span></div>
+          <div class="skill-row"><input type="text" class="skill-rank"><span class="skill-name">Drive</span></div>
+          <div class="skill-row"><input type="text" class="skill-rank"><span class="skill-name">Empathy</span></div>
+          <div class="skill-row"><input type="text" class="skill-rank"><span class="skill-name">Fight</span></div>
+          <div class="skill-row"><input type="text" class="skill-rank"><span class="skill-name">Investigate</span></div>
+          <div class="skill-row"><input type="text" class="skill-rank"><span class="skill-name">Lore</span></div>
+          <div class="skill-row"><input type="text" class="skill-rank"><span class="skill-name">Notice</span></div>
+          <div class="skill-row"><input type="text" class="skill-rank"><span class="skill-name">Physique</span></div>
+          <div class="skill-row"><input type="text" class="skill-rank"><span class="skill-name">Provoke</span></div>
+          <div class="skill-row"><input type="text" class="skill-rank"><span class="skill-name">Rapport</span></div>
+          <div class="skill-row"><input type="text" class="skill-rank"><span class="skill-name">Resources</span></div>
+          <div class="skill-row"><input type="text" class="skill-rank"><span class="skill-name">Shoot</span></div>
+          <div class="skill-row"><input type="text" class="skill-rank"><span class="skill-name">Stealth</span></div>
+          <div class="skill-row"><input type="text" class="skill-rank"><span class="skill-name">Will</span></div>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>
+</template>
+
+<!-- ============== MAGE: THE ASCENSION 20TH ANNIVERSARY ============== -->
+<template id="tpl-mage20">
+<div class="sheet-container">
+  <header class="sheet-header">
+    <div class="header-left">
+      <div class="name-container">
+        <input type="text" class="h-input char-name-input" placeholder="Character Name" data-field="name">
+        <label>CHARACTER NAME</label>
+      </div>
+    </div>
+    <div class="header-right">
+      <div class="info-grid">
+        <div class="info-cell"><input type="text" class="h-input" data-field="player"><label>PLAYER</label></div>
+        <div class="info-cell"><input type="text" class="h-input" data-field="chronicle"><label>CHRONICLE</label></div>
+        <div class="info-cell"><input type="text" class="h-input" data-field="concept"><label>CONCEPT</label></div>
+        <div class="info-cell"><input type="text" class="h-input" data-field="nature"><label>NATURE</label></div>
+        <div class="info-cell"><input type="text" class="h-input" data-field="demeanor"><label>DEMEANOR</label></div>
+        <div class="info-cell"><input type="text" class="h-input" data-field="essence"><label>ESSENCE</label></div>
+        <div class="info-cell"><input type="text" class="h-input" data-field="affiliation"><label>AFFILIATION</label></div>
+        <div class="info-cell"><input type="text" class="h-input" data-field="sect"><label>SECT</label></div>
+      </div>
+    </div>
+  </header>
+
+  <nav class="sheet-tabs no-print">
+    <button type="button" class="tab-btn active" data-page="char">Character</button>
+    <button type="button" class="tab-btn" data-page="merits">Merits, Magic &amp; Combat</button>
+    <button type="button" class="tab-btn" data-page="background">Background &amp; Possessions</button>
+    <button type="button" class="tab-btn" data-page="history">History &amp; Description</button>
+  </nav>
+
+  <!-- ===== PAGE 1: CHARACTER ===== -->
+  <section class="sheet-page" data-page="char">
+    <div class="m20-columns">
+      <div class="m20-col">
+        <div class="traits-box card">
+          <div class="trait-group-title">Physical</div>
+          <div class="trait-list">
+            <div class="trait-row"><span class="t-name">Strength</span><div class="dot-rating" data-field="attr-strength"><span class="dot filled"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span></div></div>
+            <div class="trait-row"><span class="t-name">Dexterity</span><div class="dot-rating" data-field="attr-dexterity"><span class="dot filled"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span></div></div>
+            <div class="trait-row"><span class="t-name">Stamina</span><div class="dot-rating" data-field="attr-stamina"><span class="dot filled"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span></div></div>
+          </div>
+          <div class="trait-group-title">Social</div>
+          <div class="trait-list">
+            <div class="trait-row"><span class="t-name">Charisma</span><div class="dot-rating" data-field="attr-charisma"><span class="dot filled"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span></div></div>
+            <div class="trait-row"><span class="t-name">Manipulation</span><div class="dot-rating" data-field="attr-manipulation"><span class="dot filled"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span></div></div>
+            <div class="trait-row"><span class="t-name">Appearance</span><div class="dot-rating" data-field="attr-appearance"><span class="dot filled"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span></div></div>
+          </div>
+          <div class="trait-group-title">Mental</div>
+          <div class="trait-list">
+            <div class="trait-row"><span class="t-name">Perception</span><div class="dot-rating" data-field="attr-perception"><span class="dot filled"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span></div></div>
+            <div class="trait-row"><span class="t-name">Intelligence</span><div class="dot-rating" data-field="attr-intelligence"><span class="dot filled"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span></div></div>
+            <div class="trait-row"><span class="t-name">Wits</span><div class="dot-rating" data-field="attr-wits"><span class="dot filled"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span></div></div>
+          </div>
+        </div>
+
+        <div class="backgrounds-box card repeat-list" data-autoname="m20-backgrounds">
+          <div class="box-title" style="margin-bottom:6px;">BACKGROUNDS</div>
+          <div class="repeat-rows">
+            <div class="repeat-row named-dot-row"><input class="trait-name" placeholder="Background"><div class="dot-rating"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span></div></div>
+            <div class="repeat-row named-dot-row"><input class="trait-name" placeholder="Background"><div class="dot-rating"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span></div></div>
+            <div class="repeat-row named-dot-row"><input class="trait-name" placeholder="Background"><div class="dot-rating"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span></div></div>
+            <div class="repeat-row named-dot-row"><input class="trait-name" placeholder="Background"><div class="dot-rating"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span></div></div>
+          </div>
+          <button type="button" class="add-row-btn no-print">+ Add Background</button>
+        </div>
+
+        <div class="other-traits-box card repeat-list" data-autoname="m20-other-traits">
+          <div class="box-title" style="margin-bottom:6px;">OTHER TRAITS</div>
+          <div class="repeat-rows">
+            <div class="repeat-row named-dot-row"><input class="trait-name" placeholder="Trait"><div class="dot-rating"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span></div></div>
+            <div class="repeat-row named-dot-row"><input class="trait-name" placeholder="Trait"><div class="dot-rating"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span></div></div>
+          </div>
+          <button type="button" class="add-row-btn no-print">+ Add Trait</button>
+        </div>
+
+        <div class="exp-box card"><div class="box-title" style="margin-bottom:4px;">EXPERIENCE</div><input type="text" data-field="experience"></div>
+      </div>
+
+      <div class="m20-col">
+        <div class="traits-box card">
+          <div class="trait-group-title">Talents</div>
+          <div class="trait-list">
+            <div class="trait-row"><span class="t-name">Alertness</span><div class="dot-rating"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span></div></div>
+            <div class="trait-row"><span class="t-name">Art</span><div class="dot-rating"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span></div></div>
+            <div class="trait-row"><span class="t-name">Athletics</span><div class="dot-rating"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span></div></div>
+            <div class="trait-row"><span class="t-name">Awareness</span><div class="dot-rating"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span></div></div>
+            <div class="trait-row"><span class="t-name">Brawl</span><div class="dot-rating"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span></div></div>
+            <div class="trait-row"><span class="t-name">Empathy</span><div class="dot-rating"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span></div></div>
+            <div class="trait-row"><span class="t-name">Expression</span><div class="dot-rating"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span></div></div>
+            <div class="trait-row"><span class="t-name">Intimidation</span><div class="dot-rating"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span></div></div>
+            <div class="trait-row"><span class="t-name">Leadership</span><div class="dot-rating"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span></div></div>
+            <div class="trait-row"><span class="t-name">Streetwise</span><div class="dot-rating"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span></div></div>
+            <div class="trait-row"><span class="t-name">Subterfuge</span><div class="dot-rating"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span></div></div>
+          </div>
+          <div class="trait-group-title">Skills</div>
+          <div class="trait-list">
+            <div class="trait-row"><span class="t-name">Crafts</span><div class="dot-rating"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span></div></div>
+            <div class="trait-row"><span class="t-name">Drive</span><div class="dot-rating"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span></div></div>
+            <div class="trait-row"><span class="t-name">Etiquette</span><div class="dot-rating"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span></div></div>
+            <div class="trait-row"><span class="t-name">Firearms</span><div class="dot-rating"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span></div></div>
+            <div class="trait-row"><span class="t-name">Martial Arts</span><div class="dot-rating"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span></div></div>
+            <div class="trait-row"><span class="t-name">Meditation</span><div class="dot-rating"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span></div></div>
+            <div class="trait-row"><span class="t-name">Melee</span><div class="dot-rating"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span></div></div>
+            <div class="trait-row"><span class="t-name">Research</span><div class="dot-rating"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span></div></div>
+            <div class="trait-row"><span class="t-name">Stealth</span><div class="dot-rating"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span></div></div>
+            <div class="trait-row"><span class="t-name">Survival</span><div class="dot-rating"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span></div></div>
+            <div class="trait-row"><span class="t-name">Technology</span><div class="dot-rating"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span></div></div>
+          </div>
+          <div class="trait-group-title">Knowledges</div>
+          <div class="trait-list">
+            <div class="trait-row"><span class="t-name">Academics</span><div class="dot-rating"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span></div></div>
+            <div class="trait-row"><span class="t-name">Computer</span><div class="dot-rating"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span></div></div>
+            <div class="trait-row"><span class="t-name">Cosmology</span><div class="dot-rating"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span></div></div>
+            <div class="trait-row"><span class="t-name">Enigmas</span><div class="dot-rating"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span></div></div>
+            <div class="trait-row"><span class="t-name">Esoterica</span><div class="dot-rating"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span></div></div>
+            <div class="trait-row"><span class="t-name">Investigation</span><div class="dot-rating"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span></div></div>
+            <div class="trait-row"><span class="t-name">Law</span><div class="dot-rating"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span></div></div>
+            <div class="trait-row"><span class="t-name">Medicine</span><div class="dot-rating"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span></div></div>
+            <div class="trait-row"><span class="t-name">Occult</span><div class="dot-rating"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span></div></div>
+            <div class="trait-row"><span class="t-name">Politics</span><div class="dot-rating"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span></div></div>
+            <div class="trait-row"><span class="t-name">Science</span><div class="dot-rating"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span></div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="m20-col">
+        <div class="portrait-box card"><input type="file" accept="image/*" class="no-print"><div class="portrait-overlay no-print">Click or Drag Image</div><div class="box-title">PORTRAIT</div></div>
+
+        <div class="spheres-box card traits-box">
+          <div class="trait-group-title" style="margin-top:0;">Spheres</div>
+          <div class="trait-list">
+            <div class="trait-row"><span class="t-name">Correspondence</span><div class="dot-rating"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span></div></div>
+            <div class="trait-row"><span class="t-name">Entropy</span><div class="dot-rating"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span></div></div>
+            <div class="trait-row"><span class="t-name">Forces</span><div class="dot-rating"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span></div></div>
+            <div class="trait-row"><span class="t-name">Life</span><div class="dot-rating"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span></div></div>
+            <div class="trait-row"><span class="t-name">Matter</span><div class="dot-rating"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span></div></div>
+            <div class="trait-row"><span class="t-name">Mind</span><div class="dot-rating"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span></div></div>
+            <div class="trait-row"><span class="t-name">Prime</span><div class="dot-rating"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span></div></div>
+            <div class="trait-row"><span class="t-name">Spirit</span><div class="dot-rating"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span></div></div>
+            <div class="trait-row"><span class="t-name">Time</span><div class="dot-rating"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span></div></div>
+          </div>
+        </div>
+
+        <div class="arete-box card"><div class="box-title" style="margin-bottom:4px;">ARETE</div><div class="dot-rating compact" data-field="arete"><span class="dot filled"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span></div></div>
+
+        <div class="willpower-box card">
+          <div class="box-title" style="margin-bottom:4px;">WILLPOWER</div>
+          <div class="wp-perm"><div class="dot-rating compact" data-field="willpower-perm"><span class="dot filled"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span></div></div>
+          <div class="wp-temp-label">Spent / Temporary</div>
+          <div class="wp-temp">
+            <input type="checkbox" class="fantasy-checkbox"><input type="checkbox" class="fantasy-checkbox"><input type="checkbox" class="fantasy-checkbox"><input type="checkbox" class="fantasy-checkbox"><input type="checkbox" class="fantasy-checkbox">
+            <input type="checkbox" class="fantasy-checkbox"><input type="checkbox" class="fantasy-checkbox"><input type="checkbox" class="fantasy-checkbox"><input type="checkbox" class="fantasy-checkbox"><input type="checkbox" class="fantasy-checkbox">
+          </div>
+        </div>
+
+        <div class="health-box card">
+          <div class="box-title" style="margin-bottom:6px;">HEALTH</div>
+          <div class="health-track">
+            <div class="health-row"><span class="h-name">Bruised</span><span class="h-penalty">—</span><input type="checkbox" class="fantasy-checkbox"></div>
+            <div class="health-row"><span class="h-name">Hurt</span><span class="h-penalty">-1</span><input type="checkbox" class="fantasy-checkbox"></div>
+            <div class="health-row"><span class="h-name">Injured</span><span class="h-penalty">-1</span><input type="checkbox" class="fantasy-checkbox"></div>
+            <div class="health-row"><span class="h-name">Wounded</span><span class="h-penalty">-2</span><input type="checkbox" class="fantasy-checkbox"></div>
+            <div class="health-row"><span class="h-name">Mauled</span><span class="h-penalty">-2</span><input type="checkbox" class="fantasy-checkbox"></div>
+            <div class="health-row"><span class="h-name">Crippled</span><span class="h-penalty">-5</span><input type="checkbox" class="fantasy-checkbox"></div>
+            <div class="health-row"><span class="h-name">Incapacitated</span><span class="h-penalty">—</span><input type="checkbox" class="fantasy-checkbox"></div>
+          </div>
+        </div>
+
+        <div class="points-box card">
+          <div class="points-title">Quintessence</div>
+          <div class="points-track dot-rating compact" data-field="quintessence">
+            <span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span>
+            <span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span>
+          </div>
+        </div>
+        <div class="points-box card">
+          <div class="points-title">Paradox</div>
+          <div class="points-track dot-rating compact" data-field="paradox">
+            <span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span>
+            <span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== PAGE 2: MERITS, MAGIC & COMBAT ===== -->
+  <section class="sheet-page" data-page="merits" hidden>
+    <div class="m20-columns">
+      <div class="m20-col">
+        <div class="merits-box card repeat-list" data-autoname="m20-merits">
+          <div class="box-title" style="margin-bottom:6px;">MERITS</div>
+          <div class="repeat-rows">
+            <div class="repeat-row merit-row"><input class="m-name" placeholder="Merit"><input class="m-type" placeholder="Type"><input class="m-cost" placeholder="Cost"></div>
+            <div class="repeat-row merit-row"><input class="m-name" placeholder="Merit"><input class="m-type" placeholder="Type"><input class="m-cost" placeholder="Cost"></div>
+            <div class="repeat-row merit-row"><input class="m-name" placeholder="Merit"><input class="m-type" placeholder="Type"><input class="m-cost" placeholder="Cost"></div>
+          </div>
+          <button type="button" class="add-row-btn no-print">+ Add</button>
+        </div>
+        <div class="merits-box card repeat-list" data-autoname="m20-flaws">
+          <div class="box-title" style="margin-bottom:6px;">FLAWS</div>
+          <div class="repeat-rows">
+            <div class="repeat-row merit-row"><input class="m-name" placeholder="Flaw"><input class="m-type" placeholder="Type"><input class="m-cost" placeholder="Cost"></div>
+            <div class="repeat-row merit-row"><input class="m-name" placeholder="Flaw"><input class="m-type" placeholder="Type"><input class="m-cost" placeholder="Cost"></div>
+            <div class="repeat-row merit-row"><input class="m-name" placeholder="Flaw"><input class="m-type" placeholder="Type"><input class="m-cost" placeholder="Cost"></div>
+          </div>
+          <button type="button" class="add-row-btn no-print">+ Add</button>
+        </div>
+
+        <div class="armor-box card">
+          <div class="box-title" style="margin-bottom:6px;">ARMOR</div>
+          <div class="armor-row"><label>Class</label><input data-field="armor-class"></div>
+          <div class="armor-row"><label>Rating</label><input data-field="armor-rating"></div>
+          <div class="armor-row"><label>Penalty</label><input data-field="armor-penalty"></div>
+          <div class="armor-row"><label>Description</label><input data-field="armor-desc"></div>
+        </div>
+      </div>
+
+      <div class="m20-col">
+        <div class="magic-box card dynamic-box"><div class="box-title" style="margin-bottom:4px;">WONDERS</div><textarea class="auto-resize" data-field="wonders"></textarea></div>
+        <div class="magic-box card dynamic-box"><div class="box-title" style="margin-bottom:4px;">FOCUS (PARADIGM &amp; PRACTICE)</div><textarea class="auto-resize" data-field="focus"></textarea></div>
+        <div class="magic-box card dynamic-box"><div class="box-title" style="margin-bottom:4px;">ROTES</div><textarea class="auto-resize" data-field="rotes"></textarea></div>
+      </div>
+
+      <div class="m20-col">
+        <div class="combat-box card repeat-list" data-autoname="m20-combat">
+          <div class="box-title" style="margin-bottom:6px;">COMBAT</div>
+          <div class="repeat-table-header" style="display:flex;gap:4px;font-size:7.5px;color:var(--muted);font-weight:700;text-transform:uppercase;margin-bottom:2px;">
+            <span style="flex:1.8;">Weapon</span><span style="flex:1;">Diff.</span><span style="flex:1;">Dmg</span><span style="flex:1;">Range</span><span style="flex:1;">Rate</span><span style="flex:1;">Clip</span>
+          </div>
+          <div class="repeat-rows">
+            <div class="repeat-row combat-row"><input><input><input><input><input><input></div>
+            <div class="repeat-row combat-row"><input><input><input><input><input><input></div>
+            <div class="repeat-row combat-row"><input><input><input><input><input><input></div>
+          </div>
+          <button type="button" class="add-row-btn no-print">+ Add Weapon</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== PAGE 3: BACKGROUND & POSSESSIONS ===== -->
+  <section class="sheet-page" data-page="background" hidden>
+    <div class="repeat-list" data-autoname="m20-expanded-bg">
+      <div class="repeat-rows expanded-bg-grid">
+        <div class="repeat-row bg-entry card"><input class="bg-title" placeholder="(Type Here)"><textarea class="auto-resize"></textarea></div>
+        <div class="repeat-row bg-entry card"><input class="bg-title" placeholder="(Type Here)"><textarea class="auto-resize"></textarea></div>
+        <div class="repeat-row bg-entry card"><input class="bg-title" placeholder="(Type Here)"><textarea class="auto-resize"></textarea></div>
+        <div class="repeat-row bg-entry card"><input class="bg-title" placeholder="(Type Here)"><textarea class="auto-resize"></textarea></div>
+      </div>
+      <button type="button" class="add-row-btn no-print" style="margin-top:6px;">+ Add Section</button>
+    </div>
+    <div style="margin-bottom:12px;"></div>
+
+    <div class="possessions-grid">
+      <div class="possession-box card dynamic-box"><div class="box-title" style="margin-bottom:4px;">GEAR (CARRIED)</div><textarea class="auto-resize" data-field="gear-carried"></textarea></div>
+      <div class="possession-box card dynamic-box"><div class="box-title" style="margin-bottom:4px;">EQUIPMENT (OWNED)</div><textarea class="auto-resize" data-field="equipment-owned"></textarea></div>
+      <div class="possession-box card dynamic-box"><div class="box-title" style="margin-bottom:4px;">FAMILIAR</div><textarea class="auto-resize" data-field="familiar"></textarea></div>
+      <div class="possession-box card dynamic-box"><div class="box-title" style="margin-bottom:4px;">GRIMOIRE</div><textarea class="auto-resize" data-field="grimoire"></textarea></div>
+    </div>
+
+    <div class="chantry-grid" style="margin-top:8px;">
+      <div class="possession-box card dynamic-box"><div class="box-title" style="margin-bottom:4px;">CHANTRY: LOCATION</div><textarea class="auto-resize" data-field="chantry-location"></textarea></div>
+      <div class="possession-box card dynamic-box"><div class="box-title" style="margin-bottom:4px;">CHANTRY: DESCRIPTION</div><textarea class="auto-resize" data-field="chantry-desc"></textarea></div>
+    </div>
+  </section>
+
+  <!-- ===== PAGE 4: HISTORY & DESCRIPTION ===== -->
+  <section class="sheet-page" data-page="history" hidden>
+    <div class="history-box card dynamic-box"><div class="box-title" style="margin-bottom:4px;">AWAKENING</div><textarea class="auto-resize" data-field="awakening"></textarea></div>
+    <div class="history-box card dynamic-box" style="margin-top:8px;"><div class="box-title" style="margin-bottom:4px;">GOALS / DESTINY</div><textarea class="auto-resize" data-field="goals"></textarea></div>
+
+    <div class="seeking-quiet-grid" style="margin-top:8px;">
+      <div class="history-box card dynamic-box"><div class="box-title" style="margin-bottom:4px;">SEEKINGS</div><textarea class="auto-resize" data-field="seekings"></textarea></div>
+      <div class="history-box card dynamic-box"><div class="box-title" style="margin-bottom:4px;">QUIETS</div><textarea class="auto-resize" data-field="quiets"></textarea></div>
+    </div>
+
+    <div class="history-box card" style="margin-top:8px;" data-autoname="m20-description">
+      <div class="box-title" style="margin-bottom:6px;">DESCRIPTION</div>
+      <div class="desc-grid">
+        <div class="info-cell"><input><label>AGE</label></div>
+        <div class="info-cell"><input><label>APPARENT AGE</label></div>
+        <div class="info-cell"><input><label>DATE OF BIRTH</label></div>
+        <div class="info-cell"><input><label>AGE OF AWAKENING</label></div>
+        <div class="info-cell"><input><label>HAIR</label></div>
+        <div class="info-cell"><input><label>EYES</label></div>
+        <div class="info-cell"><input><label>ETHNICITY</label></div>
+        <div class="info-cell"><input><label>NATIONALITY</label></div>
+        <div class="info-cell"><input><label>HEIGHT</label></div>
+        <div class="info-cell"><input><label>WEIGHT</label></div>
+        <div class="info-cell"><input><label>SEX</label></div>
+        <div class="info-cell"><input><label>APPEARANCE / NATURE OF AVATAR</label></div>
+      </div>
+    </div>
+
+    <div class="visuals-grid" style="margin-top:8px;">
+      <div class="portrait-box card visual-box"><input type="file" accept="image/*" class="no-print"><div class="portrait-overlay no-print">Upload Image</div><div class="box-title">CABAL CHART</div></div>
+      <div class="portrait-box card visual-box"><input type="file" accept="image/*" class="no-print"><div class="portrait-overlay no-print">Upload Image</div><div class="box-title">CHARACTER SKETCH</div></div>
+    </div>
+  </section>
+</div>
+</template>
+
+<!-- ============== VAMPIRE: THE MASQUERADE 5TH EDITION ============== -->
+<template id="tpl-vtm5">
+<div class="sheet-container">
+  <header class="sheet-header">
+    <div class="header-left">
+      <div class="name-container">
+        <input type="text" class="h-input char-name-input" placeholder="Character Name" data-field="name">
+        <label>CHARACTER NAME</label>
+      </div>
+    </div>
+    <div class="header-right">
+      <div class="info-grid">
+        <div class="info-cell"><input type="text" class="h-input" data-field="clan"><label>CLAN</label></div>
+        <div class="info-cell"><input type="text" class="h-input" data-field="sire"><label>SIRE</label></div>
+        <div class="info-cell"><input type="text" class="h-input" data-field="generation"><label>GENERATION</label></div>
+        <div class="info-cell"><input type="text" class="h-input" data-field="predator"><label>PREDATOR TYPE</label></div>
+        <div class="info-cell"><input type="text" class="h-input" data-field="ambition"><label>AMBITION</label></div>
+        <div class="info-cell"><input type="text" class="h-input" data-field="desire"><label>DESIRE</label></div>
+        <div class="info-cell"><input type="text" class="h-input" data-field="chronicle"><label>CHRONICLE</label></div>
+        <div class="info-cell"><input type="text" class="h-input" data-field="player"><label>PLAYER</label></div>
+        <div class="info-cell"><input type="text" class="h-input" data-field="concept"><label>CONCEPT</label></div>
+      </div>
+    </div>
+  </header>
+
+  <nav class="sheet-tabs no-print">
+    <button type="button" class="tab-btn active" data-page="char">Character</button>
+    <button type="button" class="tab-btn" data-page="advantages">Advantages &amp; Bio</button>
+  </nav>
+
+  <!-- ===== PAGE 1: CHARACTER ===== -->
+  <section class="sheet-page" data-page="char">
+    <div class="vtm-columns">
+      <div class="vtm-col">
+        <div class="traits-box card">
+          <div class="trait-group-title" style="margin-top:0;">Physical</div>
+          <div class="trait-list">
+            <div class="trait-row"><span class="t-name">Strength</span><div class="dot-rating" data-field="attr-strength"><span class="dot filled"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span></div></div>
+            <div class="trait-row"><span class="t-name">Dexterity</span><div class="dot-rating" data-field="attr-dexterity"><span class="dot filled"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span></div></div>
+            <div class="trait-row"><span class="t-name">Stamina</span><div class="dot-rating" data-field="attr-stamina"><span class="dot filled"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span></div></div>
+          </div>
+          <div class="trait-group-title">Social</div>
+          <div class="trait-list">
+            <div class="trait-row"><span class="t-name">Charisma</span><div class="dot-rating" data-field="attr-charisma"><span class="dot filled"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span></div></div>
+            <div class="trait-row"><span class="t-name">Manipulation</span><div class="dot-rating" data-field="attr-manipulation"><span class="dot filled"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span></div></div>
+            <div class="trait-row"><span class="t-name">Composure</span><div class="dot-rating" data-field="attr-composure"><span class="dot filled"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span></div></div>
+          </div>
+          <div class="trait-group-title">Mental</div>
+          <div class="trait-list">
+            <div class="trait-row"><span class="t-name">Intelligence</span><div class="dot-rating" data-field="attr-intelligence"><span class="dot filled"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span></div></div>
+            <div class="trait-row"><span class="t-name">Wits</span><div class="dot-rating" data-field="attr-wits"><span class="dot filled"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span></div></div>
+            <div class="trait-row"><span class="t-name">Resolve</span><div class="dot-rating" data-field="attr-resolve"><span class="dot filled"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span></div></div>
+          </div>
+        </div>
+
+        <div class="portrait-box card"><input type="file" accept="image/*" class="no-print"><div class="portrait-overlay no-print">Click or Drag Image</div><div class="box-title">PORTRAIT</div></div>
+
+        <div class="text-box-container card dynamic-box"><textarea class="auto-resize" data-field="clan-bane"></textarea><div class="box-title">CLAN BANE</div></div>
+        <div class="text-box-container card dynamic-box"><textarea class="auto-resize" data-field="tenets"></textarea><div class="box-title">CHRONICLE TENETS</div></div>
+      </div>
+
+      <div class="vtm-col">
+        <div class="traits-box card">
+          <div class="trait-group-title" style="margin-top:0;">Physical Skills</div>
+          <div class="trait-list">
+            <div class="trait-row"><span class="t-name">Athletics</span><div class="dot-rating"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span></div></div>
+            <div class="trait-row"><span class="t-name">Brawl</span><div class="dot-rating"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span></div></div>
+            <div class="trait-row"><span class="t-name">Craft</span><div class="dot-rating"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span></div></div>
+            <div class="trait-row"><span class="t-name">Drive</span><div class="dot-rating"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span></div></div>
+            <div class="trait-row"><span class="t-name">Firearms</span><div class="dot-rating"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span></div></div>
+            <div class="trait-row"><span class="t-name">Larceny</span><div class="dot-rating"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span></div></div>
+            <div class="trait-row"><span class="t-name">Melee</span><div class="dot-rating"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span></div></div>
+            <div class="trait-row"><span class="t-name">Stealth</span><div class="dot-rating"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span></div></div>
+            <div class="trait-row"><span class="t-name">Survival</span><div class="dot-rating"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span></div></div>
+          </div>
+          <div class="trait-group-title">Social Skills</div>
+          <div class="trait-list">
+            <div class="trait-row"><span class="t-name">Animal Ken</span><div class="dot-rating"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span></div></div>
+            <div class="trait-row"><span class="t-name">Etiquette</span><div class="dot-rating"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span></div></div>
+            <div class="trait-row"><span class="t-name">Insight</span><div class="dot-rating"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span></div></div>
+            <div class="trait-row"><span class="t-name">Intimidation</span><div class="dot-rating"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span></div></div>
+            <div class="trait-row"><span class="t-name">Leadership</span><div class="dot-rating"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span></div></div>
+            <div class="trait-row"><span class="t-name">Performance</span><div class="dot-rating"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span></div></div>
+            <div class="trait-row"><span class="t-name">Persuasion</span><div class="dot-rating"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span></div></div>
+            <div class="trait-row"><span class="t-name">Streetwise</span><div class="dot-rating"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span></div></div>
+            <div class="trait-row"><span class="t-name">Subterfuge</span><div class="dot-rating"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span></div></div>
+          </div>
+          <div class="trait-group-title">Mental Skills</div>
+          <div class="trait-list">
+            <div class="trait-row"><span class="t-name">Academics</span><div class="dot-rating"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span></div></div>
+            <div class="trait-row"><span class="t-name">Awareness</span><div class="dot-rating"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span></div></div>
+            <div class="trait-row"><span class="t-name">Finance</span><div class="dot-rating"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span></div></div>
+            <div class="trait-row"><span class="t-name">Investigation</span><div class="dot-rating"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span></div></div>
+            <div class="trait-row"><span class="t-name">Medicine</span><div class="dot-rating"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span></div></div>
+            <div class="trait-row"><span class="t-name">Occult</span><div class="dot-rating"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span></div></div>
+            <div class="trait-row"><span class="t-name">Politics</span><div class="dot-rating"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span></div></div>
+            <div class="trait-row"><span class="t-name">Science</span><div class="dot-rating"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span></div></div>
+            <div class="trait-row"><span class="t-name">Technology</span><div class="dot-rating"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span></div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="vtm-col">
+        <div class="disciplines-box card" data-autoname="vtm-disciplines">
+          <div class="box-title" style="margin-bottom:6px;">DISCIPLINES</div>
+          <div class="discipline-group">
+            <div class="discipline-head"><input type="text" class="disc-name" placeholder="Discipline name"><div class="dot-rating"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span></div></div>
+            <div class="power-list"><span></span>
+              <div class="power-row"><span>1</span><input placeholder="Power"></div>
+              <div class="power-row"><span>2</span><input placeholder="Power"></div>
+              <div class="power-row"><span>3</span><input placeholder="Power"></div>
+            </div>
+          </div>
+          <div class="discipline-group">
+            <div class="discipline-head"><input type="text" class="disc-name" placeholder="Discipline name"><div class="dot-rating"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span></div></div>
+            <div class="power-list">
+              <div class="power-row"><span>1</span><input placeholder="Power"></div>
+              <div class="power-row"><span>2</span><input placeholder="Power"></div>
+              <div class="power-row"><span>3</span><input placeholder="Power"></div>
+            </div>
+          </div>
+          <div class="discipline-group">
+            <div class="discipline-head"><input type="text" class="disc-name" placeholder="Discipline name"><div class="dot-rating"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span></div></div>
+            <div class="power-list">
+              <div class="power-row"><span>1</span><input placeholder="Power"></div>
+              <div class="power-row"><span>2</span><input placeholder="Power"></div>
+              <div class="power-row"><span>3</span><input placeholder="Power"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="vitals-row">
+          <div class="vital-box card"><label>BLOOD POTENCY</label><input type="text" data-field="blood-potency"></div>
+          <div class="vital-box card"><label>HUNGER</label><div class="dot-rating" data-field="hunger"><span class="dot filled"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span></div></div>
+        </div>
+
+        <div class="humanity-box card"><label>HUMANITY</label><div class="dot-rating compact" data-field="humanity"><span class="dot filled"></span><span class="dot filled"></span><span class="dot filled"></span><span class="dot filled"></span><span class="dot filled"></span><span class="dot filled"></span><span class="dot filled"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span></div></div>
+
+        <div class="track-box card">
+          <div class="track-row"><span>Health</span><div class="track-boxes"><input type="checkbox" class="fantasy-checkbox"><input type="checkbox" class="fantasy-checkbox"><input type="checkbox" class="fantasy-checkbox"><input type="checkbox" class="fantasy-checkbox"><input type="checkbox" class="fantasy-checkbox"><input type="checkbox" class="fantasy-checkbox"><input type="checkbox" class="fantasy-checkbox"><input type="checkbox" class="fantasy-checkbox"><input type="checkbox" class="fantasy-checkbox"><input type="checkbox" class="fantasy-checkbox"></div></div>
+          <div class="track-row"><span>Willpower</span><div class="track-boxes"><input type="checkbox" class="fantasy-checkbox"><input type="checkbox" class="fantasy-checkbox"><input type="checkbox" class="fantasy-checkbox"><input type="checkbox" class="fantasy-checkbox"><input type="checkbox" class="fantasy-checkbox"><input type="checkbox" class="fantasy-checkbox"><input type="checkbox" class="fantasy-checkbox"><input type="checkbox" class="fantasy-checkbox"><input type="checkbox" class="fantasy-checkbox"><input type="checkbox" class="fantasy-checkbox"></div></div>
+        </div>
+
+        <div class="reference-box card">
+          <div class="ref-row"><label>Blood Surge</label><input data-field="blood-surge"></div>
+          <div class="ref-row"><label>Mend Amount</label><input data-field="mend-amount"></div>
+          <div class="ref-row"><label>Power Bonus</label><input data-field="power-bonus"></div>
+          <div class="ref-row"><label>Rouse Re-Roll</label><input data-field="rouse-reroll"></div>
+          <div class="ref-row"><label>Feeding Penalty</label><input data-field="feeding-penalty"></div>
+          <div class="ref-row"><label>Bane Severity</label><input data-field="bane-severity"></div>
+          <div class="ref-row"><label>Resonance</label><input data-field="resonance"></div>
+          <div class="ref-row"><label>Hunting</label><input data-field="hunting"></div>
+        </div>
+
+        <div class="text-box-container card dynamic-box"><textarea class="auto-resize" data-field="touchstones"></textarea><div class="box-title">TOUCHSTONES &amp; CONVICTIONS</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== PAGE 2: ADVANTAGES & BIO ===== -->
+  <section class="sheet-page" data-page="advantages" hidden>
+    <div class="vtm-columns">
+      <div class="vtm-col">
+        <div class="named-dot-box card repeat-list" data-autoname="vtm-backgrounds">
+          <div class="box-title" style="margin-bottom:6px;">BACKGROUNDS</div>
+          <div class="repeat-rows">
+            <div class="repeat-row named-dot-row"><input class="trait-name" placeholder="Background"><div class="dot-rating"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span></div></div>
+            <div class="repeat-row named-dot-row"><input class="trait-name" placeholder="Background"><div class="dot-rating"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span></div></div>
+            <div class="repeat-row named-dot-row"><input class="trait-name" placeholder="Background"><div class="dot-rating"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span></div></div>
+          </div>
+          <button type="button" class="add-row-btn no-print">+ Add</button>
+        </div>
+        <div class="named-dot-box card repeat-list" data-autoname="vtm-merits">
+          <div class="box-title" style="margin-bottom:6px;">MERITS</div>
+          <div class="repeat-rows">
+            <div class="repeat-row named-dot-row"><input class="trait-name" placeholder="Merit"><div class="dot-rating"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span></div></div>
+            <div class="repeat-row named-dot-row"><input class="trait-name" placeholder="Merit"><div class="dot-rating"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span></div></div>
+          </div>
+          <button type="button" class="add-row-btn no-print">+ Add</button>
+        </div>
+        <div class="named-dot-box card repeat-list" data-autoname="vtm-flaws">
+          <div class="box-title" style="margin-bottom:6px;">FLAWS</div>
+          <div class="repeat-rows">
+            <div class="repeat-row named-dot-row"><input class="trait-name" placeholder="Flaw"><div class="dot-rating"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span></div></div>
+            <div class="repeat-row named-dot-row"><input class="trait-name" placeholder="Flaw"><div class="dot-rating"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span></div></div>
+          </div>
+          <button type="button" class="add-row-btn no-print">+ Add</button>
+        </div>
+
+        <div class="haven-box card">
+          <div class="box-title" style="margin-bottom:6px;">HAVEN</div>
+          <div class="haven-top"><label><input type="checkbox" class="fantasy-checkbox"> No Haven</label><span>Rating</span><div class="dot-rating" data-field="haven-rating"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span></div></div>
+          <div class="repeat-list" data-autoname="vtm-haven">
+            <div class="repeat-rows">
+              <div class="repeat-row named-dot-row"><input class="trait-name" placeholder="Haven merit / flaw"><div class="dot-rating"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span></div></div>
+            </div>
+            <button type="button" class="add-row-btn no-print">+ Add</button>
+          </div>
+        </div>
+
+        <div class="reference-box card">
+          <div class="box-title" style="margin-bottom:6px;">EXPERIENCE</div>
+          <div class="exp-row">
+            <div class="exp-cell"><label>TOTAL</label><input data-field="exp-total"></div>
+            <div class="exp-cell"><label>SPENT</label><input data-field="exp-spent"></div>
+          </div>
+        </div>
+
+        <div class="weapons-box card repeat-list" data-autoname="vtm-weapons">
+          <div class="box-title" style="margin-bottom:6px;">WEAPONS</div>
+          <div class="repeat-rows">
+            <div class="repeat-row weapon-row"><input class="w-name" placeholder="Weapon"><input class="w-dmg" placeholder="Damage"></div>
+            <div class="repeat-row weapon-row"><input class="w-name" placeholder="Weapon"><input class="w-dmg" placeholder="Damage"></div>
+          </div>
+          <button type="button" class="add-row-btn no-print">+ Add</button>
+        </div>
+      </div>
+
+      <div class="vtm-col" style="flex: 1.4;">
+        <div class="bio-box card">
+          <div class="box-title" style="margin-bottom:6px;">BIOGRAPHY</div>
+          <div class="bio-grid">
+            <div class="info-cell"><input data-field="true-age"><label>TRUE AGE</label></div>
+            <div class="info-cell"><input data-field="apparent-age"><label>APPARENT AGE</label></div>
+            <div class="info-cell"><input data-field="dob"><label>DATE OF BIRTH</label></div>
+            <div class="info-cell"><input data-field="dod"><label>DATE OF DEATH</label></div>
+          </div>
+        </div>
+        <div class="text-box-container card dynamic-box"><textarea class="auto-resize" data-field="appearance"></textarea><div class="box-title">APPEARANCE</div></div>
+        <div class="text-box-container card dynamic-box"><textarea class="auto-resize" data-field="distinguishing"></textarea><div class="box-title">DISTINGUISHING FEATURES</div></div>
+        <div class="text-box-container card dynamic-box"><textarea class="auto-resize" data-field="history"></textarea><div class="box-title">HISTORY</div></div>
+        <div class="text-box-container card dynamic-box"><textarea class="auto-resize" data-field="possessions"></textarea><div class="box-title">POSSESSIONS</div></div>
+        <div class="text-box-container card dynamic-box"><textarea class="auto-resize" data-field="notes"></textarea><div class="box-title">NOTES</div></div>
+      </div>
+    </div>
+  </section>
+</div>
+</template>
+
+<!-- ============== LEGEND OF THE FIVE RINGS ============== -->
+<template id="tpl-l5r">
+<div class="sheet-container">
+  <header class="sheet-header">
+    <div class="header-left">
+      <div class="name-container">
+        <input type="text" class="h-input char-name-input" placeholder="Character Name" data-field="name">
+        <label>CHARACTER NAME</label>
+      </div>
+    </div>
+    <div class="header-right">
+      <div class="info-grid">
+        <div class="info-cell"><input type="text" class="h-input" data-field="player"><label>PLAYER NAME</label></div>
+        <div class="info-cell"><input type="text" class="h-input" data-field="clan"><label>CLAN</label></div>
+        <div class="info-cell"><input type="text" class="h-input" data-field="family"><label>FAMILY</label></div>
+        <div class="info-cell"><input type="text" class="h-input" data-field="school"><label>SCHOOL</label></div>
+        <div class="info-cell"><input type="text" class="h-input" data-field="school-rank"><label>SCHOOL RANK</label></div>
+        <div class="info-cell"><input type="text" class="h-input" data-field="roles"><label>ROLES</label></div>
+      </div>
+    </div>
+  </header>
+
+  <nav class="sheet-tabs no-print">
+    <button type="button" class="tab-btn active" data-page="narrative">Narrative Mode</button>
+    <button type="button" class="tab-btn" data-page="conflict">Conflict Mode</button>
+  </nav>
+
+  <!-- ===== PAGE 1: NARRATIVE MODE ===== -->
+  <section class="sheet-page" data-page="narrative">
+    <div class="l5r-columns">
+      <div class="l5r-col l5r-col-narrow">
+        <div class="ring-wheel-box card">
+          <div>
+            <div class="ring-wheel">
+              <input class="ring-pip pip-earth" data-field="ring-earth" value="2" inputmode="numeric" title="Earth rank">
+              <input class="ring-pip pip-air" data-field="ring-air" value="2" inputmode="numeric" title="Air rank">
+              <input class="ring-pip pip-water" data-field="ring-water" value="2" inputmode="numeric" title="Water rank">
+              <input class="ring-pip pip-fire" data-field="ring-fire" value="2" inputmode="numeric" title="Fire rank">
+              <input class="ring-pip pip-void" data-field="ring-void" value="1" inputmode="numeric" title="Void rank">
+            </div>
+            <div class="ring-legend"><span>Earth</span><span>Air</span><span>Water</span><span>Fire</span><span>Void</span></div>
+          </div>
+        </div>
+
+        <div class="mini-box card rank-box">
+          <div class="mini-title">Social Standing</div>
+          <div class="rank-row"><label>Honor</label><div class="dot-rating compact" data-field="honor"><span class="dot filled"></span><span class="dot filled"></span><span class="dot filled"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span></div></div>
+          <div class="rank-row"><label>Glory</label><div class="dot-rating compact" data-field="glory"><span class="dot filled"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span></div></div>
+          <div class="rank-row"><label>Status</label><div class="dot-rating compact" data-field="status"><span class="dot filled"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span></div></div>
+        </div>
+
+        <div class="text-box-container card dynamic-box"><textarea class="auto-resize" data-field="ninjo" placeholder="Ninjō"></textarea><div class="box-title">NINJŌ</div></div>
+        <div class="text-box-container card dynamic-box"><textarea class="auto-resize" data-field="giri" placeholder="Giri"></textarea><div class="box-title">GIRI</div></div>
+        <div class="text-box-container card dynamic-box"><textarea class="auto-resize" data-field="titles"></textarea><div class="box-title">TITLES</div></div>
+
+        <div class="mini-box card">
+          <div class="mini-title">Experience</div>
+          <div class="exp-row">
+            <div class="exp-cell"><label>TOTAL</label><input data-field="xp-total"></div>
+            <div class="exp-cell"><label>SPENT</label><input data-field="xp-spent"></div>
+            <div class="exp-cell"><label>SAVED</label><input data-field="xp-saved"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="l5r-col">
+        <div class="skills-columns">
+          <div class="skills-box card">
+            <div class="skill-group-head"><span class="skill-group-title">Artisan Skills</span><span class="approach-ref">Refine · Restore · Invent · Adapt · Attune</span></div>
+            <div class="skill-row"><span class="sk-name">Aesthetics</span><input class="skill-rank"></div>
+            <div class="skill-row"><span class="sk-name">Composition</span><input class="skill-rank"></div>
+            <div class="skill-row"><span class="sk-name">Design</span><input class="skill-rank"></div>
+            <div class="skill-row"><span class="sk-name">Smithing</span><input class="skill-rank"></div>
+            <div class="skill-row"><input type="text" class="skill-name" placeholder="Other artisan skill"><input class="skill-rank"></div>
+
+            <div class="skill-group-head"><span class="skill-group-title">Martial Skills</span><span class="approach-ref">Feint · Withstand · Overwhelm · Shift · Sacrifice</span></div>
+            <div class="skill-row"><span class="sk-name">Fitness</span><input class="skill-rank"></div>
+            <div class="skill-row"><span class="sk-name">Martial Arts [Melee]</span><input class="skill-rank"></div>
+            <div class="skill-row"><span class="sk-name">Martial Arts [Ranged]</span><input class="skill-rank"></div>
+            <div class="skill-row"><span class="sk-name">Martial Arts [Unarmed]</span><input class="skill-rank"></div>
+            <div class="skill-row"><span class="sk-name">Meditation</span><input class="skill-rank"></div>
+            <div class="skill-row"><span class="sk-name">Tactics</span><input class="skill-rank"></div>
+
+            <div class="skill-group-head"><span class="skill-group-title">Scholar Skills</span><span class="approach-ref">Analyze · Recall · Theorize · Survey · Sense</span></div>
+            <div class="skill-row"><span class="sk-name">Culture</span><input class="skill-rank"></div>
+            <div class="skill-row"><span class="sk-name">Government</span><input class="skill-rank"></div>
+            <div class="skill-row"><span class="sk-name">Medicine</span><input class="skill-rank"></div>
+            <div class="skill-row"><span class="sk-name">Sentiment</span><input class="skill-rank"></div>
+            <div class="skill-row"><span class="sk-name">Theology</span><input class="skill-rank"></div>
+          </div>
+
+          <div class="skills-box card">
+            <div class="skill-group-head" style="margin-top:0;"><span class="skill-group-title">Social Skills</span><span class="approach-ref">Trick · Reason · Incite · Charm · Enlighten</span></div>
+            <div class="skill-row"><span class="sk-name">Command</span><input class="skill-rank"></div>
+            <div class="skill-row"><span class="sk-name">Courtesy</span><input class="skill-rank"></div>
+            <div class="skill-row"><span class="sk-name">Games</span><input class="skill-rank"></div>
+            <div class="skill-row"><span class="sk-name">Performance</span><input class="skill-rank"></div>
+            <div class="skill-row"><input type="text" class="skill-name" placeholder="Other social skill"><input class="skill-rank"></div>
+
+            <div class="skill-group-head"><span class="skill-group-title">Trade Skills</span><span class="approach-ref">Con · Produce · Innovate · Exchange · Subsist</span></div>
+            <div class="skill-row"><span class="sk-name">Commerce</span><input class="skill-rank"></div>
+            <div class="skill-row"><span class="sk-name">Labor</span><input class="skill-rank"></div>
+            <div class="skill-row"><span class="sk-name">Seafaring</span><input class="skill-rank"></div>
+            <div class="skill-row"><span class="sk-name">Skulduggery</span><input class="skill-rank"></div>
+            <div class="skill-row"><span class="sk-name">Survival</span><input class="skill-rank"></div>
+
+            <div class="skill-group-head"><span class="skill-group-title">Personality, Habits &amp; Quirks</span></div>
+            <div class="text-box-container dynamic-box" style="padding:0;min-height:60px;"><textarea class="auto-resize" data-field="personality"></textarea></div>
+          </div>
+        </div>
+
+        <div class="mini-box card named-list" data-autoname="l5r-distinctions">
+          <div class="mini-title" style="text-align:left;">Distinctions</div>
+          <div class="hint">Reroll up to two dice of your choice when a distinction helps you on a check.</div>
+          <div class="named-row"><input placeholder="Distinction"></div>
+        </div>
+        <div class="mini-box card named-list" data-autoname="l5r-adversities">
+          <div class="mini-title" style="text-align:left;">Adversities</div>
+          <div class="hint">Reroll two dice with Opportunity/Strife symbols when an adversity hinders you; on failure, gain 1 Void point.</div>
+          <div class="named-row"><input placeholder="Adversity"></div>
+          <div class="named-row"><input placeholder="Adversity"></div>
+        </div>
+        <div class="mini-box card named-list" data-autoname="l5r-passions">
+          <div class="mini-title" style="text-align:left;">Passions</div>
+          <div class="hint">After a check related to your passion, remove 3 strife.</div>
+          <div class="named-row"><input placeholder="Passion"></div>
+        </div>
+        <div class="mini-box card named-list" data-autoname="l5r-anxieties">
+          <div class="mini-title" style="text-align:left;">Anxieties</div>
+          <div class="hint">After a check related to your anxiety, gain 3 strife, then 1 Void point (once per scene).</div>
+          <div class="named-row"><input placeholder="Anxiety"></div>
+        </div>
+      </div>
+
+      <div class="l5r-col l5r-col-narrow">
+        <div class="portrait-box card"><input type="file" accept="image/*" class="no-print"><div class="portrait-overlay no-print">Portrait</div></div>
+
+        <div class="mini-box card relationships-box repeat-list" data-autoname="l5r-relationships">
+          <div class="mini-title">Relationships</div>
+          <div class="table-header-row"><span>Name</span><span>Standing</span><span>Notes</span></div>
+          <div class="repeat-rows">
+            <div class="repeat-row rel-row"><input class="rel-name"><input class="rel-standing"><input class="rel-notes"></div>
+            <div class="repeat-row rel-row"><input class="rel-name"><input class="rel-standing"><input class="rel-notes"></div>
+            <div class="repeat-row rel-row"><input class="rel-name"><input class="rel-standing"><input class="rel-notes"></div>
+          </div>
+          <button type="button" class="add-row-btn no-print">+ Add</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== PAGE 2: CONFLICT MODE ===== -->
+  <section class="sheet-page" data-page="conflict" hidden>
+    <div class="l5r-columns">
+      <div class="l5r-col l5r-col-narrow">
+        <div class="mini-box card" style="display:flex;flex-direction:column;align-items:center;">
+          <div class="ring-wheel decorative"></div>
+        </div>
+        <div class="stances-box card">
+          <div class="stance-note"><b>Earth Stance</b> — others can't spend Opportunity to inflict critical strikes or conditions on you.</div>
+          <div class="stance-note"><b>Air Stance</b> — +1 (+2 at rank 4+) to the TN of Attack and Scheme checks targeting you.</div>
+          <div class="stance-note"><b>Water Stance</b> — take a second action this turn that shares no type with your first and needs no check.</div>
+          <div class="stance-note"><b>Fire Stance</b> — on a success, +1 bonus success per Opportunity symbol rolled.</div>
+          <div class="stance-note"><b>Void Stance</b> — you don't gain strife from Opportunity symbols on checks.</div>
+          <div class="stance-note" style="margin-top:4px;opacity:.8;">Stances can only be applied during conflicts.</div>
+        </div>
+
+        <div class="mini-box card derived-box">
+          <div class="mini-title">Derived Attributes</div>
+          <div class="derived-row"><label>Endurance<span class="sub">(Earth + Fire) × 2</span></label><input type="text" data-field="endurance" readonly></div>
+          <div class="derived-row"><label>Composure<span class="sub">(Earth + Water) × 2</span></label><input type="text" data-field="composure" readonly></div>
+          <div class="derived-row"><label>Focus<span class="sub">Air + Fire</span></label><input type="text" data-field="focus" readonly></div>
+          <div class="derived-row"><label>Vigilance<span class="sub">(Air + Water) ÷ 2</span></label><input type="text" data-field="vigilance" readonly></div>
+        </div>
+        <div class="mini-box card void-fatigue-row">
+          <div class="stat-cell"><label>FATIGUE</label><input data-field="fatigue"></div>
+          <div class="stat-cell"><label>STRIFE</label><input data-field="strife"></div>
+          <div class="stat-cell"><label>VOID PTS MAX</label><input type="text" data-field="void-max" readonly></div>
+          <div class="stat-cell"><label>VOID PTS CUR.</label><input data-field="void-current"></div>
+        </div>
+      </div>
+
+      <div class="l5r-col">
+        <div class="mini-box card combat-skills-box repeat-list" data-autoname="l5r-combat-skills">
+          <div class="mini-title">Combat Skills</div>
+          <div class="repeat-rows">
+            <div class="repeat-row"><input class="cs-name" placeholder="Skill name"><input class="cs-rank" placeholder="Rank"></div>
+            <div class="repeat-row"><input class="cs-name" placeholder="Skill name"><input class="cs-rank" placeholder="Rank"></div>
+            <div class="repeat-row"><input class="cs-name" placeholder="Skill name"><input class="cs-rank" placeholder="Rank"></div>
+          </div>
+          <button type="button" class="add-row-btn no-print">+ Add</button>
+        </div>
+
+        <div class="mini-box card advantages-box repeat-list" data-autoname="l5r-advantages">
+          <div class="mini-title">Advantages &amp; Disadvantages</div>
+          <div class="repeat-rows">
+            <div class="repeat-row"><input placeholder="Advantage / Disadvantage"></div>
+            <div class="repeat-row"><input placeholder="Advantage / Disadvantage"></div>
+          </div>
+          <button type="button" class="add-row-btn no-print">+ Add</button>
+        </div>
+
+        <div class="mini-box card conditions-box repeat-list" data-autoname="l5r-conditions">
+          <div class="mini-title">Conditions</div>
+          <div class="repeat-rows">
+            <div class="repeat-row"><input placeholder="Condition"></div>
+          </div>
+          <button type="button" class="add-row-btn no-print">+ Add</button>
+        </div>
+
+        <div class="text-box-container card dynamic-box"><textarea class="auto-resize" data-field="school-abilities"></textarea><div class="box-title">SCHOOL ABILITIES</div></div>
+
+        <div class="mini-box card">
+          <div class="mini-title" style="text-align:left;">Technique Types Available</div>
+          <div class="technique-types">
+            <label><input type="checkbox" class="fantasy-checkbox">Kata</label>
+            <label><input type="checkbox" class="fantasy-checkbox">Kihō</label>
+            <label><input type="checkbox" class="fantasy-checkbox">Invocations</label>
+            <label><input type="checkbox" class="fantasy-checkbox">Rituals</label>
+            <label><input type="checkbox" class="fantasy-checkbox">Shūji</label>
+            <label><input type="checkbox" class="fantasy-checkbox">Mahō</label>
+            <label><input type="checkbox" class="fantasy-checkbox">Ninjutsu</label>
+          </div>
+          <div class="text-box-container dynamic-box" style="padding:0;min-height:60px;"><textarea class="auto-resize" data-field="techniques-actions" placeholder="Techniques (new actions)"></textarea></div>
+        </div>
+        <div class="text-box-container card dynamic-box"><textarea class="auto-resize" data-field="techniques-other"></textarea><div class="box-title">TECHNIQUES (REACTIONS &amp; OPPORTUNITY)</div></div>
+      </div>
+
+      <div class="l5r-col l5r-col-narrow">
+        <div class="table-box card repeat-list" data-autoname="l5r-weapons">
+          <div class="mini-title">Weapons</div>
+          <div class="table-header-row"><span>Name</span><span>Dmg</span><span>Range</span><span>Qual.</span></div>
+          <div class="repeat-rows">
+            <div class="repeat-row"><input><input><input><input></div>
+            <div class="repeat-row"><input><input><input><input></div>
+          </div>
+          <button type="button" class="add-row-btn no-print">+ Add</button>
+        </div>
+
+        <div class="table-box card repeat-list" data-autoname="l5r-armor">
+          <div class="mini-title">Armor</div>
+          <div class="table-header-row"><span>Name</span><span>Protects</span><span>Qual.</span></div>
+          <div class="repeat-rows">
+            <div class="repeat-row"><input><input><input></div>
+          </div>
+          <button type="button" class="add-row-btn no-print">+ Add</button>
+        </div>
+
+        <div class="text-box-container card dynamic-box"><textarea class="auto-resize" data-field="clothes"></textarea><div class="box-title">CLOTHES</div></div>
+        <div class="text-box-container card dynamic-box"><textarea class="auto-resize" data-field="gear"></textarea><div class="box-title">GEAR</div></div>
+        <div class="currency-row">
+          <div class="currency-cell"><label>KOKU</label><input data-field="koku"></div>
+          <div class="currency-cell"><label>BU</label><input data-field="bu"></div>
+          <div class="currency-cell"><label>ZENI</label><input data-field="zeni"></div>
+        </div>
+        <div class="text-box-container card dynamic-box"><textarea class="auto-resize" data-field="notes"></textarea><div class="box-title">NOTES</div></div>
+      </div>
+    </div>
+  </section>
+</div>
+</template>
+
+<script src="js/core/app.js"></script>
+<script src="js/sheets/dnd5e.js"></script>
+<script src="js/sheets/pathfinder2e.js"></script>
+<script src="js/sheets/swade.js"></script>
+<script src="js/sheets/fate.js"></script>
+<script src="js/sheets/mage20.js"></script>
+<script src="js/sheets/vtm5.js"></script>
+<script src="js/sheets/l5r.js"></script>
 </body>
 </html>

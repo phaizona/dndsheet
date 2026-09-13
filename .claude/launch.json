@@ -1,0 +1,11 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "dndsheet",
+      "runtimeExecutable": "npx",
+      "runtimeArgs": ["--yes", "serve", "docs", "-l", "8792"],
+      "port": 8792
+    }
+  ]
+}

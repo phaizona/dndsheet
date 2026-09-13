@@ -1,0 +1,95 @@
+/* Mage: the Ascension 20th Anniversary Edition — based on the official
+   4-page interactive character sheet, split here into 4 tabs. */
+.sheet-mage20 { font-size: 11px; }
+
+.sheet-mage20 .sheet-header { display: flex; gap: 16px; margin-bottom: 14px; }
+.sheet-mage20 .header-left { flex: 0 0 220px; display: flex; align-items: flex-end; }
+.sheet-mage20 .char-name-input { width: 100%; font-size: 24px; color: var(--accent); }
+.sheet-mage20 .name-container { border-bottom: 3px solid var(--border); padding-bottom: 5px; width: 100%; }
+.sheet-mage20 .name-container label { font-size: 10px; font-weight: 800; font-family: var(--font-heading); }
+.sheet-mage20 .header-right { flex: 1; border: 2px solid var(--border); border-radius: 10px; padding: 8px 10px; background: rgba(255,255,255,0.3); }
+.sheet-mage20 .info-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+.sheet-mage20 .info-cell { border-bottom: 1px solid var(--muted); display: flex; flex-direction: column; }
+.sheet-mage20 .info-cell .h-input { font-size: 13px; }
+.sheet-mage20 .info-cell label { font-size: 8px; font-weight: 600; font-family: var(--font-heading); }
+
+.sheet-mage20 .sheet-tabs { margin-bottom: 10px; }
+
+.sheet-mage20 .m20-columns { display: flex; gap: 10px; align-items: flex-start; }
+.sheet-mage20 .m20-col { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 8px; }
+
+.sheet-mage20 .traits-box { padding: 8px 10px; }
+.sheet-mage20 .trait-list .dot-rating .dot { width: 11px; height: 11px; }
+
+.sheet-mage20 .willpower-box { padding: 8px 10px; }
+.sheet-mage20 .wp-perm { display: flex; justify-content: center; margin-bottom: 6px; }
+.sheet-mage20 .wp-temp-label { font-size: 8px; text-align: center; color: var(--muted); margin-bottom: 3px; }
+.sheet-mage20 .wp-temp { display: flex; justify-content: center; gap: 3px; flex-wrap: wrap; }
+
+.sheet-mage20 .arete-box { padding: 8px 10px; text-align: center; }
+.sheet-mage20 .arete-box .dot-rating { justify-content: center; }
+
+.sheet-mage20 .health-box { padding: 8px 10px; }
+
+.sheet-mage20 .points-box { padding: 8px 10px; }
+.sheet-mage20 .points-box .points-title { font-size: 9px; font-weight: 800; font-family: var(--font-heading); text-align: center; margin-bottom: 4px; text-transform: uppercase; }
+.sheet-mage20 .points-track { display: flex; flex-wrap: wrap; gap: 2px; justify-content: center; }
+
+.sheet-mage20 .backgrounds-box, .sheet-mage20 .other-traits-box { padding: 8px 10px; }
+.sheet-mage20 .named-dot-row { display: flex; align-items: center; gap: 6px; margin-bottom: 3px; }
+.sheet-mage20 .named-dot-row input.trait-name { flex: 1; border-bottom: 1px solid var(--muted); font-size: 10px; min-width: 0; }
+
+.sheet-mage20 .exp-box { padding: 8px 10px; }
+.sheet-mage20 .exp-box input { width: 100%; font-size: 14px; border-bottom: 1px solid var(--muted); text-align: center; }
+
+.sheet-mage20 .portrait-box { max-width: 170px; max-height: 170px; }
+.sheet-mage20 .portrait-box .box-title { position: absolute; bottom: 5px; background: rgba(244,236,216,0.8); }
+
+/* merits & magic & combat */
+.sheet-mage20 .merits-box { padding: 8px 10px; }
+.sheet-mage20 .merit-row { display: flex; gap: 6px; align-items: center; margin-bottom: 3px; }
+.sheet-mage20 .merit-row input.m-name { flex: 1.6; border-bottom: 1px solid var(--muted); font-size: 10px; min-width: 0; }
+.sheet-mage20 .merit-row input.m-type { flex: 1; border-bottom: 1px solid var(--muted); font-size: 9.5px; min-width: 0; }
+.sheet-mage20 .merit-row input.m-cost { width: 34px; border-bottom: 1px solid var(--muted); font-size: 9.5px; text-align: center; }
+
+.sheet-mage20 .magic-box { padding: 8px 10px; min-height: 120px; }
+.sheet-mage20 .magic-box textarea { min-height: 90px; width: 100%; }
+
+.sheet-mage20 .combat-box { padding: 8px 10px; }
+.sheet-mage20 .combat-row { display: flex; gap: 4px; align-items: center; margin-bottom: 2px; }
+.sheet-mage20 .combat-row input { border-bottom: 1px solid var(--muted); font-size: 9.5px; text-align: center; min-width: 0; flex: 1; }
+.sheet-mage20 .combat-row input:first-child { flex: 1.8; text-align: left; }
+.sheet-mage20 .armor-box { padding: 8px 10px; }
+.sheet-mage20 .armor-row { display: flex; align-items: center; gap: 6px; margin-bottom: 4px; }
+.sheet-mage20 .armor-row label { font-size: 9px; font-weight: 700; font-family: var(--font-heading); width: 60px; flex-shrink: 0; }
+.sheet-mage20 .armor-row input { flex: 1; border-bottom: 1px solid var(--muted); font-size: 10px; }
+
+/* background & possessions */
+.sheet-mage20 .expanded-bg-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.sheet-mage20 .bg-entry { padding: 6px 8px; }
+.sheet-mage20 .bg-entry input.bg-title { width: 100%; text-align: center; font-family: var(--font-heading); font-weight: 700; font-size: 11px; border-bottom: 1px solid var(--border); margin-bottom: 3px; }
+.sheet-mage20 .bg-entry textarea { min-height: 44px; width: 100%; }
+
+.sheet-mage20 .possessions-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.sheet-mage20 .possession-box { padding: 8px 10px; }
+.sheet-mage20 .possession-box textarea { min-height: 70px; width: 100%; }
+.sheet-mage20 .chantry-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+
+/* history & description */
+.sheet-mage20 .history-box { padding: 8px 10px; }
+.sheet-mage20 .history-box textarea { min-height: 70px; width: 100%; }
+.sheet-mage20 .seeking-quiet-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+
+.sheet-mage20 .desc-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 6px 14px; }
+.sheet-mage20 .desc-grid .info-cell { border-bottom: 1px solid var(--muted); }
+.sheet-mage20 .desc-grid label { font-size: 8px; font-weight: 700; font-family: var(--font-heading); }
+
+.sheet-mage20 .visuals-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.sheet-mage20 .visual-box { max-width: 200px; max-height: 200px; }
+.sheet-mage20 .visual-box .box-title { position: absolute; bottom: 5px; background: rgba(244,236,216,0.8); }
+
+@media (max-width: 860px) {
+  .sheet-mage20 .m20-columns, .sheet-mage20 .expanded-bg-grid,
+  .sheet-mage20 .possessions-grid, .sheet-mage20 .chantry-grid,
+  .sheet-mage20 .seeking-quiet-grid, .sheet-mage20 .visuals-grid { flex-direction: column; grid-template-columns: 1fr; }
+}

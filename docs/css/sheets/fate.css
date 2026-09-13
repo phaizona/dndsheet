@@ -1,0 +1,49 @@
+/* Fate Condensed — sheet-specific styles, based on the official character sheet */
+.sheet-fate .sheet-header { display: flex; align-items: flex-end; gap: 16px; margin-bottom: 16px; }
+.sheet-fate .char-name-input { width: 100%; font-size: 28px; color: var(--accent); }
+.sheet-fate .name-container { flex: 0 0 260px; border-bottom: 3px solid var(--border); padding-bottom: 5px; }
+.sheet-fate .name-container label { font-size: 11px; font-weight: 800; font-family: var(--font-heading); }
+.sheet-fate .info-grid { flex: 1; display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+.sheet-fate .info-cell { border-bottom: 1px solid var(--muted); display: flex; flex-direction: column; }
+.sheet-fate .info-cell label { font-size: 9px; font-weight: 700; font-family: var(--font-heading); }
+
+.sheet-fate .sheet-body { display: grid; grid-template-columns: minmax(0,46%) minmax(0,54%); gap: 3%; align-items: start; }
+
+.sheet-fate .aspects-box { padding: 10px; margin-bottom: 12px; }
+.sheet-fate .aspect-row { padding: 5px 0; border-bottom: 1px dotted rgba(74,44,17,0.3); }
+.sheet-fate .aspect-row:last-child { border-bottom: none; }
+.sheet-fate .aspect-row label { font-size: 9.5px; font-weight: 700; font-family: var(--font-heading); text-transform: uppercase; display: block; margin-bottom: 2px; }
+.sheet-fate .aspect-row input { width: 100%; font-size: 14px; border-bottom: 1px solid var(--muted); }
+
+.sheet-fate .refresh-fp-row { display: flex; gap: 8px; margin-bottom: 12px; }
+.sheet-fate .refresh-box, .sheet-fate .fp-box { flex: 1; padding: 8px; display: flex; align-items: center; justify-content: center; gap: 8px; }
+.sheet-fate .refresh-box label, .sheet-fate .fp-box label { font-family: var(--font-heading); font-size: 10px; font-weight: 800; text-transform: uppercase; }
+.sheet-fate .refresh-box input { width: 32px; height: 32px; border: 2px solid var(--border); border-radius: 50%; text-align: center; font-size: 16px; background: var(--parchment); }
+.sheet-fate .fp-box .dot-rating .dot { width: 16px; height: 16px; }
+
+.sheet-fate .stunts-box { padding: 10px; min-height: 220px; }
+.sheet-fate .stunts-box textarea { min-height: 190px; width: 100%; }
+
+.sheet-fate .stress-box { padding: 10px; margin-bottom: 12px; }
+.sheet-fate .stress-track { display: flex; align-items: center; gap: 8px; margin-bottom: 6px; }
+.sheet-fate .stress-track:last-child { margin-bottom: 0; }
+.sheet-fate .stress-track > label { font-size: 10px; font-weight: 800; font-family: var(--font-heading); width: 56px; flex-shrink: 0; }
+.sheet-fate .stress-cells { display: flex; gap: 6px; flex-wrap: wrap; }
+.sheet-fate .stress-cell { display: flex; align-items: center; gap: 2px; }
+.sheet-fate .stress-cell span { font-size: 9px; color: var(--muted); }
+.sheet-fate .stress-cell.bonus .fantasy-checkbox { opacity: 0.5; }
+
+.sheet-fate .consequences-box { padding: 10px; margin-bottom: 12px; }
+.sheet-fate .consequence-row { display: flex; align-items: center; gap: 8px; margin-bottom: 6px; }
+.sheet-fate .consequence-row:last-child { margin-bottom: 0; }
+.sheet-fate .consequence-row .cons-value { font-size: 12px; font-weight: 800; width: 16px; text-align: center; font-family: var(--font-heading); flex-shrink: 0; }
+.sheet-fate .consequence-row input { flex: 1; border-bottom: 1px solid var(--muted); font-size: 12.5px; }
+
+.sheet-fate .skills-box { padding: 10px; }
+.sheet-fate .skills-grid { display: grid; grid-template-columns: 1fr; gap: 2px; }
+.sheet-fate .skill-row { display: flex; align-items: center; gap: 8px; padding: 2px 0; }
+.sheet-fate .skill-row input.skill-rank { width: 30px; text-align: center; border: 1px solid var(--muted); border-radius: 4px; font-size: 11px; background: rgba(255,255,255,0.6); }
+.sheet-fate .skill-row .skill-name { font-size: 11px; font-weight: 700; }
+
+.sheet-fate .portrait-box { margin-top: 12px; max-width: 180px; max-height: 180px; }
+.sheet-fate .portrait-box .box-title { position: absolute; bottom: 5px; background: rgba(244,236,216,0.8); }

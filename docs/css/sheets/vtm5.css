@@ -1,0 +1,82 @@
+/* Vampire: the Masquerade 5th Edition — sheet-specific styles */
+.sheet-vtm5 .char-name-input { width: 100%; font-size: 30px; color: var(--accent); }
+.sheet-vtm5 .name-container { border-bottom: 3px solid var(--border); padding-bottom: 5px; }
+.sheet-vtm5 .name-container label { font-size: 11px; font-weight: 800; font-family: var(--font-heading); }
+.sheet-vtm5 .sheet-header { display: flex; gap: 20px; margin-bottom: 16px; }
+.sheet-vtm5 .header-left { flex: 0 0 30%; display: flex; align-items: flex-end; }
+.sheet-vtm5 .header-right { flex: 1; border: 2px solid var(--border); border-radius: 10px; padding: 10px; background: rgba(255,255,255,0.3); }
+.sheet-vtm5 .info-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+.sheet-vtm5 .info-cell { border-bottom: 1px solid var(--muted); display: flex; flex-direction: column; }
+.sheet-vtm5 .info-cell .h-input { font-size: 13px; }
+.sheet-vtm5 .info-cell label { font-size: 8px; font-weight: 600; font-family: var(--font-heading); }
+
+.sheet-vtm5 .sheet-tabs { margin-bottom: 10px; }
+
+.sheet-vtm5 .vtm-columns { display: flex; gap: 10px; align-items: flex-start; }
+.sheet-vtm5 .vtm-col { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 8px; }
+
+.sheet-vtm5 .traits-box { padding: 8px 10px; }
+
+.sheet-vtm5 .disciplines-box { padding: 8px 10px; }
+.sheet-vtm5 .discipline-group { margin-bottom: 8px; padding-bottom: 6px; border-bottom: 1px dotted rgba(74,44,17,0.25); }
+.sheet-vtm5 .discipline-group:last-child { border-bottom: none; margin-bottom: 0; }
+.sheet-vtm5 .discipline-head { display: flex; align-items: center; gap: 6px; margin-bottom: 4px; }
+.sheet-vtm5 .discipline-group input.disc-name { flex: 1; border-bottom: 1px solid var(--border); font-family: var(--font-heading); font-weight: 700; font-size: 11px; }
+.sheet-vtm5 .power-list { display: flex; flex-direction: column; gap: 2px; padding-left: 14px; }
+.sheet-vtm5 .power-row { display: flex; align-items: center; gap: 4px; }
+.sheet-vtm5 .power-row span { font-size: 9px; color: var(--muted); width: 12px; flex-shrink: 0; }
+.sheet-vtm5 .power-row input { flex: 1; border-bottom: 1px solid var(--muted); font-size: 10px; }
+
+.sheet-vtm5 .vitals-row { display: flex; gap: 8px; }
+.sheet-vtm5 .vital-box { flex: 1; padding: 6px; display: flex; flex-direction: column; align-items: center; gap: 4px; }
+.sheet-vtm5 .vital-box label { font-size: 8px; font-weight: 800; font-family: var(--font-heading); text-align: center; }
+.sheet-vtm5 .vital-box input { width: 44px; text-align: center; font-size: 15px; }
+
+.sheet-vtm5 .track-box { padding: 8px 10px; }
+.sheet-vtm5 .track-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; }
+.sheet-vtm5 .track-row:last-child { margin-bottom: 0; }
+.sheet-vtm5 .track-row span { font-size: 10px; font-family: var(--font-heading); font-weight: 700; }
+.sheet-vtm5 .track-boxes { display: flex; gap: 3px; flex-wrap: wrap; max-width: 190px; justify-content: flex-end; }
+
+.sheet-vtm5 .humanity-box { padding: 8px 10px; display: flex; align-items: center; justify-content: space-between; }
+.sheet-vtm5 .humanity-box label { font-size: 10px; font-weight: 800; font-family: var(--font-heading); }
+
+.sheet-vtm5 .reference-box { padding: 8px 10px; }
+.sheet-vtm5 .ref-row { display: flex; align-items: center; justify-content: space-between; gap: 6px; padding: 2px 0; border-bottom: 1px dotted rgba(74,44,17,0.2); }
+.sheet-vtm5 .ref-row:last-child { border-bottom: none; }
+.sheet-vtm5 .ref-row label { font-size: 9px; font-weight: 700; font-family: var(--font-heading); }
+.sheet-vtm5 .ref-row input { width: 60%; border-bottom: 1px solid var(--muted); font-size: 10px; text-align: right; }
+
+.sheet-vtm5 .text-box-container { padding: 8px 10px; }
+.sheet-vtm5 .text-box-container textarea { min-height: 60px; width: 100%; }
+
+.sheet-vtm5 .portrait-box { max-width: 170px; max-height: 170px; }
+.sheet-vtm5 .portrait-box .box-title { position: absolute; bottom: 5px; background: rgba(244,236,216,0.8); }
+
+/* advantages & bio tab */
+.sheet-vtm5 .named-dot-box { padding: 8px 10px; }
+.sheet-vtm5 .named-dot-row { display: flex; align-items: center; gap: 6px; margin-bottom: 3px; }
+.sheet-vtm5 .named-dot-row input.trait-name { flex: 1; border-bottom: 1px solid var(--muted); font-size: 10px; min-width: 0; }
+
+.sheet-vtm5 .haven-box { padding: 8px 10px; }
+.sheet-vtm5 .haven-top { display: flex; align-items: center; gap: 8px; margin-bottom: 6px; font-size: 10px; font-weight: 700; font-family: var(--font-heading); }
+
+.sheet-vtm5 .exp-row { display: flex; gap: 10px; }
+.sheet-vtm5 .exp-cell { flex: 1; display: flex; flex-direction: column; }
+.sheet-vtm5 .exp-cell label { font-size: 9px; font-weight: 800; font-family: var(--font-heading); }
+.sheet-vtm5 .exp-cell input { border-bottom: 1px solid var(--muted); font-size: 12px; }
+
+.sheet-vtm5 .weapons-box { padding: 8px 10px; }
+.sheet-vtm5 .weapon-row { display: flex; gap: 6px; margin-bottom: 2px; }
+.sheet-vtm5 .weapon-row input.w-name { flex: 2; border-bottom: 1px solid var(--muted); font-size: 10px; }
+.sheet-vtm5 .weapon-row input.w-dmg { flex: 1; border-bottom: 1px solid var(--muted); font-size: 10px; text-align: center; }
+
+.sheet-vtm5 .bio-box { padding: 8px 10px; }
+.sheet-vtm5 .bio-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; margin-bottom: 6px; }
+.sheet-vtm5 .bio-grid .info-cell { border-bottom: 1px solid var(--muted); }
+.sheet-vtm5 .bio-grid label { font-size: 7.5px; font-weight: 700; font-family: var(--font-heading); }
+
+@media (max-width: 860px) {
+  .sheet-vtm5 .vtm-columns { flex-direction: column; }
+  .sheet-vtm5 .bio-grid { grid-template-columns: repeat(2, 1fr); }
+}

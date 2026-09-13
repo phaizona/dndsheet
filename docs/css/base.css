@@ -1,0 +1,430 @@
+/* ============================================================
+   BASE — shell, sidebar, topbar, and shared building blocks
+   used by every sheet module. Sheet-specific styling lives in
+   css/sheets/<id>.css — keep this file generic.
+   ============================================================ */
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --ink: #2a1910;
+  --muted: #6b503b;
+  --border: #4a2c11;
+  --parchment: #f4ecd8;
+  --gold: #d9a856;
+  --accent: #8a4b38;
+
+  --bg-deep: #14100c;
+  --bg-panel: #1c1712;
+  --bg-panel-2: #241d16;
+
+  --font-heading: 'Cinzel', serif;
+  --font-hand: 'Macondo', cursive;
+  --font-body: 'Open Sans', sans-serif;
+
+  --sidebar-w: 240px;
+  --topbar-h: 64px;
+}
+
+html, body { height: 100%; }
+
+body {
+  font-family: var(--font-body);
+  background: radial-gradient(ellipse at top, #241a2e 0%, #150f1a 55%, #0c0a10 100%);
+  color: var(--parchment);
+  overflow: hidden;
+}
+
+img { max-width: 100%; }
+
+/* ---------------- APP SHELL ---------------- */
+.app-shell {
+  display: grid;
+  grid-template-columns: var(--sidebar-w) 1fr;
+  height: 100vh;
+  width: 100vw;
+}
+
+/* ---------------- SIDEBAR ---------------- */
+.sheet-sidebar {
+  background: #121014;
+  border-right: 1px solid #262229;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.sidebar-brand {
+  padding: 16px 14px;
+  border-bottom: 1px solid #262229;
+  flex-shrink: 0;
+}
+
+.sidebar-brand .brand-title {
+  font-family: var(--font-heading);
+  font-weight: 800;
+  font-size: 15px;
+  letter-spacing: 0.5px;
+  color: var(--gold);
+}
+
+.sidebar-brand .brand-sub {
+  font-size: 10px;
+  color: #7d7686;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  margin-top: 2px;
+}
+
+.sheet-nav {
+  flex: 1;
+  overflow-y: auto;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.sheet-nav::-webkit-scrollbar { width: 8px; }
+.sheet-nav::-webkit-scrollbar-thumb { background: #2c2830; border-radius: 4px; }
+.sheet-nav::-webkit-scrollbar-track { background: transparent; }
+
+/* full-image nav card: the whole button is the artwork, name overlaid at the bottom */
+.sheet-nav-item {
+  --accent: #8a4b38;
+  position: relative;
+  width: 100%;
+  height: 64px;
+  padding: 0;
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 8px;
+  overflow: hidden;
+  cursor: pointer;
+  background: linear-gradient(150deg, color-mix(in srgb, var(--accent) 55%, #14100c), #14100c);
+  transition: border-color .15s ease, transform .12s ease;
+}
+
+.sheet-nav-item:hover { border-color: rgba(255,255,255,0.3); transform: translateY(-1px); }
+
+.sheet-nav-item.active {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 2px color-mix(in srgb, var(--accent) 65%, transparent);
+}
+
+.nav-image { position: absolute; inset: 0; }
+.nav-image img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.nav-fallback { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; }
+.nav-fallback .thumb-emoji { font-size: 24px; opacity: .4; }
+
+.nav-name {
+  position: absolute; left: 0; right: 0; bottom: 0;
+  padding: 6px 10px 6px;
+  font-size: 11.5px; font-weight: 700; color: #fff;
+  text-shadow: 0 1px 3px rgba(0,0,0,0.9);
+  background: linear-gradient(180deg, transparent, rgba(0,0,0,0.78) 65%);
+  text-align: left;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+
+.sidebar-footer {
+  flex-shrink: 0;
+  padding: 10px 14px 12px;
+  border-top: 1px solid #262229;
+  font-family: var(--font-hand);
+  font-size: 13px;
+  color: #8a8391;
+  text-align: center;
+}
+
+/* ---------------- MAIN AREA ---------------- */
+.main-area {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  min-width: 0;
+}
+
+.topbar {
+  height: var(--topbar-h);
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 0 22px;
+  background: #17151a;
+  border-bottom: 1px solid #262229;
+}
+
+.topbar-title {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+.topbar-title .t-name {
+  font-family: var(--font-heading);
+  font-weight: 800;
+  font-size: 16px;
+  color: var(--gold);
+  white-space: nowrap;
+}
+.topbar-title .t-tag {
+  font-size: 10.5px;
+  color: #a9967c;
+  letter-spacing: 0.5px;
+}
+
+.topbar-actions { display: flex; gap: 10px; flex-shrink: 0; }
+
+.export-btn {
+  padding: 9px 16px;
+  background: linear-gradient(160deg, #a45a43, #7a3d2a);
+  color: #f4ecd8;
+  border: 1px solid var(--gold);
+  border-radius: 7px;
+  font-family: var(--font-heading);
+  font-weight: 600;
+  font-size: 12.5px;
+  letter-spacing: 0.4px;
+  cursor: pointer;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.4);
+  transition: transform .12s ease, box-shadow .12s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+.export-btn:hover { transform: translateY(-1px); box-shadow: 0 5px 14px rgba(0,0,0,0.5); }
+.export-btn:active { transform: translateY(0); }
+
+.sheet-viewport {
+  flex: 1;
+  overflow: auto;
+  padding: 34px 24px 60px;
+  display: flex;
+  justify-content: center;
+}
+
+/* wraps the cloned .sheet-container; JS applies a transform:scale() here so
+   fixed-width paper sheets shrink to fit narrow viewports instead of overflowing */
+.sheet-scale-wrap {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+/* flex items shrink by default — without this the browser squashes the
+   sheet to fit before JS ever gets to measure its true natural width */
+.sheet-scale-wrap > .sheet-container { flex-shrink: 0; }
+
+/* ---------------- SHEET SHARED CHROME ---------------- */
+.sheet-container {
+  background-color: var(--parchment);
+  background-image: radial-gradient(circle, rgba(255,255,255,0.4) 0%, rgba(200,175,135,0.2) 100%);
+  box-shadow: 0 0 30px rgba(0,0,0,0.8), inset 0 0 40px rgba(139,115,85,0.3);
+  border: 4px double var(--border);
+  border-radius: 8px;
+  color: var(--border);
+  font-family: var(--font-body);
+  padding: 28px;
+  position: relative;
+  height: max-content;
+}
+
+/* Deliberately no max-width here: the sheet must report its true natural
+   width so Core.fitSheetToViewport() can measure it and scale it down with
+   a transform. Capping it with max-width:100% would let the browser shrink
+   it silently first, which squashes/overlaps the fixed-layout content
+   inside instead of scaling it down cleanly. */
+.sheet-container.orient-portrait { width: 850px; }
+.sheet-container.orient-landscape { width: 1150px; }
+
+input, textarea, select {
+  background: transparent;
+  border: none;
+  outline: none;
+  resize: none;
+  color: var(--ink);
+  font-family: var(--font-hand);
+  font-size: 16px;
+  overflow: hidden;
+  max-width: 100%;
+}
+select { font-family: var(--font-body); cursor: pointer; }
+
+.box-title {
+  font-size: 11px; font-weight: 800; text-align: center;
+  text-transform: uppercase; font-family: var(--font-heading);
+  width: 100%; margin-top: auto; padding-top: 5px;
+}
+
+.dynamic-box { display: flex; flex-direction: column; min-height: min-content; }
+
+.card {
+  border: 2px solid var(--border);
+  border-radius: 8px;
+  background: rgba(255,255,255,0.4);
+  box-shadow: inset 0 0 10px rgba(0,0,0,0.05);
+}
+
+.auto-resize { width: 100%; }
+
+/* fantasy square checkbox */
+.fantasy-checkbox {
+  appearance: none; -webkit-appearance: none;
+  width: 14px; height: 14px;
+  border: 1px solid var(--border);
+  border-radius: 3px;
+  background: rgba(255,255,255,0.8);
+  box-shadow: inset 0 0 2px rgba(0,0,0,0.3);
+  position: relative;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+.fantasy-checkbox:checked::after {
+  content: 'X';
+  position: absolute; top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  font-family: var(--font-hand); font-size: 14px; font-weight: bold;
+  color: var(--accent);
+}
+
+/* round bubble checkbox */
+.bubble-checkbox {
+  appearance: none; -webkit-appearance: none;
+  width: 14px; height: 14px; border-radius: 50%;
+  border: 1px solid var(--border);
+  background: rgba(255,255,255,0.8); cursor: pointer;
+  box-shadow: inset 0 0 2px rgba(0,0,0,0.3);
+}
+.bubble-checkbox:checked { background: var(--accent); border-color: var(--accent); }
+
+/* generic dot rating (used by WoD-style sheets: attributes, disciplines, spheres...) */
+.dot-rating { display: inline-flex; gap: 3px; align-items: center; }
+.dot-rating .dot {
+  width: 12px; height: 12px; border-radius: 50%;
+  border: 1.5px solid var(--border);
+  background: rgba(255,255,255,0.7);
+  cursor: pointer;
+  box-shadow: inset 0 0 2px rgba(0,0,0,0.25);
+}
+.dot-rating .dot.filled { background: var(--accent); border-color: var(--accent); }
+.dot-rating.compact { gap: 2px; flex-wrap: wrap; }
+.dot-rating.compact .dot { width: 8px; height: 8px; }
+
+/* generic die-type badge selector (Savage Worlds) */
+.die-select {
+  border: 1px solid var(--muted);
+  border-radius: 5px;
+  background: rgba(255,255,255,0.6);
+  font-family: var(--font-body);
+  font-size: 12px;
+  padding: 2px 4px;
+}
+
+/* shared "World of Darkness"-style trait list, used by mage20 & vtm5 */
+.trait-group-title {
+  font-size: 10px; font-weight: 800; font-family: var(--font-heading);
+  text-transform: uppercase; letter-spacing: 0.4px; margin: 10px 0 5px; opacity: .85;
+}
+.trait-group-title:first-child { margin-top: 0; }
+.trait-list { display: flex; flex-direction: column; gap: 3px; }
+.trait-row { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+.trait-row .t-name { font-size: 10.5px; flex: 1; }
+.trait-row input.t-custom { border-bottom: 1px solid var(--muted); font-size: 10.5px; flex: 1; }
+
+.health-track { display: flex; flex-direction: column; gap: 3px; }
+.health-row { display: flex; align-items: center; justify-content: space-between; gap: 6px; }
+.health-row .h-name { font-size: 10px; flex: 1; }
+.health-row .h-penalty { font-size: 8.5px; color: var(--muted); width: 60px; text-align: right; }
+
+.portrait-box {
+  width: 100%; aspect-ratio: 1 / 1; max-width: 220px; max-height: 220px;
+  margin: 0 auto 15px; position: relative;
+  background-repeat: no-repeat; background-size: contain; background-position: center;
+  display: flex; align-items: flex-end; justify-content: center; overflow: hidden;
+}
+.portrait-box input[type="file"] { position: absolute; inset: 0; opacity: 0; cursor: pointer; z-index: 10; }
+.portrait-overlay {
+  position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+  font-size: 13px; font-family: var(--font-heading); font-weight: bold;
+  color: var(--muted); pointer-events: none; text-align: center; width: 100%;
+}
+.portrait-box.has-image .portrait-overlay { display: none; }
+
+.credits-inline {
+  position: absolute; bottom: -25px; right: 10px;
+  font-family: var(--font-hand); font-size: 14px;
+  color: var(--gold); text-shadow: 1px 1px 2px black;
+}
+
+.no-print { }
+
+/* ---------------- MULTI-PAGE SHEETS (tabs) ----------------
+   Used by sheets long enough to need multiple pages (e.g. a
+   character page + a spells page). Export treats each .sheet-page
+   as its own PDF page automatically; PNG export captures the
+   currently visible one. */
+.sheet-tabs { display: flex; gap: 6px; margin-bottom: 14px; flex-wrap: wrap; }
+.sheet-tabs .tab-btn {
+  padding: 7px 16px;
+  border: 2px solid var(--border);
+  border-bottom-width: 3px;
+  border-radius: 6px 6px 0 0;
+  background: rgba(255,255,255,0.35);
+  font-family: var(--font-heading); font-weight: 700;
+  font-size: 11px; text-transform: uppercase; letter-spacing: 0.4px;
+  cursor: pointer; color: var(--border);
+}
+.sheet-tabs .tab-btn.active { background: var(--accent); color: var(--parchment); border-color: var(--accent); }
+.sheet-page[hidden] { display: none; }
+
+/* ---------------- REPEATABLE ROW LISTS ----------------
+   Used for anything a player adds more of: inventory items,
+   actions, known spells... */
+.repeat-list .repeat-rows { display: flex; flex-direction: column; gap: 4px; }
+.repeat-row { display: flex; align-items: center; gap: 6px; }
+.add-row-btn {
+  margin-top: 6px;
+  padding: 4px 12px;
+  border: 1px dashed var(--muted);
+  border-radius: 5px;
+  background: transparent;
+  font-family: var(--font-heading); font-weight: 700;
+  font-size: 10px; letter-spacing: 0.3px;
+  cursor: pointer; color: var(--muted);
+}
+.add-row-btn:hover { border-color: var(--accent); color: var(--accent); }
+.remove-row-btn {
+  border: none; background: transparent; cursor: pointer;
+  color: var(--muted); font-size: 15px; line-height: 1; flex-shrink: 0; padding: 0 3px;
+}
+.remove-row-btn:hover { color: #b0342a; }
+
+/* ---------------- PROFICIENCY (TEML) RATING ----------------
+   4-step Trained/Expert/Master/Legendary tracker, built on top
+   of .dot-rating so it gets click-to-set and autosave for free. */
+.dot-rating.teml .dot {
+  width: 15px; height: 15px; border-radius: 50%;
+  font-size: 7.5px; font-family: var(--font-body); font-weight: 800;
+  display: flex; align-items: center; justify-content: center; color: var(--muted);
+}
+.dot-rating.teml .dot.filled { color: var(--parchment); }
+
+/* ---------------- CALCULATED STAT ROW ----------------
+   Total = Key ability mod + Proficiency (from .teml + level) + Item.
+   Wired generically by Core.wireStatBlocks(). */
+.calc-row input[data-role="key"],
+.calc-row input[data-role="prof"],
+.calc-row input[data-role="total"] { pointer-events: none; opacity: 0.85; }
+
+/* ---------------- RESPONSIVE ---------------- */
+@media (max-width: 860px) {
+  :root { --sidebar-w: 72px; }
+  .nav-name { display: none; }
+  .sidebar-brand .brand-sub, .sidebar-footer { display: none; }
+  .sidebar-brand .brand-title { font-size: 11px; text-align: center; }
+  .topbar { padding: 0 12px; }
+  .topbar-title .t-tag { display: none; }
+  .export-btn span.btn-label { display: none; }
+  .sheet-viewport { padding: 16px 10px 40px; }
+}
