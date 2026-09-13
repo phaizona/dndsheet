@@ -172,19 +172,6 @@ img { max-width: 100%; }
 
 .topbar-title {
   display: flex;
-  align-items: center;
-  gap: 10px;
-  min-width: 0;
-}
-.topbar-logo {
-  width: 30px; height: 30px; flex-shrink: 0;
-  background: var(--parchment);
-  border-radius: 7px;
-  padding: 3px;
-  box-shadow: 0 1px 4px rgba(0,0,0,0.4);
-}
-.topbar-text {
-  display: flex;
   flex-direction: column;
   min-width: 0;
 }
