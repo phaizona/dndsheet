@@ -25,7 +25,7 @@
 .sheet-vtm5 .power-list { display: flex; flex-direction: column; gap: 2px; padding-left: 14px; }
 .sheet-vtm5 .power-row { display: flex; align-items: center; gap: 4px; }
 .sheet-vtm5 .power-row span { font-size: 9px; color: var(--muted); width: 12px; flex-shrink: 0; }
-.sheet-vtm5 .power-row input { flex: 1; border-bottom: 1px solid var(--muted); font-size: 10px; }
+.sheet-vtm5 .power-row .grow, .sheet-vtm5 .power-row input { flex: 1; border-bottom: 1px solid var(--muted); font-size: 10px; }
 
 .sheet-vtm5 .vitals-row { display: flex; gap: 8px; }
 .sheet-vtm5 .vital-box { flex: 1; padding: 6px; display: flex; flex-direction: column; align-items: center; gap: 4px; }
@@ -56,7 +56,7 @@
 /* advantages & bio tab */
 .sheet-vtm5 .named-dot-box { padding: 8px 10px; }
 .sheet-vtm5 .named-dot-row { display: flex; align-items: center; gap: 6px; margin-bottom: 3px; }
-.sheet-vtm5 .named-dot-row input.trait-name { flex: 1; border-bottom: 1px solid var(--muted); font-size: 10px; min-width: 0; }
+.sheet-vtm5 .named-dot-row .trait-name { flex: 1; border-bottom: 1px solid var(--muted); font-size: 10px; min-width: 0; }
 
 .sheet-vtm5 .haven-box { padding: 8px 10px; }
 .sheet-vtm5 .haven-top { display: flex; align-items: center; gap: 8px; margin-bottom: 6px; font-size: 10px; font-weight: 700; font-family: var(--font-heading); }
@@ -67,16 +67,12 @@
 .sheet-vtm5 .exp-cell input { border-bottom: 1px solid var(--muted); font-size: 12px; }
 
 .sheet-vtm5 .weapons-box { padding: 8px 10px; }
-.sheet-vtm5 .weapon-row { display: flex; gap: 6px; margin-bottom: 2px; }
-.sheet-vtm5 .weapon-row input.w-name { flex: 2; border-bottom: 1px solid var(--muted); font-size: 10px; }
-.sheet-vtm5 .weapon-row input.w-dmg { flex: 1; border-bottom: 1px solid var(--muted); font-size: 10px; text-align: center; }
+.sheet-vtm5 .weapon-row { display: flex; gap: 6px; align-items: flex-start; margin-bottom: 2px; }
+.sheet-vtm5 .weapon-row .w-name { flex: 2; border-bottom: 1px solid var(--muted); font-size: 10px; min-width: 0; }
+.sheet-vtm5 .weapon-row .w-dmg { flex: 1; border-bottom: 1px solid var(--muted); font-size: 10px; text-align: center; min-width: 0; }
 
 .sheet-vtm5 .bio-box { padding: 8px 10px; }
 .sheet-vtm5 .bio-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; margin-bottom: 6px; }
 .sheet-vtm5 .bio-grid .info-cell { border-bottom: 1px solid var(--muted); }
 .sheet-vtm5 .bio-grid label { font-size: 7.5px; font-weight: 700; font-family: var(--font-heading); }
 
-@media (max-width: 860px) {
-  .sheet-vtm5 .vtm-columns { flex-direction: column; }
-  .sheet-vtm5 .bio-grid { grid-template-columns: repeat(2, 1fr); }
-}

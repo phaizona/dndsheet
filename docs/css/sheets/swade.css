@@ -55,18 +55,17 @@
 .sheet-swade .arcane-row input { flex: 1; border-bottom: 1px solid var(--muted); font-size: 10px; }
 
 .sheet-swade .repeat-table-header { display: flex; gap: 4px; font-size: 8px; font-weight: 700; color: var(--muted); font-family: var(--font-heading); text-transform: uppercase; margin-bottom: 2px; }
-.sheet-swade .weapon-row, .sheet-swade .power-row { display: flex; gap: 4px; align-items: center; margin-bottom: 2px; }
-.sheet-swade .weapon-row input, .sheet-swade .power-row input { border-bottom: 1px solid var(--muted); font-size: 9.5px; text-align: center; min-width: 0; }
-.sheet-swade .weapon-row input:first-child, .sheet-swade .power-row input:first-child { flex: 1.6; text-align: left; }
-.sheet-swade .weapon-row input, .sheet-swade .power-row input { flex: 1; }
+.sheet-swade .weapon-row, .sheet-swade .power-row { display: flex; gap: 4px; align-items: flex-start; margin-bottom: 2px; }
+.sheet-swade .weapon-row > *, .sheet-swade .power-row > * { border-bottom: 1px solid var(--muted); font-size: 9.5px; text-align: center; min-width: 0; flex: 1; }
+.sheet-swade .weapon-row > *:first-child, .sheet-swade .power-row > *:first-child { flex: 1.6; text-align: left; }
 
-.sheet-swade .adv-row { display: flex; gap: 4px; align-items: center; margin-bottom: 2px; }
+.sheet-swade .adv-row { display: flex; gap: 4px; align-items: flex-start; margin-bottom: 2px; }
 .sheet-swade .adv-row select.rank-select { flex: 0 0 58px; min-width: 0; font-size: 7.5px; padding: 1px; }
-.sheet-swade .adv-row input { flex: 1; min-width: 0; border-bottom: 1px solid var(--muted); font-size: 9px; }
+.sheet-swade .adv-row > :not(select) { flex: 1; min-width: 0; border-bottom: 1px solid var(--muted); font-size: 9px; }
 
-.sheet-swade .hindrance-row { display: flex; gap: 4px; align-items: center; margin-bottom: 2px; }
+.sheet-swade .hindrance-row { display: flex; gap: 4px; align-items: flex-start; margin-bottom: 2px; }
 .sheet-swade .hindrance-row select.severity-select { flex: 0 0 50px; min-width: 0; font-size: 7.5px; padding: 1px; }
-.sheet-swade .hindrance-row input { flex: 1; min-width: 0; border-bottom: 1px solid var(--muted); font-size: 9px; }
+.sheet-swade .hindrance-row > :not(select) { flex: 1; min-width: 0; border-bottom: 1px solid var(--muted); font-size: 9px; }
 
 .sheet-swade .ammo-row { display: flex; gap: 4px; align-items: center; margin-bottom: 3px; }
 .sheet-swade .ammo-row input.ammo-type { flex: 1; min-width: 0; border-bottom: 1px solid var(--muted); font-size: 9.5px; }
@@ -79,9 +78,9 @@
 .sheet-swade .possessions-box { flex: 1.3; min-width: 0; padding: 6px 8px; }
 .sheet-swade .possessions-columns { display: flex; gap: 8px; }
 .sheet-swade .possessions-col { flex: 1; min-width: 0; }
-.sheet-swade .item-row { display: flex; gap: 4px; margin-bottom: 2px; }
-.sheet-swade .item-row input.pos-name { flex: 1.6; border-bottom: 1px solid var(--muted); font-size: 9.5px; min-width: 0; }
-.sheet-swade .item-row input.pos-loc, .sheet-swade .item-row input.pos-weight { flex: 1; border-bottom: 1px solid var(--muted); font-size: 9.5px; text-align: center; min-width: 0; }
+.sheet-swade .item-row { display: flex; gap: 4px; align-items: flex-start; margin-bottom: 2px; }
+.sheet-swade .item-row .pos-name { flex: 1.6; border-bottom: 1px solid var(--muted); font-size: 9.5px; min-width: 0; }
+.sheet-swade .item-row .pos-loc, .sheet-swade .item-row .pos-weight { flex: 1; border-bottom: 1px solid var(--muted); font-size: 9.5px; text-align: center; min-width: 0; }
 .sheet-swade .encumbrance-row { display: flex; justify-content: space-between; font-size: 8.5px; margin-top: 6px; font-weight: 700; }
 .sheet-swade .encumbrance-row input { width: 40px; text-align: center; border-bottom: 1px solid var(--muted); }
 
@@ -100,7 +99,3 @@
 .sheet-swade .currency-cell label { font-size: 8px; font-weight: 800; font-family: var(--font-heading); }
 .sheet-swade .currency-cell input { width: 100%; text-align: center; font-size: 13px; border-bottom: 1px solid var(--muted); }
 
-@media (max-width: 860px) {
-  .sheet-swade .sw-body, .sheet-swade .sw-gear-grid { flex-direction: column; }
-  .sheet-swade .skills-columns { columns: 1; }
-}

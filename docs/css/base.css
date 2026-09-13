@@ -281,6 +281,17 @@ select { font-family: var(--font-body); cursor: pointer; }
 
 .auto-resize { width: 100%; }
 
+/* a field upgraded from <input> to an auto-growing <textarea> by
+   Core.upgradeGrowFields() — looks identical to a normal underlined field
+   until the player types more than fits on one line, then it grows down
+   instead of scrolling text sideways out of view */
+textarea.grow {
+  display: block;
+  border-bottom: 1px solid var(--muted);
+  line-height: 1.3;
+  word-break: break-word;
+}
+
 /* fantasy square checkbox */
 .fantasy-checkbox {
   appearance: none; -webkit-appearance: none;

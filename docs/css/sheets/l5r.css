@@ -24,7 +24,7 @@
 .sheet-l5r .ring-wheel-box { padding: 8px; display: flex; justify-content: center; }
 .sheet-l5r .ring-wheel {
   position: relative; width: 210px; height: 220px;
-  background-image: url('../../assets/stancesicons.webp');
+  background-image: url('../../assets/stancesicons.png');
   background-repeat: no-repeat; background-size: 210px 210px; background-position: 0 0;
 }
 .sheet-l5r .ring-wheel.decorative { width: 160px; height: 168px; background-size: 160px 160px; margin: 0 auto; }
@@ -95,19 +95,20 @@
 .sheet-l5r .stance-note b { font-family: var(--font-heading); }
 
 .sheet-l5r .combat-skills-box .repeat-row, .sheet-l5r .advantages-box .repeat-row, .sheet-l5r .conditions-box .repeat-row {
-  display: flex; gap: 6px; margin-bottom: 2px;
+  display: flex; gap: 6px; align-items: flex-start; margin-bottom: 2px;
 }
-.sheet-l5r .combat-skills-box input.cs-name { flex: 2; border-bottom: 1px solid var(--muted); font-size: 10px; }
-.sheet-l5r .combat-skills-box input.cs-rank { width: 30px; border-bottom: 1px solid var(--muted); font-size: 10px; text-align: center; }
-.sheet-l5r .advantages-box input, .sheet-l5r .conditions-box input { flex: 1; border-bottom: 1px solid var(--muted); font-size: 10px; }
+.sheet-l5r .combat-skills-box .cs-name { flex: 2; border-bottom: 1px solid var(--muted); font-size: 10px; min-width: 0; }
+.sheet-l5r .combat-skills-box .cs-rank { width: 30px; border-bottom: 1px solid var(--muted); font-size: 10px; text-align: center; }
+.sheet-l5r .advantages-box input, .sheet-l5r .conditions-box input,
+.sheet-l5r .advantages-box textarea, .sheet-l5r .conditions-box textarea { flex: 1; min-width: 0; border-bottom: 1px solid var(--muted); font-size: 10px; }
 
 .sheet-l5r .table-box { padding: 8px; }
 .sheet-l5r .table-header-row { display: flex; gap: 4px; font-size: 7.5px; font-weight: 700; color: var(--muted); text-transform: uppercase; margin-bottom: 2px; }
 .sheet-l5r .table-header-row span { flex: 1; }
 .sheet-l5r .table-header-row span:first-child { flex: 1.8; }
-.sheet-l5r .table-box .repeat-row { display: flex; gap: 4px; margin-bottom: 2px; }
-.sheet-l5r .table-box .repeat-row input { flex: 1; border-bottom: 1px solid var(--muted); font-size: 9.5px; text-align: center; min-width: 0; }
-.sheet-l5r .table-box .repeat-row input:first-child { flex: 1.8; text-align: left; }
+.sheet-l5r .table-box .repeat-row { display: flex; gap: 4px; align-items: flex-start; margin-bottom: 2px; }
+.sheet-l5r .table-box .repeat-row > * { flex: 1; min-width: 0; border-bottom: 1px solid var(--muted); font-size: 9.5px; text-align: center; }
+.sheet-l5r .table-box .repeat-row > *:first-child { flex: 1.8; text-align: left; }
 
 .sheet-l5r .technique-types { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 6px; }
 .sheet-l5r .technique-types label { display: flex; align-items: center; gap: 3px; font-size: 8.5px; font-weight: 700; }
@@ -117,6 +118,3 @@
 .sheet-l5r .currency-cell label { font-size: 8px; font-weight: 800; font-family: var(--font-heading); }
 .sheet-l5r .currency-cell input { width: 100%; text-align: center; font-size: 12px; border-bottom: 1px solid var(--muted); }
 
-@media (max-width: 860px) {
-  .sheet-l5r .l5r-columns, .sheet-l5r .skills-columns { flex-direction: column; }
-}

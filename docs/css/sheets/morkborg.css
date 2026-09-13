@@ -1,0 +1,69 @@
+/* Mörk Borg — sheet-specific styles (landscape, single page) */
+.sheet-morkborg { font-size: 11px; }
+
+.sheet-morkborg .sheet-header { display: flex; gap: 16px; margin-bottom: 14px; }
+.sheet-morkborg .header-left { flex: 0 0 260px; display: flex; align-items: flex-end; }
+.sheet-morkborg .char-name-input { width: 100%; font-size: 26px; color: var(--accent); }
+.sheet-morkborg .name-container { border-bottom: 3px solid var(--border); padding-bottom: 5px; width: 100%; }
+.sheet-morkborg .name-container label { font-size: 11px; font-weight: 800; font-family: var(--font-heading); }
+.sheet-morkborg .header-right { flex: 1; border: 2px solid var(--border); border-radius: 10px; padding: 8px 10px; background: rgba(255,255,255,0.3); }
+.sheet-morkborg .info-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+.sheet-morkborg .info-cell { border-bottom: 1px solid var(--muted); display: flex; flex-direction: column; }
+.sheet-morkborg .info-cell .h-input { font-size: 13px; }
+.sheet-morkborg .info-cell label { font-size: 8px; font-weight: 600; font-family: var(--font-heading); }
+
+.sheet-morkborg .mb-columns { display: flex; gap: 10px; align-items: flex-start; }
+.sheet-morkborg .mb-col { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 8px; }
+.sheet-morkborg .mb-col-narrow { flex: 0 0 200px; }
+
+.sheet-morkborg .mini-box { padding: 8px 10px; }
+.sheet-morkborg .mini-title { font-size: 9.5px; font-weight: 800; font-family: var(--font-heading); text-transform: uppercase; margin-bottom: 5px; }
+
+.sheet-morkborg .text-box-container { padding: 8px 10px; }
+.sheet-morkborg .text-box-container textarea { min-height: 60px; width: 100%; }
+.sheet-morkborg .description-box textarea { min-height: 130px; }
+.sheet-morkborg .class-box textarea { min-height: 90px; }
+
+.sheet-morkborg .abilities-row { display: flex; gap: 8px; }
+.sheet-morkborg .ability-box {
+  flex: 1; padding: 8px 4px; display: flex; flex-direction: column; align-items: center; gap: 4px;
+  border-radius: 50% / 20%;
+}
+.sheet-morkborg .ability-box label { font-size: 8px; font-weight: 800; font-family: var(--font-heading); text-align: center; }
+.sheet-morkborg .ability-box input { width: 100%; text-align: center; font-size: 20px; font-weight: 700; }
+
+.sheet-morkborg .hp-row { display: flex; gap: 8px; align-items: stretch; }
+.sheet-morkborg .hp-box { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 10px; }
+.sheet-morkborg .hp-box .hp-values { display: flex; align-items: baseline; gap: 4px; }
+.sheet-morkborg .hp-box input.hp-current { width: 44px; text-align: center; font-size: 26px; font-weight: 800; color: var(--accent); }
+.sheet-morkborg .hp-box .hp-sep { font-size: 16px; color: var(--muted); }
+.sheet-morkborg .hp-box input.hp-max { width: 34px; text-align: center; font-size: 16px; color: var(--muted); }
+
+.sheet-morkborg .omens-silver-row { display: flex; gap: 8px; }
+.sheet-morkborg .stat-cell { flex: 1; display: flex; flex-direction: column; align-items: center; padding: 6px; }
+.sheet-morkborg .stat-cell label { font-size: 8px; font-weight: 800; font-family: var(--font-heading); }
+.sheet-morkborg .stat-cell input { width: 100%; text-align: center; font-size: 18px; }
+
+.sheet-morkborg .miseries-box { display: flex; align-items: center; gap: 8px; padding: 8px 10px; }
+.sheet-morkborg .miseries-box .mini-title { margin-bottom: 0; flex-shrink: 0; }
+.sheet-morkborg .miseries-track { display: flex; gap: 4px; }
+
+.sheet-morkborg .weapon-row, .sheet-morkborg .power-row, .sheet-morkborg .equip-row {
+  display: flex; gap: 6px; align-items: flex-start; margin-bottom: 3px;
+}
+.sheet-morkborg .weapon-row > * { flex: 1; min-width: 0; border-bottom: 1px solid var(--muted); font-size: 10.5px; }
+.sheet-morkborg .weapon-row > :first-child { flex: 2; }
+.sheet-morkborg .power-row > *, .sheet-morkborg .equip-row > * { flex: 1; min-width: 0; border-bottom: 1px solid var(--muted); font-size: 10.5px; }
+
+.sheet-morkborg .armor-box .armor-line { display: flex; align-items: center; gap: 8px; margin-bottom: 6px; }
+.sheet-morkborg .armor-box .armor-line input.armor-name { flex: 1; min-width: 0; border-bottom: 1px solid var(--muted); font-size: 11px; }
+.sheet-morkborg .armor-box .tier-row { display: flex; align-items: center; gap: 6px; font-size: 9px; }
+.sheet-morkborg .armor-box .dr-row { display: flex; align-items: center; gap: 6px; }
+.sheet-morkborg .armor-box .dr-row label { font-size: 9px; font-weight: 700; font-family: var(--font-heading); }
+.sheet-morkborg .armor-box .dr-row input { flex: 1; border-bottom: 1px solid var(--muted); font-size: 10.5px; }
+
+.sheet-morkborg .reference-note { font-size: 7.5px; color: var(--muted); line-height: 1.4; padding: 6px 10px; }
+
+.sheet-morkborg .portrait-box { max-width: 170px; max-height: 170px; }
+.sheet-morkborg .portrait-box .box-title { position: absolute; bottom: 5px; background: rgba(244,236,216,0.8); }
+

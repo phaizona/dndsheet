@@ -23,6 +23,7 @@ const SHEET_REGISTRY = [
   { id: "mage20", name: "Mage: the Ascension", icon: "🔮", accent: "#5b3b8c", orientation: "portrait" },
   { id: "vtm5", name: "Vampire: the Masquerade", icon: "🩸", accent: "#7a1420", orientation: "portrait" },
   { id: "l5r", name: "Legend of the Five Rings", icon: "🎋", accent: "#3f6b3a", orientation: "landscape" },
+  { id: "morkborg", name: "Mörk Borg", icon: "💀", accent: "#c9a227", orientation: "landscape" },
 ];
 
 const STORAGE_PREFIX = "phaizona-sheet:";
@@ -80,6 +81,7 @@ document.addEventListener("DOMContentLoaded", () => {
     titleTag.textContent = "";
 
     // common behaviors available to every sheet
+    Core.upgradeGrowFields(viewport);
     Core.autoResizeAll(viewport);
     Core.wirePortraits(viewport);
     Core.wireDotRatings(viewport);
@@ -102,6 +104,28 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   const Core = {
+    // ---- turn any <input class="grow"> into a real auto-expanding field ----
+    // Plain <input> elements can never wrap text — long entries (a weapon
+    // name, an item description...) just scroll sideways out of view. Mark
+    // any field that might hold a longer note with class="grow" in the
+    // markup, and this swaps it for a one-line-tall <textarea> that grows
+    // downward as the player types, wired into the same auto-resize/repeat
+    // list/autosave machinery as every other textarea.
+    upgradeGrowFields(root) {
+      root.querySelectorAll("input.grow").forEach((input) => {
+        const ta = document.createElement("textarea");
+        ta.className = `${input.className} auto-resize`.trim();
+        ta.setAttribute("rows", "1");
+        if (input.placeholder) ta.placeholder = input.placeholder;
+        if (input.value) ta.value = input.value;
+        Array.from(input.attributes).forEach((attr) => {
+          if (attr.name.startsWith("data-") && attr.name !== "data-field") ta.setAttribute(attr.name, attr.value);
+        });
+        if (input.dataset.field) ta.dataset.field = input.dataset.field;
+        input.replaceWith(ta);
+      });
+    },
+
     autoResizeAll(root) {
       root.querySelectorAll("textarea.auto-resize").forEach((t) => {
         const resize = () => { t.style.height = "auto"; t.style.height = t.scrollHeight + "px"; };
@@ -399,13 +423,44 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // temporarily undo the responsive scale-down so exports are always full resolution
-  function withNaturalScale(container, fn) {
+  // Exports must render the sheet exactly as the live page does. Two things
+  // quietly break that if left alone:
+  //  - the responsive scale-down transform (fitSheetToViewport) is purely
+  //    visual, but leaving it on would still capture at the shrunk size
+  //  - the parchment sheet lives inside a scrolling, overflow:hidden-ish
+  //    viewport; capturing while scrolled/clipped crops or shifts the result
+  // This resets both, restoring them afterward no matter what.
+  function withExportLayout(container, fn) {
     const prevTransform = container.style.transform;
+    const prevViewportOverflow = viewport.style.overflow;
+    const prevScrollTop = viewport.scrollTop;
+    const prevScrollLeft = viewport.scrollLeft;
+
     container.style.transform = "";
+    viewport.style.overflow = "visible";
+    viewport.scrollTop = 0;
+    viewport.scrollLeft = 0;
+
     return fn().finally(() => {
       container.style.transform = prevTransform;
+      viewport.style.overflow = prevViewportOverflow;
+      viewport.scrollTop = prevScrollTop;
+      viewport.scrollLeft = prevScrollLeft;
     });
+  }
+
+  // html2canvas measures text with whatever fonts are already loaded — if our
+  // Google Fonts haven't finished loading yet it silently substitutes a
+  // fallback with different metrics, which is what makes text spill out of
+  // its box or overlap neighbors only in the exported image, never live.
+  function whenFontsReady() {
+    return document.fonts && document.fonts.ready ? document.fonts.ready : Promise.resolve();
+  }
+
+  const CAPTURE_OPTS = { scale: 2, backgroundColor: "#f4ecd8", useCORS: true };
+
+  function captureElement(el) {
+    return whenFontsReady().then(() => html2canvas(el, CAPTURE_OPTS));
   }
 
   document.getElementById("btn-export-png").addEventListener("click", () => {
@@ -416,8 +471,8 @@ document.addEventListener("DOMContentLoaded", () => {
     const target = visiblePage || container;
 
     withHiddenChrome(() =>
-      withNaturalScale(container, () =>
-        html2canvas(target, { scale: 2, backgroundColor: null }).then((canvas) => {
+      withExportLayout(container, () =>
+        captureElement(target).then((canvas) => {
           const link = document.createElement("a");
           link.download = `${activeSheetId()}-sheet.png`;
           link.href = canvas.toDataURL("image/png");
@@ -437,7 +492,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const previouslyVisible = pages.find((p) => !p.hidden);
 
     withHiddenChrome(() =>
-      withNaturalScale(container, async () => {
+      withExportLayout(container, async () => {
         const { jsPDF } = window.jspdf;
         let pdf = null;
 
@@ -446,7 +501,7 @@ document.addEventListener("DOMContentLoaded", () => {
           const page = targets[i];
           if (pages.length) pages.forEach((p) => { p.hidden = p !== page; });
           // eslint-disable-next-line no-await-in-loop
-          const canvas = await html2canvas(page, { scale: 2 });
+          const canvas = await captureElement(page);
           const imgData = canvas.toDataURL("image/png");
           const landscape = canvas.width > canvas.height;
           const format = [canvas.width / 2, canvas.height / 2]; // pt ≈ px/2 at scale 2, good enough aspect ratio

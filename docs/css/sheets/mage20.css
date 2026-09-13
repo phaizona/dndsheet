@@ -37,7 +37,7 @@
 
 .sheet-mage20 .backgrounds-box, .sheet-mage20 .other-traits-box { padding: 8px 10px; }
 .sheet-mage20 .named-dot-row { display: flex; align-items: center; gap: 6px; margin-bottom: 3px; }
-.sheet-mage20 .named-dot-row input.trait-name { flex: 1; border-bottom: 1px solid var(--muted); font-size: 10px; min-width: 0; }
+.sheet-mage20 .named-dot-row .trait-name { flex: 1; border-bottom: 1px solid var(--muted); font-size: 10px; min-width: 0; }
 
 .sheet-mage20 .exp-box { padding: 8px 10px; }
 .sheet-mage20 .exp-box input { width: 100%; font-size: 14px; border-bottom: 1px solid var(--muted); text-align: center; }
@@ -47,18 +47,18 @@
 
 /* merits & magic & combat */
 .sheet-mage20 .merits-box { padding: 8px 10px; }
-.sheet-mage20 .merit-row { display: flex; gap: 6px; align-items: center; margin-bottom: 3px; }
-.sheet-mage20 .merit-row input.m-name { flex: 1.6; border-bottom: 1px solid var(--muted); font-size: 10px; min-width: 0; }
-.sheet-mage20 .merit-row input.m-type { flex: 1; border-bottom: 1px solid var(--muted); font-size: 9.5px; min-width: 0; }
-.sheet-mage20 .merit-row input.m-cost { width: 34px; border-bottom: 1px solid var(--muted); font-size: 9.5px; text-align: center; }
+.sheet-mage20 .merit-row { display: flex; gap: 6px; align-items: flex-start; margin-bottom: 3px; }
+.sheet-mage20 .merit-row .m-name { flex: 1.6; border-bottom: 1px solid var(--muted); font-size: 10px; min-width: 0; }
+.sheet-mage20 .merit-row .m-type { flex: 1; border-bottom: 1px solid var(--muted); font-size: 9.5px; min-width: 0; }
+.sheet-mage20 .merit-row .m-cost { width: 34px; border-bottom: 1px solid var(--muted); font-size: 9.5px; text-align: center; }
 
 .sheet-mage20 .magic-box { padding: 8px 10px; min-height: 120px; }
 .sheet-mage20 .magic-box textarea { min-height: 90px; width: 100%; }
 
 .sheet-mage20 .combat-box { padding: 8px 10px; }
-.sheet-mage20 .combat-row { display: flex; gap: 4px; align-items: center; margin-bottom: 2px; }
-.sheet-mage20 .combat-row input { border-bottom: 1px solid var(--muted); font-size: 9.5px; text-align: center; min-width: 0; flex: 1; }
-.sheet-mage20 .combat-row input:first-child { flex: 1.8; text-align: left; }
+.sheet-mage20 .combat-row { display: flex; gap: 4px; align-items: flex-start; margin-bottom: 2px; }
+.sheet-mage20 .combat-row > * { border-bottom: 1px solid var(--muted); font-size: 9.5px; text-align: center; min-width: 0; flex: 1; }
+.sheet-mage20 .combat-row > *:first-child { flex: 1.8; text-align: left; }
 .sheet-mage20 .armor-box { padding: 8px 10px; }
 .sheet-mage20 .armor-row { display: flex; align-items: center; gap: 6px; margin-bottom: 4px; }
 .sheet-mage20 .armor-row label { font-size: 9px; font-weight: 700; font-family: var(--font-heading); width: 60px; flex-shrink: 0; }
@@ -88,8 +88,3 @@
 .sheet-mage20 .visual-box { max-width: 200px; max-height: 200px; }
 .sheet-mage20 .visual-box .box-title { position: absolute; bottom: 5px; background: rgba(244,236,216,0.8); }
 
-@media (max-width: 860px) {
-  .sheet-mage20 .m20-columns, .sheet-mage20 .expanded-bg-grid,
-  .sheet-mage20 .possessions-grid, .sheet-mage20 .chantry-grid,
-  .sheet-mage20 .seeking-quiet-grid, .sheet-mage20 .visuals-grid { flex-direction: column; grid-template-columns: 1fr; }
-}
